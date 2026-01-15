@@ -974,7 +974,7 @@
         if (dayOffset === 0) relLabel = "";
         else if (dayOffset === 1) relLabel = " (明天)";
         else if (dayOffset === -1) relLabel = " (昨天)";
-        else relLabel = " (" + (targetDate.getMonth()+1) + "/" + targetDate.getDate() + ")";
+        else relLabel = " (" + targetDate.getDate() + "/" + (targetDate.getMonth()+1) + ")";
 
         // Weekend Logic
         if (dayOfWeek === 0) {
