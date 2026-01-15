@@ -216,6 +216,7 @@
         .attack-card.subj-math { border-left-color: var(--c-math-d); }
         .attack-card.subj-econ { border-left-color: var(--c-econ-d); }
         .attack-card.subj-eng  { border-left-color: var(--c-lang-d); }
+        .attack-card.subj-chi  { border-left-color: var(--c-lang-d); } /* CHINESE (New) */
         .attack-card.subj-tok  { border-left-color: var(--c-other); }
         .attack-card.subj-cas  { border-left-color: #e67e22; }
         .attack-card.subj-misc { border-left-color: #bdc3c7; }
@@ -783,6 +784,7 @@
             if (card.subject === "math") subjectClass = "subj-math";
             if (card.subject === "econ") subjectClass = "subj-econ";
             if (card.subject === "eng") subjectClass = "subj-eng";
+            if (card.subject === "chi") subjectClass = "subj-chi"; 
             if (card.subject === "tok") subjectClass = "subj-tok";
             if (card.subject === "cas") subjectClass = "subj-cas";
 
@@ -831,6 +833,7 @@
                             <option value="math" ${card.subject=='math'?'selected':''}>Math 🧮</option>
                             <option value="econ" ${card.subject=='econ'?'selected':''}>Econ 📈</option>
                             <option value="eng"  ${card.subject=='eng'?'selected':''}>Eng 📖</option>
+                            <option value="chi"  ${card.subject=='chi'?'selected':''}>Chinese 🐉</option>
                             <option value="tok"  ${card.subject=='tok'?'selected':''}>TOK 🧠</option>
                             <option value="cas"  ${card.subject=='cas'?'selected':''}>CAS 🎨</option>
                         </select>
@@ -930,7 +933,7 @@
     };
     
     // B. LOGIC
-    var referenceWeekA = new Date('2024-01-01'); // Monday of a Week A
+    var referenceWeekA = new Date('2026-01-05'); // Monday of a Week A
     var dayOffset = 0; // 0 = Today, 1 = Tomorrow, etc.
 
     function changeDay(delta) {
@@ -950,8 +953,8 @@
         // Helper label for Today/Tmrw
         var relLabel = "";
         if (dayOffset === 0) relLabel = "";
-        else if (dayOffset === 1) relLabel = " (Tmrw)";
-        else if (dayOffset === -1) relLabel = " (Yest)";
+        else if (dayOffset === 1) relLabel = " (明天)";
+        else if (dayOffset === -1) relLabel = " (昨天)";
         else relLabel = ` (${targetDate.getMonth()+1}/${targetDate.getDate()})`;
 
         // Weekend Logic
