@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IB Dashboard Ultimate</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦁</text></svg>">
+    <link rel="icon" type="image/png" href="icon.png">
     
     <style>
         /* --- GLOBAL VARIABLES & RESET --- */
@@ -49,10 +49,7 @@
         }
 
         /* Logo Area */
-        .nav-left { 
-            display: flex; align-items: center; font-size: 1.5rem; 
-            font-weight: bold; user-select: none;
-        }
+        .nav-left { display: flex; align-items: center; }
 
         /* Centered Tabs */
         .nav-centered {
@@ -60,9 +57,9 @@
             display: flex; gap: 5px; 
         }
 
-        /* Daily Tracker (Right Side) */
+        /* New Daily Tracker (Right Side) */
         .nav-right {
-            display: flex; align-items: center; gap: 8px; /* Gap between arrows and text */
+            display: flex; align-items: center; gap: 10px; /* Space between arrows and text */
         }
         .daily-text-container {
             text-align: right; font-size: 0.85rem; color: #bdc3c7;
@@ -71,10 +68,11 @@
         .daily-info-main { font-weight: bold; color: white; font-size: 1rem; }
         .daily-classes { font-size: 0.8rem; opacity: 0.8; max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+        /* Navigation Arrows */
         .nav-arrow {
-            background: none; border: none; color: #7f8c8d; 
-            font-size: 1.5rem; cursor: pointer; padding: 0 5px; user-select: none;
-            transition: color 0.2s;
+            background: none; border: none; color: #95a5a6; 
+            font-size: 1.2rem; cursor: pointer; padding: 5px; 
+            transition: color 0.2s; user-select: none;
         }
         .nav-arrow:hover { color: white; }
 
@@ -157,23 +155,38 @@
             border-left: 6px solid #ccc; 
             transition: transform 0.2s, box-shadow 0.2s; 
             height: 100%;
-            display: flex; flex-direction: column; 
+            
+            /* Flexbox to allow vertical centering */
+            display: flex;
+            flex-direction: column; 
         }
 
         .strat-card:hover, .card:hover { 
-            transform: translateY(-4px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); cursor: pointer; 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
+            cursor: pointer; 
         }
 
         .card-header { 
-            padding: 15px; background: #fdfdfd; border-bottom: 1px solid #eee; 
-            font-weight: 700; display: flex; align-items: center; justify-content: space-between;
+            padding: 15px; 
+            background: #fdfdfd; 
+            border-bottom: 1px solid #eee; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
             flex-shrink: 0; 
         }
 
         .card-body { 
-            padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; 
+            padding: 15px; 
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
         }
 
+        /* Fix Bullet Point Alignment */
         .card-body ul { margin: 0; padding-left: 20px; }
         .card-body li { margin-bottom: 8px; line-height: 1.5; }
         
@@ -206,6 +219,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden;
             border-left: 6px solid #ccc; transition: transform 0.2s, box-shadow 0.2s;
         }
+        /* Visual cue for Dragging */
         .attack-card.drag-over { border: 2px dashed #aaa; background: #fdfdfd; }
         .drag-handle { cursor: grab; font-size: 1.2rem; color: #ccc; margin-right: 5px; user-select: none; }
         .drag-handle:active { cursor: grabbing; color: #666; }
@@ -218,7 +232,7 @@
         .attack-card.subj-eng  { border-left-color: var(--c-lang-d); }
         .attack-card.subj-chi  { border-left-color: var(--c-lang-d); } /* CHINESE (New) */
         .attack-card.subj-tok  { border-left-color: var(--c-other); }
-        .attack-card.subj-cas  { border-left-color: #e67e22; }
+        .attack-card.subj-cas  { border-left-color: #e67e22; } /* ORANGE */
         .attack-card.subj-misc { border-left-color: #bdc3c7; }
 
         /* Inputs */
@@ -247,8 +261,10 @@
             border: 1px solid #eee; border-radius: 8px; background: #fff; overflow: hidden; margin-bottom: 5px;
         }
         .format-toolbar {
-            display: none; background: #f8f9fa; border-bottom: 1px solid #eee; padding: 5px 10px; gap: 5px;
+            display: none; /* Auto-Hide: Hidden by default */
+            background: #f8f9fa; border-bottom: 1px solid #eee; padding: 5px 10px; gap: 5px;
         }
+        /* Show toolbar ONLY when user is working inside this box */
         .desc-container:focus-within .format-toolbar { display: flex; }
 
         .format-btn {
@@ -316,7 +332,7 @@
         
         <nav class="navbar">
             <div class="nav-left">
-                <span style="font-size: 2rem; margin-right: 20px; cursor:default;">🦁</span>
+                <img src="icon.png" alt="Logo" style="height: 45px; width: 45px; border-radius: 50%; margin-right: 20px; border: 2px solid white;">
             </div>
 
             <div class="nav-centered">
@@ -326,12 +342,12 @@
             </div>
             
             <div class="nav-right">
-                <button onclick="changeDay(-1)" class="nav-arrow" title="Previous Day">❮</button>
+                <button class="nav-arrow" onclick="changeDay(-1)">&#10094;</button>
                 <div class="daily-text-container">
                     <div class="daily-info-main" id="header-day-type">Loading...</div>
                     <div class="daily-classes" id="header-classes">...</div>
                 </div>
-                <button onclick="changeDay(1)" class="nav-arrow" title="Next Day">❯</button>
+                <button class="nav-arrow" onclick="changeDay(1)">&#10095;</button>
             </div>
         </nav>
         
@@ -654,9 +670,10 @@
         </div>
 
     </div> <script>
-    // --- 1. FORMATTING TOOL ---
+    // --- 1. FORMATTING TOOL (MUST BE AT THE TOP) ---
     window.formatDoc = function(cmd) {
         document.execCommand(cmd, false, null);
+        // Force focus back to the editor just in case
         var editor = document.activeElement; 
         if(editor) editor.focus(); 
     }
@@ -684,7 +701,7 @@
         document.getElementById('app-content').classList.remove('hidden');
         localStorage.setItem('ib_session_auth', 'true');
         restoreTab();
-        updateDailyHeader(); 
+        updateDailyHeader(); // Run the daily header check on unlock
     }
 
     // --- 4. TABS & NAV ---
@@ -725,10 +742,11 @@
                 return sA.localeCompare(sB);
             });
         }
+        // 'manual' does nothing (we just rely on array order)
         saveAndRender();
     }
 
-    // --- 6. DRAG AND DROP ---
+    // --- 6. DRAG AND DROP HANDLERS ---
     window.handleDragStart = function(e, index) {
         draggedItemIndex = index;
         e.dataTransfer.effectAllowed = 'move';
@@ -755,7 +773,7 @@
         });
     }
 
-    // --- 7. RENDER CARDS ---
+    // --- 7. RENDER CARDS (Main Logic) ---
     window.renderCards = function() {
         var container = document.getElementById('dynamic-todo-container');
         if (!container) return;
@@ -763,7 +781,7 @@
 
         todoCards.forEach(function(card, cardIndex) {
             
-            // DATE COLOR
+            // A. DATE COLOR LOGIC
             var dateColor = "#fdfdfd"; 
             if (card.date) {
                 var today = new Date();
@@ -777,21 +795,22 @@
                 else dateColor = "#C8E6C9";                    
             }
 
-            // SUBJECT COLOR
+            // B. SUBJECT COLOR LOGIC
             var subjectClass = "subj-misc"; 
             if (card.subject === "bio") subjectClass = "subj-bio";
             if (card.subject === "chem") subjectClass = "subj-chem";
             if (card.subject === "math") subjectClass = "subj-math";
             if (card.subject === "econ") subjectClass = "subj-econ";
             if (card.subject === "eng") subjectClass = "subj-eng";
-            if (card.subject === "chi") subjectClass = "subj-chi"; 
+            if (card.subject === "chi") subjectClass = "subj-chi"; /* NEW CHINESE CLASS */
             if (card.subject === "tok") subjectClass = "subj-tok";
             if (card.subject === "cas") subjectClass = "subj-cas";
 
-            // CARD HTML
+            // C. CREATE CARD HTML
             var cardDiv = document.createElement('div');
             cardDiv.className = `attack-card ${subjectClass}`;
             
+            // Enable Dragging
             cardDiv.setAttribute('draggable', 'true');
             cardDiv.addEventListener('dragstart', function(e) { handleDragStart(e, cardIndex); });
             cardDiv.addEventListener('dragover', handleDragOver);
@@ -833,7 +852,7 @@
                             <option value="math" ${card.subject=='math'?'selected':''}>Math 🧮</option>
                             <option value="econ" ${card.subject=='econ'?'selected':''}>Econ 📈</option>
                             <option value="eng"  ${card.subject=='eng'?'selected':''}>Eng 📖</option>
-                            <option value="chi"  ${card.subject=='chi'?'selected':''}>Chinese 🐉</option>
+                            <option value="chi"  ${card.subject=='chi'?'selected':''}>Chinese 🧧</option>
                             <option value="tok"  ${card.subject=='tok'?'selected':''}>TOK 🧠</option>
                             <option value="cas"  ${card.subject=='cas'?'selected':''}>CAS 🎨</option>
                         </select>
@@ -916,20 +935,20 @@
     }
 
     // --- 10. DAILY HEADER & CYCLING LOGIC ---
-    // A. CONFIGURATION
+    // A. CONFIGURATION: EDIT THIS LIST FOR YOUR REAL CLASSES
     var scheduleWeekA = {
-        1: "Math • Eng • Bio • Chem",        // Mon
-        2: "Econ • Tok • Math • Eng",        // Tue
-        3: "Bio • Chem • Econ • Study",      // Wed
-        4: "Math • Eng • Tok • Bio",         // Thu
-        5: "Chem • Econ • Math • PE"         // Fri
+        1: "Econ • Bio • Tok • --",        // Mon
+        2: "Chem • Tok • Econ • Eng",        // Tue
+        3: "Math • PSE • Bio • Chin",      // Wed
+        4: "Bio • Eng • Econ • Chem",         // Thu
+        5: "Chin • Chem • Math"         // Fri
     };
     var scheduleWeekB = {
         1: "Bio • Chem • Math • Eng",        // Mon
-        2: "Tok • Econ • Eng • Math",        // Tue
-        3: "Study • Econ • Chem • Bio",      // Wed
-        4: "Eng • Math • Bio • Tok",         // Thu
-        5: "PE • Math • Econ • Chem"         // Fri
+        2: "-- • -- • Chin • Bio",        // Tue
+        3: "Tok • Chem • Eng • Econ",      // Wed
+        4: "Bio • Econ • Math • --",         // Thu
+        5: "Chem • Eng • Chin"         // Fri
     };
     
     // B. LOGIC
@@ -942,7 +961,7 @@
     }
 
     function updateDailyHeader() {
-        var targetDate = new Date();
+        var targetDate = new Date(); // Start at actual today
         // Apply Offset
         targetDate.setDate(targetDate.getDate() + dayOffset);
 
@@ -953,9 +972,9 @@
         // Helper label for Today/Tmrw
         var relLabel = "";
         if (dayOffset === 0) relLabel = "";
-        else if (dayOffset === 1) relLabel = " (明天)";
-        else if (dayOffset === -1) relLabel = " (昨天)";
-        else relLabel = ` (${targetDate.getMonth()+1}/${targetDate.getDate()})`;
+        else if (dayOffset === 1) relLabel = " (Tom)";
+        else if (dayOffset === -1) relLabel = " (Yest)";
+        else relLabel = " (" + (targetDate.getMonth()+1) + "/" + targetDate.getDate() + ")";
 
         // Weekend Logic
         if (dayOfWeek === 0) {
@@ -975,11 +994,12 @@
         var diffWeeks = Math.floor(diffDays / 7);
         
         var isWeekA = (diffWeeks % 2 === 0);
-        var weekLabel = isWeekA ? "Week A" : "Week B";
+        var weekLabel = isWeekA ? "Week 1" : "Week 2";
         var dayLabel = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dayOfWeek];
 
         typeElem.innerText = `${weekLabel} - ${dayLabel}${relLabel}`;
 
+        // Get Classes
         var currentSchedule = isWeekA ? scheduleWeekA : scheduleWeekB;
         var todaysClasses = currentSchedule[dayOfWeek] || "No classes";
         classesElem.innerText = todaysClasses;
@@ -1000,9 +1020,10 @@
                 if (e.key === 'Enter') checkPass();
             });
         }
-        renderCards(); 
-        updateDailyHeader(); 
+        renderCards(); // Load the Todo Cards on start
+        updateDailyHeader(); // Run header logic immediately if possible
         
+        // Refresh header every hour just in case
         setInterval(updateDailyHeader, 1000 * 60 * 60);
     });
 </script>
