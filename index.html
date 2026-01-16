@@ -223,18 +223,7 @@
         .checklist-text:focus { border-bottom: 1px dashed #ccc; outline: none; }
         .btn-add-item { background: #eee; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; color: #555; margin-top: 5px; }
 
-        /* --- NEW TODO LOCK SCREEN --- */
-        #todo-lock-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #f4f6f8; z-index: 50;
-            display: flex; justify-content: center; align-items: flex-start;
-            padding-top: 100px;
-        }
-        .todo-lock-box {
-            text-align: center; background: white; padding: 40px; 
-            border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
+        /* Helpers */
         h2 { border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #2c3e50; font-size: 1.5rem; margin-top: 30px;}
         .highlight { background: rgba(255, 255, 0, 0.15); font-weight: 600; padding: 0 4px; }
         .center-text { text-align: center; }
@@ -244,7 +233,36 @@
 </head>
 <body>
 
-    <div id="app-content">
+    <div id="lock-screen" style="
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #2c3e50; z-index: 9999;
+        display: flex; justify-content: center; align-items: center;
+        transition: opacity 0.5s;
+    ">
+        <div class="lock-box" style="
+            background: white; padding: 40px; border-radius: 12px;
+            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 300px;
+        ">
+            <h2 style="color: #2c3e50; margin-top: 0;">🔒 Restricted Access</h2>
+            <p style="color: #666; margin-bottom: 20px;">Enter Passcode</p>
+            
+            <input type="password" id="pass-input" placeholder="Enter PIN" style="
+                padding: 10px; width: 80%; border: 2px solid #ddd; border-radius: 6px;
+                font-size: 1rem; text-align: center;
+            ">
+            <br><br>
+            
+            <button onclick="checkPass()" style="
+                padding: 10px 25px; background: #2c3e50; color: white;
+                border: none; border-radius: 6px; cursor: pointer;
+                font-size: 1rem; font-weight: bold;
+            ">Unlock</button>
+            
+            <p id="error-msg" style="color: #e74c3c; display: none; margin-top: 15px; font-weight: bold;">Incorrect Password</p>
+        </div>
+    </div>
+
+    <div id="app-content" class="hidden">
         
         <nav class="navbar">
             <div class="nav-left">
@@ -567,41 +585,27 @@
         </div>
 
         <div id="todo" class="tab-content">
-            <div style="position:relative; min-height: 500px;">
+            <div class="attack-container" style="max-width: 700px; margin: 0 auto; padding-top: 20px;">
                 
-                <div id="todo-lock-overlay">
-                    <div class="todo-lock-box">
-                        <h2 style="margin-top:0;">⚡ Mission Control</h2>
-                        <p style="color:#666; margin-bottom:20px;">Restricted Access</p>
-                        <input type="password" id="todo-pass-input" placeholder="Enter PIN" style="padding:10px; width:150px; text-align:center; border:2px solid #ddd; border-radius:6px;">
-                        <br><br>
-                        <button onclick="unlockTodo()" style="background:#2c3e50; color:white; border:none; padding:10px 25px; border-radius:6px; cursor:pointer; font-weight:bold;">Unlock</button>
-                        <p id="todo-error" style="color:red; display:none; margin-top:10px;">Incorrect</p>
-                    </div>
-                </div>
+                <h1 class="center-text">
+                    <a href="https://www.notion.so/chiuy6/7eb3b8db768a4b43944072135d485e9b?v=3c8265dde3bc4017b8a8fb42289234a6&source=copy_link" target="_blank" style="text-decoration:none; color:inherit;">
+                        ⚡ todo!
+                    </a>
+                </h1>
 
-                <div class="attack-container" style="max-width: 700px; margin: 0 auto; padding-top: 20px;">
+                <div class="todo-controls" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                    <button class="btn-new-card" onclick="createNewCard()">+ New Mission</button>
                     
-                    <h1 class="center-text">
-                        <a href="https://www.notion.so/chiuy6/7eb3b8db768a4b43944072135d485e9b?v=3c8265dde3bc4017b8a8fb42289234a6&source=copy_link" target="_blank" style="text-decoration:none; color:inherit;">
-                            ⚡ todo!
-                        </a>
-                    </h1>
+                    <select onchange="sortCards(this.value)" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd; background: white; cursor: pointer;">
+                        <option value="manual">Manual Order</option>
+                        <option value="date">Sort by Date (Soonest)</option>
+                        <option value="subject">Sort by Subject</option>
+                    </select>
+                </div>
 
-                    <div class="todo-controls" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-                        <button class="btn-new-card" onclick="createNewCard()">+ New Mission</button>
-                        
-                        <select onchange="sortCards(this.value)" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd; background: white; cursor: pointer;">
-                            <option value="manual">Manual Order</option>
-                            <option value="date">Sort by Date (Soonest)</option>
-                            <option value="subject">Sort by Subject</option>
-                        </select>
+                <div id="dynamic-todo-container">
                     </div>
 
-                    <div id="dynamic-todo-container">
-                        </div>
-
-                </div>
             </div>
         </div>
 
@@ -618,42 +622,27 @@
     var todoCards = JSON.parse(localStorage.getItem('ib_dynamic_cards')) || [];
     var draggedItemIndex = null;
 
-    // --- 3. LOCK SCREEN LOGIC (LOCAL TO TODO TAB) ---
+    // --- 3. LOCK SCREEN LOGIC (GLOBAL) ---
     var validPass = "ib45!"; 
-    
-    // Check if previously unlocked in this session
-    var isUnlocked = sessionStorage.getItem('todo_unlocked') === 'true';
-
-    function unlockTodo() {
-        var input = document.getElementById('todo-pass-input');
-        if (input.value === validPass) {
-            document.getElementById('todo-lock-overlay').style.display = 'none';
-            sessionStorage.setItem('todo_unlocked', 'true');
-            isUnlocked = true;
+    window.checkPass = function() {
+        var inputElement = document.getElementById('pass-input');
+        var errorMsg = document.getElementById('error-msg');
+        if (inputElement.value === validPass) {
+            unlockApp();
         } else {
-            document.getElementById('todo-error').style.display = 'block';
-            input.style.border = "2px solid red";
+            errorMsg.style.display = 'block';
+            inputElement.style.border = "2px solid red";
+            setTimeout(function(){ inputElement.style.border = "none"; }, 500);
         }
     }
 
-    // Handle Enter Key on Lock Screen
-    document.addEventListener('DOMContentLoaded', function() {
-        var passInput = document.getElementById('todo-pass-input');
-        if(passInput) {
-            passInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') unlockTodo();
-            });
-        }
-        
-        // Auto-unlock if session remains
-        if(isUnlocked) {
-            document.getElementById('todo-lock-overlay').style.display = 'none';
-        }
-
-        renderCards(); 
+    function unlockApp() {
+        document.getElementById('lock-screen').classList.add('hidden');
+        document.getElementById('app-content').classList.remove('hidden');
+        localStorage.setItem('ib_session_auth', 'true');
+        restoreTab();
         updateDailyHeader(); 
-        setInterval(updateDailyHeader, 1000 * 60 * 60);
-    });
+    }
 
     // --- 4. TABS & NAV ---
     window.switchTab = function(tabId, btnElement) {
@@ -960,6 +949,23 @@
     function saveCards() { localStorage.setItem('ib_dynamic_cards', JSON.stringify(todoCards)); }
     function saveAndRender() { saveCards(); renderCards(); }
 
+    // --- 12. INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', function() {
+        if(localStorage.getItem('ib_session_auth') === 'true') {
+            unlockApp();
+        }
+        var passInput = document.getElementById('pass-input');
+        if (passInput) {
+            passInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') checkPass();
+            });
+        }
+        renderCards(); // Load the Todo Cards on start
+        updateDailyHeader(); // Run header logic immediately if possible
+        
+        // Refresh header every hour just in case
+        setInterval(updateDailyHeader, 1000 * 60 * 60);
+    });
 </script>
 </body>
 </html>
