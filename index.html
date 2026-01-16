@@ -223,7 +223,6 @@
         .checklist-text:focus { border-bottom: 1px dashed #ccc; outline: none; }
         .btn-add-item { background: #eee; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; color: #555; margin-top: 5px; }
 
-        /* Helpers */
         h2 { border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #2c3e50; font-size: 1.5rem; margin-top: 30px;}
         .highlight { background: rgba(255, 255, 0, 0.15); font-weight: 600; padding: 0 4px; }
         .center-text { text-align: center; }
@@ -622,27 +621,53 @@
     var todoCards = JSON.parse(localStorage.getItem('ib_dynamic_cards')) || [];
     var draggedItemIndex = null;
 
-    // --- 3. LOCK SCREEN LOGIC (GLOBAL) ---
+    // --- 3. GLOBAL LOCK SCREEN LOGIC ---
     var validPass = "ib45!"; 
-    window.checkPass = function() {
+    
+    function checkPass() {
         var inputElement = document.getElementById('pass-input');
         var errorMsg = document.getElementById('error-msg');
+        
         if (inputElement.value === validPass) {
-            unlockApp();
+            // Success: Unlock everything
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('app-content').classList.remove('hidden');
+            
+            // Save authentication for this session so reload doesn't lock again immediately
+            localStorage.setItem('ib_session_auth', 'true');
+            
+            // Restore functionality
+            restoreTab();
+            updateDailyHeader();
         } else {
+            // Fail
             errorMsg.style.display = 'block';
             inputElement.style.border = "2px solid red";
-            setTimeout(function(){ inputElement.style.border = "none"; }, 500);
+            setTimeout(function(){ inputElement.style.border = "2px solid #ddd"; }, 500);
         }
     }
 
-    function unlockApp() {
-        document.getElementById('lock-screen').classList.add('hidden');
-        document.getElementById('app-content').classList.remove('hidden');
-        localStorage.setItem('ib_session_auth', 'true');
-        restoreTab();
-        updateDailyHeader(); 
-    }
+    // Handle Enter Key on Lock Screen
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if already authenticated in this session
+        if(localStorage.getItem('ib_session_auth') === 'true') {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('app-content').classList.remove('hidden');
+            restoreTab();
+            updateDailyHeader();
+        }
+
+        var passInput = document.getElementById('pass-input');
+        if(passInput) {
+            passInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') checkPass();
+            });
+        }
+        
+        renderCards(); 
+        // Run daily header update loop regardless of lock state (it's hidden anyway)
+        setInterval(updateDailyHeader, 1000 * 60 * 60);
+    });
 
     // --- 4. TABS & NAV ---
     window.switchTab = function(tabId, btnElement) {
@@ -949,23 +974,6 @@
     function saveCards() { localStorage.setItem('ib_dynamic_cards', JSON.stringify(todoCards)); }
     function saveAndRender() { saveCards(); renderCards(); }
 
-    // --- 12. INITIALIZATION ---
-    document.addEventListener('DOMContentLoaded', function() {
-        if(localStorage.getItem('ib_session_auth') === 'true') {
-            unlockApp();
-        }
-        var passInput = document.getElementById('pass-input');
-        if (passInput) {
-            passInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') checkPass();
-            });
-        }
-        renderCards(); // Load the Todo Cards on start
-        updateDailyHeader(); // Run header logic immediately if possible
-        
-        // Refresh header every hour just in case
-        setInterval(updateDailyHeader, 1000 * 60 * 60);
-    });
 </script>
 </body>
 </html>
