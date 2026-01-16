@@ -937,8 +937,10 @@
         // Helper label for Today/Tmrw
         var relLabel = "";
         if (dayOffset === 0) relLabel = "";
-        else if (dayOffset === 1) relLabel = " (明天)";
-        else if (dayOffset === -1) relLabel = " (昨天)";
+        else if (dayOffset === 1) relLabel = " (明天)"; //tmr
+        else if (dayOffset === 2) relLabel = " (後天)"; //day after tmr
+        else if (dayOffset === -1) relLabel = " (昨天)"; //yesterday
+        else if (dayOffset === -2) relLabel = " (前天)"; //day b4 yesterday
         else relLabel = " (" + (targetDate.getMonth()+1) + "/" + targetDate.getDate() + ")";
 
         // Weekend Logic
