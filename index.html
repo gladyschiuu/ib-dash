@@ -110,15 +110,22 @@
             font-size: 0.75rem; 
             border-bottom: 1px solid #eee; 
             border-right: 1px solid #ddd;
+            
+            /* Align text to top so we can pull it up easily */
             display: flex; 
-            align-items: center; /* Center vertically in the shifted box */
+            align-items: flex-start; 
             justify-content: center; 
             font-weight: 500;
-            
-            /* KEY CHANGE: Move the label up so it sits on the grid line */
-            transform: translateY(-50%); 
-            height: 100%; /* Ensure it fills the grid slot height */
-            z-index: 5; /* Ensure it stays above empty cells */
+            overflow: visible; /* Allow text to sit on the line above */
+        }
+
+        /* This moves strictly the text, not the box/borders */
+        .time-label span {
+            transform: translateY(-50%); /* Moves text up to straddle the line */
+            background-color: #f1f1f1;   /* Optional: Covers the line behind text for readability */
+            padding: 0 2px;
+            position: relative;
+            z-index: 5;
         }
         
         }
@@ -304,24 +311,24 @@
                 <div class="calendar-grid">
                     <div class="header">Time</div><div class="header">Mon</div><div class="header">Tue</div><div class="header">Wed</div><div class="header">Thu</div><div class="header">Fri</div><div class="header">Sat</div><div class="header">Sun</div>
 
-                    <div class="time-label" style="grid-row: 2 / 6">06:30</div>
-                    <div class="time-label" style="grid-row: 6 / 10">07:30</div>
-                    <div class="time-label" style="grid-row: 10 / 14">08:30</div>
-                    <div class="time-label" style="grid-row: 14 / 18">09:30</div>
-                    <div class="time-label" style="grid-row: 18 / 22">10:30</div>
-                    <div class="time-label" style="grid-row: 22 / 26">11:30</div>
-                    <div class="time-label" style="grid-row: 26 / 30">12:30</div>
-                    <div class="time-label" style="grid-row: 30 / 34">13:30</div>
-                    <div class="time-label" style="grid-row: 34 / 38">14:30</div>
-                    <div class="time-label" style="grid-row: 38 / 42">15:30</div>
-                    <div class="time-label" style="grid-row: 42 / 46">16:30</div>
-                    <div class="time-label" style="grid-row: 46 / 50">17:30</div>
-                    <div class="time-label" style="grid-row: 50 / 54">18:30</div>
-                    <div class="time-label" style="grid-row: 54 / 58">19:30</div>
-                    <div class="time-label" style="grid-row: 58 / 62">20:30</div>
-                    <div class="time-label" style="grid-row: 62 / 66">21:30</div>
-                    <div class="time-label" style="grid-row: 66 / 68">22:30</div>
-                    <div class="time-label" style="grid-row: 68 / 70">23:00</div>
+                    <div class="time-label" style="grid-row: 2 / 6"><span>06:30</span></div>
+                    <div class="time-label" style="grid-row: 6 / 10"><span>07:30</span></div>
+                    <div class="time-label" style="grid-row: 10 / 14"><span>08:30</span></div>
+                    <div class="time-label" style="grid-row: 14 / 18"><span>09:30</span></div>
+                    <div class="time-label" style="grid-row: 18 / 22"><span>10:30</span></div>
+                    <div class="time-label" style="grid-row: 22 / 26"><span>11:30</span></div>
+                    <div class="time-label" style="grid-row: 26 / 30"><span>12:30</span></div>
+                    <div class="time-label" style="grid-row: 30 / 34"><span>13:30</span></div>
+                    <div class="time-label" style="grid-row: 34 / 38"><span>14:30</span></div>
+                    <div class="time-label" style="grid-row: 38 / 42"><span>15:30</span></div>
+                    <div class="time-label" style="grid-row: 42 / 46"><span>16:30</span></div>
+                    <div class="time-label" style="grid-row: 46 / 50"><span>17:30</span></div>
+                    <div class="time-label" style="grid-row: 50 / 54"><span>18:30</span></div>
+                    <div class="time-label" style="grid-row: 54 / 58"><span>19:30</span></div>
+                    <div class="time-label" style="grid-row: 58 / 62"><span>20:30</span></div>
+                    <div class="time-label" style="grid-row: 62 / 66"><span>21:30</span></div>
+                    <div class="time-label" style="grid-row: 66 / 68"><span>22:30</span></div>
+                    <div class="time-label" style="grid-row: 68 / 70"><span>23:00</span></div>
 
                     <div class="event c-routine" style="grid-column: 2; grid-row: 2 / 4;">Wake Up</div>
                     <div class="event c-routine" style="grid-column: 3; grid-row: 2 / 4;">Wake Up</div>
