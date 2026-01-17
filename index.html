@@ -102,11 +102,25 @@
             display: flex; align-items: center; justify-content: center;
             border-right: 1px solid #555; position: sticky; top: 0; z-index: 10;
         }
+        
         .time-label {
-            grid-column: 1; background-color: #f1f1f1; color: #666;
-            font-size: 0.75rem; border-bottom: 1px solid #eee; border-right: 1px solid #ddd;
-            display: flex; align-items: flex-start; padding-top: -2px;
-            justify-content: center; font-weight: 500;
+            grid-column: 1; 
+            background-color: #f1f1f1; 
+            color: #666;
+            font-size: 0.75rem; 
+            border-bottom: 1px solid #eee; 
+            border-right: 1px solid #ddd;
+            display: flex; 
+            align-items: center; /* Center vertically in the shifted box */
+            justify-content: center; 
+            font-weight: 500;
+            
+            /* KEY CHANGE: Move the label up so it sits on the grid line */
+            transform: translateY(-50%); 
+            height: 100%; /* Ensure it fills the grid slot height */
+            z-index: 5; /* Ensure it stays above empty cells */
+        }
+        
         }
         .event {
             margin: 1px 2px; padding: 4px; border-radius: 4px; font-size: 0.75rem; 
@@ -366,11 +380,11 @@
                     <div class="event c-tutor" style="grid-column: 5; grid-row: 38 / 42;">Chem Tutor</div>
                     <div class="event c-travel" style="grid-column: 5; grid-row: 42 / 46;">Travel Home</div>
                     <div class="event c-routine" style="grid-column: 5; grid-row: 46 / 48;">Dinner</div>
-                    <div class="event c-routine" style="grid-column: 5; grid-row: 48 / 50;">Free Time</div>
-                    <div class="event c-routine" style="grid-column: 5; grid-row: 50 / 52;">Shower</div>
-                    <div class="event c-other" style="grid-column: 5; grid-row: 52 / 56;">TOK / EE / Lang</div>
-                    <div class="event c-tutor" style="grid-column: 5; grid-row: 56 / 62;">Chinese Class (金金)<br><span class="event-time">20:00 - 21:30</span></div>
-                    <div class="event c-chem-l" style="grid-column: 5; grid-row: 62 / 66;">Chem Post-Rev</div>
+                    <div class="event c-routine" style="grid-column: 5; grid-row: 48 / 50;">Shower</div>
+                    <div class="event c-other" style="grid-column: 5; grid-row: 50 / 54;">TOK / EE / Lang<br><span class="event-time">18:30 - 19:30</span></div>
+                    <div class="event c-chem-l" style="grid-column: 5; grid-row: 54 / 58;">Chem Post-Rev<br><span class="event-time">19:30 - 20:30</span></div>
+                    <div class="event c-tutor" style="grid-column: 5; grid-row: 58 / 64;">Chinese Class (金金)<br><span class="event-time">20:30 - 22:00</span></div>
+                    <div class="event c-routine" style="grid-column: 5; grid-row: 64 / 66;">Free Time / Rev</div>
                     <div class="event c-routine" style="grid-column: 5; grid-row: 66 / 68;">Wind Down</div>
 
                     <div class="event c-travel" style="grid-column: 6; grid-row: 6 / 10;">Travel to School</div>
