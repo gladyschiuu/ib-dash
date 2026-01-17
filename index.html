@@ -102,33 +102,33 @@
             display: flex; align-items: center; justify-content: center;
             border-right: 1px solid #555; position: sticky; top: 0; z-index: 10;
         }
-        
+
+        /* UPDATED: Time Labels on the line */
         .time-label {
             grid-column: 1; 
             background-color: #f1f1f1; 
-            color: #666;
-            font-size: 0.75rem; 
             border-bottom: 1px solid #eee; 
             border-right: 1px solid #ddd;
             
-            /* Align text to top so we can pull it up easily */
+            /* Align content for the span */
             display: flex; 
             align-items: flex-start; 
             justify-content: center; 
-            font-weight: 500;
-            overflow: visible; /* Allow text to sit on the line above */
         }
 
-        /* This moves strictly the text, not the box/borders */
+        /* This places the text exactly on the grid line */
         .time-label span {
-            transform: translateY(-50%); /* Moves text up to straddle the line */
-            background-color: #f1f1f1;   /* Optional: Covers the line behind text for readability */
-            padding: 0 2px;
-            position: relative;
+            background-color: #f1f1f1; /* Hides the line behind text */
+            padding: 0 4px;
+            transform: translateY(-50%); /* Moves text up to center on the line */
+            font-size: 0.75rem; 
+            color: #666; 
+            font-weight: 500;
+            position: relative; 
             z-index: 5;
         }
-        
-        }
+
+        /* RESTORED: Event Styles (Rounded Corners) */
         .event {
             margin: 1px 2px; padding: 4px; border-radius: 4px; font-size: 0.75rem; 
             display: flex; flex-direction: column; justify-content: center;
