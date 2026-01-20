@@ -314,6 +314,7 @@
             </div>
 
             <div class="nav-centered">
+                <button class="nav-btn" onclick="switchTab('school', this)">🏫 school</button>
                 <button class="nav-btn active" onclick="switchTab('schedule', this)">📅 week</button>
                 <button class="nav-btn" onclick="switchTab('strategy', this)">🧠 strat</button>
                 <button class="nav-btn" onclick="switchTab('todo', this)">⚡ todo</button>
@@ -328,6 +329,21 @@
                 <button class="nav-arrow" onclick="changeDay(1)">&#10095;</button>
             </div>
         </nav>
+
+        <div id="school" class="tab-content">
+            <div style="max-width: 1200px; margin: 0 auto; text-align: center; padding: 20px;">
+                <h1 style="color: #2c3e50; margin-bottom: 20px;">school schedule</h1>
+                
+                <img src="school_schedule.png" alt="school schedule" style="
+                    width: 100%; 
+                    max-width: 1000px; 
+                    height: auto; 
+                    border-radius: 12px; 
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                    border: 4px solid white;
+                ">
+            </div>
+        </div>
         
         <div id="schedule" class="tab-content active">
             <div class="calendar-container">
