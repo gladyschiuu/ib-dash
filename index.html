@@ -273,6 +273,44 @@
         .center-text { text-align: center; }
         .hidden { display: none !important; }
 
+        /* --- RESOURCE CARDS --- */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-color: #b0b0b0;
+        }
+
+        .res-icon { font-size: 2rem; margin-bottom: 10px; }
+        .res-title { font-weight: 600; font-size: 1rem; color: #2c3e50; }
+        .res-tag { 
+            font-size: 0.7rem; color: #888; margin-top: 5px; 
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
     </style>
 </head>
 <body>
@@ -317,6 +355,7 @@
                 <button class="nav-btn" onclick="switchTab('school', this)">🏫 school</button>
                 <button class="nav-btn active" onclick="switchTab('schedule', this)">📅 week</button>
                 <button class="nav-btn" onclick="switchTab('strategy', this)">🧠 strat</button>
+                <button class="nav-btn" onclick="switchTab('resources', this)">🔗 resources</button>
                 <button class="nav-btn" onclick="switchTab('todo', this)">⚡ todo</button>
             </div>
             
@@ -644,6 +683,205 @@
                         </div>
                     </a>
                 </div>
+            </div>
+        </div>
+
+        <div id="resources" class="tab-content" style="padding: 0;">
+            <div class="resource-grid">
+
+                <a href="https://www.youtube.com/user/misterleescience/videos" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Alex Lee</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">resource may not be updated</div>
+                </a>
+
+                <a href="https://ib.bioninja.com.au/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">BioNinja</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">resource is not too old but may not be updated </div>
+                </a>
+
+                <a href="https://paperplainz.com/ib-math/aa-sl/" target="_blank" class="resource-card">
+                    <div class="res-icon">📐</div>
+                    <div class="res-title">Paperplainz</div>
+                    <div class="res-tag">Mathematics</div>
+                    <div class="res-desc">QB, Practice Exams: Topic 1:Number & Algebra</div>
+                </a>
+
+                <a href="https://hackib.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🌟</div>
+                    <div class="res-title">Hack IB</div>
+                    <div class="res-tag">All</div>
+                    <div class="res-desc">IB45 Advice, most useful for Economics, English, TOK</div>
+                </a>
+
+                <a href="https://www.youtube.com/user/richthornley" target="_blank" class="resource-card">
+                    <div class="res-icon">🧪</div>
+                    <div class="res-title">Richard Thornley</div>
+                    <div class="res-tag">Chemistry</div>
+                </a>
+
+                <a href="https://www.tokresource.org/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧠</div>
+                    <div class="res-title">TOK Resource</div>
+                    <div class="res-tag">TOK</div>
+                </a>
+
+                <a href="https://www.smashingscience.org/ib-chemistry-hl-sl" target="_blank" class="resource-card">
+                    <div class="res-icon">🧪</div>
+                    <div class="res-title">Smashing Science</div>
+                    <div class="res-tag">Chemistry</div>
+                </a>
+
+                <a href="https://www.revisionvillage.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Revision Village</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">anw19711117@gmail.com</div>
+                </a>
+
+                <a href="https://www.christosnikolaidis.com/en/" target="_blank" class="resource-card">
+                    <div class="res-icon">📐</div>
+                    <div class="res-title">Christos Nikolaidis</div>
+                    <div class="res-tag">Mathematics</div>
+                </a>
+
+                <a href="https://mrwengibchemistry.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧪</div>
+                    <div class="res-title">Weng Chemistry</div>
+                    <div class="res-tag">Chemistry</div>
+                </a>
+
+                <a href="http://www.tok2022.net/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧠</div>
+                    <div class="res-title">TOK 2022 (1)</div>
+                    <div class="res-tag">TOK</div>
+                    <div class="res-desc">presentation has changed to exhibition since tok2022</div>
+                </a>
+
+                <a href="https://www.mathgptpro.com/app/ask" target="_blank" class="resource-card">
+                    <div class="res-icon">📐</div>
+                    <div class="res-title">MathGPT </div>
+                    <div class="res-tag">Mathematics</div>
+                    <div class="res-desc">AI Math Calculator </div>
+                </a>
+
+                <a href="https://www.omnicalculator.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Omni Calculator </div>
+                    <div class="res-tag">Biology, Chemistry, Mathematics</div>
+                    <div class="res-desc">Math, Biology and Chemistry Calculator </div>
+                </a>
+
+                <a href="https://drive.google.com/drive/folders/19Bg6pMEDj9LIA3S4w5IYcjjqRsQx-Sxj" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Revision Village QB</div>
+                    <div class="res-tag">Biology, Chemistry, Economics, Mathematics</div>
+                </a>
+
+                <a href="https://ibdocs.re/" target="_blank" class="resource-card">
+                    <div class="res-icon">🌟</div>
+                    <div class="res-title">ib docs</div>
+                    <div class="res-tag">All</div>
+                </a>
+
+                <a href="https://web.archive.org/web/20230807015538/https://ibyourwayout.wordpress.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">IB Your Way Out </div>
+                    <div class="res-tag">Biology, Chemistry, EE, Mathematics, Spanish, TOK</div>
+                    <div class="res-desc">Notes, NOT UPDATED </div>
+                </a>
+
+                <a href="https://marshallhs.fcps.edu/sites/default/files/media/inline-files/OPTIONALChemistry2SummerAssignmentPacketKEY.pdf" target="_blank" class="resource-card">
+                    <div class="res-icon">🧪</div>
+                    <div class="res-title">John Erickson, 2005 Worksheet Answer Keys</div>
+                    <div class="res-tag">Chemistry</div>
+                    <div class="res-desc">Worksheets, Answer key and worked solution</div>
+                </a>
+
+                <a href="https://whimsynonsense.notion.site/jjuu-s-ib-biology-notes-target-get-all-notes-ready-for-M26-exams-20988e61086b808fb0cbc7d15d190b83" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">IB44, 7HL Bio Scorer’s notes</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">All Notes for 2025 syllabus (still being updated)</div>
+                </a>
+
+                <a href="https://www.ibchem.com/index.php" target="_blank" class="resource-card">
+                    <div class="res-icon">🧪</div>
+                    <div class="res-title">IBChem </div>
+                    <div class="res-tag">Chemistry</div>
+                    <div class="res-desc">Updated syllabus breakdown, practice, </div>
+                </a>
+
+                <a href="https://ipassed.gg/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Question Bank</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">Only MCQ, updated to 2025 syllabus </div>
+                </a>
+
+                <a href="https://pestle-ib.firebaseapp.com/biology/topic/1" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Pestle</div>
+                    <div class="res-tag">Biology, Chemistry, Mathematics</div>
+                    <div class="res-desc">Long question, past paper question bank, good for identifying ib language</div>
+                </a>
+
+                <a href="https://www.youtube.com/@thesevenstudent/videos" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">the7student</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">former IB student and current IB biology tutor. Gives tips for exams</div>
+                </a>
+
+                <a href="https://www.notion.so/Economics-297bc5f7281b8190a307d14815cace8f?source=copy_link" target="_blank" class="resource-card">
+                    <div class="res-icon">📉</div>
+                    <div class="res-title">Completed, updated 2023 Notes </div>
+                    <div class="res-tag">Economics</div>
+                </a>
+
+                <a href="https://www.econinja.net/home" target="_blank" class="resource-card">
+                    <div class="res-icon">📉</div>
+                    <div class="res-title">EcoNinja</div>
+                    <div class="res-tag">Economics</div>
+                    <div class="res-desc"> Free notes, diagrams, and definitions for the new IB Economics syllabus!</div>
+                </a>
+
+                <a href="https://bio-letters.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Bio Letters </div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">Notes, 100 questions per topic qb</div>
+                </a>
+
+                <a href="https://www.reddit.com/r/IBO/wiki/howtocomeupwithiaideas/" target="_blank" class="resource-card">
+                    <div class="res-icon">🔗</div>
+                    <div class="res-title">IA ideas</div>
+                    <div class="res-tag">IAs</div>
+                    <div class="res-desc">IA idea advice </div>
+                </a>
+
+                <a href="https://www.biologyforlife.com/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Biology For Life</div>
+                    <div class="res-tag">Biology</div>
+                    <div class="res-desc">Biology resources </div>
+                </a>
+
+                <a href="https://revisiontown2024.pages.dev/#app" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Revision Village QB</div>
+                    <div class="res-tag">Biology, Chemistry, Economics, Mathematics</div>
+                    <div class="res-desc">Provided by PirateIB</div>
+                </a>
+
+                <a href="https://chemix.org/" target="_blank" class="resource-card">
+                    <div class="res-icon">🧬</div>
+                    <div class="res-title">Diagram Making Website</div>
+                    <div class="res-tag">Biology, Chemistry</div>
+                </a>
             </div>
         </div>
 
