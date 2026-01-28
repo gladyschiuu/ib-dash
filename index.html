@@ -225,33 +225,86 @@
         .card.subj-tok { border-left-color: var(--c-other); }
         .card.subj-ee { border-left-color: var(--c-big-study); }
 
-        /* --- STRATEGY TAB SPECIFIC STYLES --- */
-        .strategy-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
+       /* --- STRATEGY TAB STYLES (MATCHING STRAT TAB.HTML) --- */
+        .strategy-container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 20px; 
         }
-
-        /* Clickable Main Title Styling */
-        .strategy-container h1 a {
-            text-decoration: none; color: inherit; transition: opacity 0.2s;
+        
+        /* Main Title Styling */
+        .strategy-container h1 { 
+            margin-bottom: 30px; text-align: center; color: #2c3e50; 
         }
-        .strategy-container h1 a:hover {
+        .strategy-container h1 a { 
+            text-decoration: none; color: inherit; transition: opacity 0.2s; 
+        }
+        .strategy-container h1 a:hover { 
             opacity: 0.7; text-decoration: underline; 
-            text-decoration-thickness: 2px; text-underline-offset: 4px;
+            text-decoration-thickness: 2px; text-underline-offset: 4px; 
         }
 
-        /* Section Header Styling (Inline Border) */
-        .strategy-container h2 {
-            margin-top: 40px; margin-bottom: 20px; font-size: 1.4rem;
-            border-bottom: 2px solid #ddd; display: inline-block;
+        /* Section Header Styling */
+        .strategy-container h2 { 
+            margin-top: 40px; margin-bottom: 20px; font-size: 1.4rem; 
+            border-bottom: 2px solid #ddd; display: inline-block; 
             padding-bottom: 5px; color: #2c3e50;
         }
 
-        /* Link Wrapper for Cards */
-        a.card-link {
-            text-decoration: none; color: inherit; display: block; height: 100%;
+        /* Grid Layout */
+        .card-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
         }
+
+        /* Card Styling */
+        .card { 
+            background: white; border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; 
+            border-left: 6px solid #ccc; transition: transform 0.2s, box-shadow 0.2s; 
+            height: 100%; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); cursor: pointer; }
+        
+        .card-header { 
+            padding: 15px 20px; background: #fdfdfd; border-bottom: 1px solid #eee;
+            font-weight: 700; font-size: 1.1rem; display: flex; 
+            align-items: center; justify-content: space-between; 
+        }
+        
+        .card-body { padding: 20px; flex-grow: 1; }
+        
+        .card-label { 
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; 
+            padding: 3px 8px; border-radius: 4px; background: #eee; color: #555; 
+        }
+        
+        .highlight { 
+            font-weight: 600; color: #000; background: rgba(255, 255, 0, 0.15); 
+            padding: 0 2px; border-radius: 2px; 
+        }
+        
+        /* List Styling */
+        .card ul { margin: 0; padding-left: 20px; }
+        .card li { margin-bottom: 8px; line-height: 1.5; color: #555; }
+        
+        /* Link Styling */
+        .card-link { text-decoration: none; color: inherit; display: block; height: 100%; }
+
+        /* Specific Border Colors */
+        .routine-sat { border-left-color: var(--c-routine); }
+        .routine-sun { border-left-color: var(--c-math-d); } 
+        .routine-plan { border-left-color: var(--c-big-study); }
+        .routine-write { border-left-color: var(--c-lang-d); }
+        .pocket-school { border-left-color: var(--c-school); }
+        .pocket-mtr { border-left-color: var(--c-travel); }
+        .subj-bio { border-left-color: var(--c-bio-d); }
+        .subj-chem { border-left-color: var(--c-chem-d); }
+        .subj-econ { border-left-color: var(--c-econ-d); }
+        .subj-lang { border-left-color: var(--c-lang-d); }
+        .subj-tok { border-left-color: var(--c-other); }
+        .subj-ee { border-left-color: var(--c-big-study); }
 
         /* --- (ARCHIEVE) DYNAMIC ATTACK CARDS (TODO) 
         .todo-controls { text-align: center; margin-bottom: 20px; }
@@ -621,9 +674,7 @@
         <div class="strategy-container">
 
             <h1>
-                <a href="https://www.notion.so/chiuy6/74ecf570ba6542158d61dd82d6b7b365?source=copy_link" target="_blank" title="Go to Notion Dashboard">
-                    🧠 IBDP Strategy Visualizer
-                </a>
+                <a href="https://www.notion.so/chiuy6/74ecf570ba6542158d61dd82d6b7b365?source=copy_link" target="_blank" title="Go to Dashboard">🧠 IBDP Strategy Visualizer</a>
             </h1>
 
             <div style="text-align: center;"><h2>🌅 Weekly Routine Strategy</h2></div>
@@ -632,7 +683,7 @@
                 <div class="card routine-sat">
                     <div class="card-header">
                         Saturday Morning
-                        <span class="card-label" style="background: var(--c-routine); color: white;">Low Intensity</span>
+                        <span class="card-label">Low Intensity</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -645,7 +696,7 @@
                 <div class="card routine-sun">
                     <div class="card-header">
                         Sunday Morning
-                        <span class="card-label" style="background: var(--c-math); color: white;">High Priority</span>
+                        <span class="card-label" style="background: var(--c-math-d); color: white;">High Priority</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -659,7 +710,7 @@
                 <div class="card routine-write">
                     <div class="card-header">
                         Sunday Evening
-                        <span class="card-label" style="background: var(--c-lang); color: white;">Writing Block</span>
+                        <span class="card-label" style="background: var(--c-lang-d); color: white;">Writing Block</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -694,7 +745,7 @@
                 <div class="card pocket-school">
                     <div class="card-header">
                         🏫 School Free Periods
-                        <span class="card-label" style="background: var(--c-school); color: white;">Clear the Deck</span>
+                        <span class="card-label">Clear the Deck</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -708,7 +759,7 @@
                 <div class="card pocket-mtr">
                     <div class="card-header">
                         🚇 MTR Transit Strategy
-                        <span class="card-label" style="background: var(--c-travel); color: white;">Adaptive</span>
+                        <span class="card-label">Adaptive</span>
                     </div>
                     <div class="card-body">
                         <div style="margin-bottom: 10px;">
@@ -729,11 +780,11 @@
             <div style="text-align: center;"><h2>📚 Subject-Specific Tactics (Click for Notion)</h2></div>
             <div class="card-grid">
 
-                <a href="https://www.notion.so/chiuy6/bio-2516ca83c26681679695ff4929ee675a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
+                <a href="https://www.notion.so/chiuy6/bio-2516ca83c26681679695ff4929ee675a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Bio Notion Page">
                     <div class="card subj-bio">
                         <div class="card-header">
                             🧬 HL Biology
-                            <span class="card-label" style="background: var(--c-bio); color: white;">Understanding</span>
+                            <span class="card-label" style="background: var(--c-bio-d); color: white;">Understanding</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -746,11 +797,11 @@
                     </div>
                 </a>
 
-                <a href="https://www.notion.so/chiuy6/chem-2516ca83c2668163ba71cc3277d09686?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
+                <a href="https://www.notion.so/chiuy6/chem-2516ca83c2668163ba71cc3277d09686?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Chem Notion Page">
                     <div class="card subj-chem">
                         <div class="card-header">
                             🧪 HL Chemistry
-                            <span class="card-label" style="background: var(--c-chem); color: white;">Deep Mastery</span>
+                            <span class="card-label" style="background: var(--c-chem-d); color: white;">Deep Mastery</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -762,11 +813,11 @@
                     </div>
                 </a>
 
-                <a href="https://www.notion.so/chiuy6/econ-2516ca83c26681ea8d18f94cdd216d82?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
+                <a href="https://www.notion.so/chiuy6/econ-2516ca83c26681ea8d18f94cdd216d82?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Econ Notion Page">
                     <div class="card subj-econ">
                         <div class="card-header">
                             📈 HL Economics
-                            <span class="card-label" style="background: var(--c-econ); color: white;">Definitions</span>
+                            <span class="card-label" style="background: var(--c-econ-d); color: white;">Definitions</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -778,11 +829,11 @@
                     </div>
                 </a>
 
-                <a href="https://www.notion.so/chiuy6/AASL-2516ca83c266814ba8fec3f671f105c1?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
-                    <div class="card" style="border-left-color: var(--c-math);">
+                <a href="https://www.notion.so/chiuy6/AASL-2516ca83c266814ba8fec3f671f105c1?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Math Notion Page">
+                    <div class="card" style="border-left-color: var(--c-math-d);">
                         <div class="card-header">
                             🧮 Math AASL
-                            <span class="card-label" style="background: var(--c-math); color: white;">Practice</span>
+                            <span class="card-label" style="background: var(--c-math-d); color: white;">Practice</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -794,11 +845,11 @@
                     </div>
                 </a>
 
-                <a href="https://www.notion.so/chiuy6/english-2516ca83c26681e3ac0cde8b39614e50?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
+                <a href="https://www.notion.so/chiuy6/english-2516ca83c26681e3ac0cde8b39614e50?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open English Notion Page">
                     <div class="card subj-lang">
                         <div class="card-header">
                             📖 English L&L
-                            <span class="card-label" style="background: var(--c-lang); color: white;">Structure</span>
+                            <span class="card-label" style="background: var(--c-lang-d); color: white;">Structure</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -810,11 +861,11 @@
                     </div>
                 </a>
 
-                <a href="https://www.notion.so/chiuy6/chinese-2516ca83c26681308b33c691c0f0eaca?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
+                <a href="https://www.notion.so/chiuy6/chinese-2516ca83c26681308b33c691c0f0eaca?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Chinese Notion Page">
                     <div class="card subj-lang">
                         <div class="card-header">
                             🗣️ Chinese B
-                            <span class="card-label" style="background: var(--c-lang); color: white;">Rotation</span>
+                            <span class="card-label" style="background: var(--c-lang-d); color: white;">Rotation</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -842,7 +893,7 @@
                     </div>
                 </a>
 
-                <a href="https://www.notion.so/chiuy6/tok-2696ca83c26680c5ad58ff4d441acf7a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
+                <a href="https://www.notion.so/chiuy6/tok-2696ca83c26680c5ad58ff4d441acf7a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open TOK Notion Page">
                     <div class="card subj-tok">
                         <div class="card-header">
                             🧠 TOK
