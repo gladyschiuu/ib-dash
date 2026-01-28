@@ -225,6 +225,34 @@
         .card.subj-tok { border-left-color: var(--c-other); }
         .card.subj-ee { border-left-color: var(--c-big-study); }
 
+        /* --- STRATEGY TAB SPECIFIC STYLES --- */
+        .strategy-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Clickable Main Title Styling */
+        .strategy-container h1 a {
+            text-decoration: none; color: inherit; transition: opacity 0.2s;
+        }
+        .strategy-container h1 a:hover {
+            opacity: 0.7; text-decoration: underline; 
+            text-decoration-thickness: 2px; text-underline-offset: 4px;
+        }
+
+        /* Section Header Styling (Inline Border) */
+        .strategy-container h2 {
+            margin-top: 40px; margin-bottom: 20px; font-size: 1.4rem;
+            border-bottom: 2px solid #ddd; display: inline-block;
+            padding-bottom: 5px; color: #2c3e50;
+        }
+
+        /* Link Wrapper for Cards */
+        a.card-link {
+            text-decoration: none; color: inherit; display: block; height: 100%;
+        }
+
         /* --- (ARCHIEVE) DYNAMIC ATTACK CARDS (TODO) 
         .todo-controls { text-align: center; margin-bottom: 20px; }
         .btn-new-card {
@@ -598,7 +626,7 @@
                 </a>
             </h1>
 
-            <div class="section-title">🌅 Weekly Routine Strategy</div>
+            <div style="text-align: center;"><h2>🌅 Weekly Routine Strategy</h2></div>
             <div class="card-grid">
                 
                 <div class="card routine-sat">
@@ -660,7 +688,7 @@
             </div>
 
 
-            <div class="section-title">🚀 Hidden Time Pockets</div>
+            <div style="text-align: center;"><h2>🚀 Hidden Time Pockets</h2></div>
             <div class="card-grid">
 
                 <div class="card pocket-school">
@@ -698,7 +726,7 @@
             </div>
 
 
-            <div class="section-title">📚 Subject-Specific Tactics</div>
+            <div style="text-align: center;"><h2>📚 Subject-Specific Tactics (Click for Notion)</h2></div>
             <div class="card-grid">
 
                 <a href="https://www.notion.so/chiuy6/bio-2516ca83c26681679695ff4929ee675a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
@@ -712,6 +740,7 @@
                                 <li><strong>Feynman:</strong> Teach concepts out loud. Stumbling = Gap.</li>
                                 <li><strong>IB Guide:</strong> Check syllabus statements for <em>exact content required</em>.</li>
                                 <li><strong>"Surgery":</strong> Check Mark Scheme for <em>scoring keywords</em>.</li>
+                                <li><strong>Anki:</strong> Focus on definitions.</li>
                             </ul>
                         </div>
                     </div>
@@ -725,9 +754,9 @@
                         </div>
                         <div class="card-body">
                             <ul>
-                                <li><strong>Recall Drills:</strong> Draw Organic pathways & VSEPR shapes from memory.</li>
+                                <li><strong>Recall Drills:</strong> Draw Organic pathways & VSEPR shapes from memory on blank paper. Correct in red.</li>
                                 <li><strong>Quant Algorithms:</strong> Write "Step-by-Step Recipes" for calculations.</li>
-                                <li><strong>Anki Rigor:</strong> Trends/Bonding definitions.</li>
+                                <li><strong>Anki Rigor:</strong> Trends/Bonding definitions. If not <em>word-for-word</em>, press "Again".</li>
                             </ul>
                         </div>
                     </div>
@@ -743,13 +772,14 @@
                             <ul>
                                 <li><strong>Def & Diagram Bank:</strong> Use Anki for verbatim definitions & drawing diagrams from memory.</li>
                                 <li><strong>3-Step Drill:</strong> 1. Define. 2. Diagram (from memory). 3. Explain the shift.</li>
+                                <li><strong>Real World Examples:</strong> Maintain a Google Doc table with 1 news headline per week for Paper 1.</li>
                             </ul>
                         </div>
                     </div>
                 </a>
 
                 <a href="https://www.notion.so/chiuy6/AASL-2516ca83c266814ba8fec3f671f105c1?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank">
-                    <div class="card" style="border-left: 6px solid var(--c-math);">
+                    <div class="card" style="border-left-color: var(--c-math);">
                         <div class="card-header">
                             🧮 Math AASL
                             <span class="card-label" style="background: var(--c-math); color: white;">Practice</span>
@@ -758,6 +788,7 @@
                             <ul>
                                 <li><strong>Traffic Light System:</strong> Mark Qs Red/Amber/Green.</li>
                                 <li><strong>Mistake Notebook:</strong> Copy 'Red' questions here. Re-attempt them blindly next week.</li>
+                                <li><strong>Formula Booklet:</strong> Memorize locations, not just formulas.</li>
                             </ul>
                         </div>
                     </div>
@@ -773,6 +804,7 @@
                             <ul>
                                 <li><strong>Skeleton Plan:</strong> Write <em>only</em> Topic Sentences first.</li>
                                 <li><strong>PETER + L Check:</strong> Point, Evidence, <strong>Technique</strong>, Effect, Reader, Link.</li>
+                                <li><strong>Sticky Note Habit:</strong> Mark literary devices, authorial choices & identify <em>Global Issues</em>.</li>
                             </ul>
                         </div>
                     </div>
@@ -786,14 +818,15 @@
                         </div>
                         <div class="card-body">
                             <ul>
-                                <li><strong>Paper Cycle:</strong> Rotate strictly: Reading → Listening → Writing.</li>
+                                <li><strong>Paper Cycle:</strong> Rotate strictly: Reading → Listening → Writing. One per session.</li>
+                                <li><strong>Daily Input:</strong> Add unknown words to Anki from your daily reading/video.</li>
                                 <li><strong>Dictation Review:</strong> Tue (20:00) & Thu (19:00). 15 mins. Listen → Write character.</li>
                             </ul>
                         </div>
                     </div>
                 </a>
 
-                <a href="#" class="card-link" target="_blank">
+                <a href="ee link" class="card-link" target="_blank" title="Open EE Notion Page">
                     <div class="card subj-ee">
                         <div class="card-header">
                             📝 Extended Essay
@@ -802,6 +835,7 @@
                         <div class="card-body">
                             <ul>
                                 <li><strong>Thursday Sacred Hour (18:30):</strong> You must produce content here.</li>
+                                <li><strong>Phase 1:</strong> Bullet outline & source map.</li>
                                 <li><strong>Phase 2 (Ugly Draft):</strong> Write 500 words/hour. No editing.</li>
                             </ul>
                         </div>
@@ -991,8 +1025,8 @@
                     <div class="res-title" style="color: #546E7A;">Diagram Making Website</div>
                     <div class="res-tag">Biology, Chemistry</div>
                 </a>
+                </div>
             </div>
-        </div>
 
     <!--Archive: todo tab
         <div id="todo" class="tab-content">
