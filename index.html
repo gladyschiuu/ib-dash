@@ -93,7 +93,7 @@
         .calendar-container { max-width: 1200px; margin: 0 auto; overflow-x: auto; }
         .calendar-grid {
             display: grid; grid-template-columns: 60px repeat(7, minmax(100px, 1fr));
-            grid-template-rows: 40px repeat(68, 20px); 
+            grid-template-rows: 40px repeat(66, 20px); 
             border: 1px solid #ddd; background: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative;
         }
@@ -410,7 +410,7 @@
                 <div class="calendar-grid">
                     <div class="header">Time</div><div class="header">Mon</div><div class="header">Tue</div><div class="header">Wed</div><div class="header">Thu</div><div class="header">Fri</div><div class="header">Sat</div><div class="header">Sun</div>
 
-                    <div class="time-label-top" style="grid-row: 2 / 4"><span>06:30</span></div>
+                <div class="time-label-top" style="grid-row: 2 / 4"><span>06:30</span></div>
                 <div class="time-label" style="grid-row: 4 / 6"><span>07:00</span></div>
                 <div class="time-label" style="grid-row: 6 / 10"><span>07:30</span></div>
                 <div class="time-label" style="grid-row: 10 / 14"><span>08:30</span></div>
@@ -591,20 +591,19 @@
 
         <div id="strategy" class="tab-content">
             <div class="strategy-container">
-                
                 <h1 style="text-align: center; margin-bottom: 30px;">
                     <a href="https://www.notion.so/chiuy6/74ecf570ba6542158d61dd82d6b7b365?source=copy_link" target="_blank" title="Go to Notion Dashboard" style="text-decoration: none; color: #2c3e50;">
                         🧠 IBDP Strategy Visualizer
                     </a>
                 </h1>
-
-                <div style="text-align: center;"><h2>🌅 Weekly Routine Strategy</h2></div>
+    
+                <div class="section-title">🌅 Weekly Routine Strategy</div>
                 <div class="card-grid">
                     
                     <div class="card routine-sat">
                         <div class="card-header">
                             Saturday Morning
-                            <span class="card-label">Low Intensity</span>
+                            <span class="card-label" style="background: var(--c-routine); color: white;">Low Intensity</span>
                         </div>
                         <div class="card-body">
                             <ul>
@@ -613,7 +612,7 @@
                             </ul>
                         </div>
                     </div>
-
+    
                     <div class="card routine-sun">
                         <div class="card-header">
                             Sunday Morning
@@ -627,7 +626,7 @@
                             </ul>
                         </div>
                     </div>
-
+    
                     <div class="card routine-write">
                         <div class="card-header">
                             Sunday Evening
@@ -640,57 +639,23 @@
                             </ul>
                         </div>
                     </div>
-
-                    <a href="#" class="card-link" target="_blank" title="Open Planning Checklist">
-                        <div class="card routine-plan">
-                            <div class="card-header">
-                                Sunday Night
-                                <span class="card-label" style="background: var(--c-big-study); color: white;">Reset</span>
-                            </div>
-                            <div class="card-body">
-                                <ul>
-                                    <li><strong>Pack Bag:</strong> Charge iPad/MacBook.</li>
-                                    <li><strong>Review Week:</strong> What didn't get done? Move to next week's priority.</li>
-                                    <li><strong>Sleep by 22:30:</strong> Non-negotiable.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div style="text-align: center;"><h2>⏳ Time Pocket Optimization</h2></div>
-                <div class="card-grid">
-                    
-                    <div class="card pocket-school">
+    
+                    <div class="card routine-plan">
                         <div class="card-header">
-                            School Free Periods
-                            <span class="card-label" style="background: var(--c-school); color: white;">Deep Work</span>
+                            Sunday Night
+                            <span class="card-label" style="background: var(--c-big-study); color: white;">Reset</span>
                         </div>
                         <div class="card-body">
                             <ul>
-                                <li><strong>Library/Quiet Zone:</strong> No phone.</li>
-                                <li><strong>Task:</strong> Complete the "ugliest" task of the day (e.g., tough Chem problem, drafting definitions).</li>
-                                <li><strong>Rule:</strong> "If I finish this now, I don't have to do it at home."</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card pocket-mtr">
-                        <div class="card-header">
-                            Commute (MTR/Bus)
-                            <span class="card-label" style="background: var(--c-travel); color: black;">Passive Input</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Flashcards:</strong> Anki / Quizlet (Bio definitions, Chem ions).</li>
-                                <li><strong>Audio:</strong> Listen to English Lit audiobook or Econ podcasts.</li>
-                                <li><strong>No Social Media:</strong> It drains dopamine before you start working.</li>
+                                <li><strong>Pack Bag:</strong> Charge iPad/MacBook.</li>
+                                <li><strong>Review Week:</strong> What didn't get done? Move to next week's priority.</li>
+                                <li><strong>Sleep by 22:30:</strong> Non-negotiable.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
-                <div style="text-align: center;"><h2>⚔️ Subject Attack Plans</h2></div>
+    
+                <div class="section-title">⚔️ Subject Attack Plans</div>
                 <div class="card-grid">
                     
                     <div class="card subj-bio">
@@ -702,11 +667,10 @@
                             <ul>
                                 <li><strong>Active Recall:</strong> Don't just re-read notes. Close the book and explain it to a wall.</li>
                                 <li><strong>Mark Schemes:</strong> IB biology is about keywords. Memorize the <em>exact phrasing</em> from past paper mark schemes.</li>
-                                <li><strong>Draw it:</strong> Can you draw the Krebs cycle from memory?</li>
                             </ul>
                         </div>
                     </div>
-
+    
                     <div class="card subj-chem">
                         <div class="card-header">
                             🧪 Chemistry HL
@@ -716,11 +680,10 @@
                             <ul>
                                 <li><strong>Stoichiometry:</strong> Master the mole concept. It's in everything.</li>
                                 <li><strong>Organic Chem:</strong> Make a big poster of reaction pathways. Stick it on your bedroom wall.</li>
-                                <li><strong>Definitions:</strong> 1-2 mark definitions are free points. Don't lose them.</li>
                             </ul>
                         </div>
                     </div>
-
+    
                     <div class="card subj-econ">
                         <div class="card-header">
                             📉 Economics HL
@@ -730,26 +693,11 @@
                             <ul>
                                 <li><strong>Diagrams:</strong> Draw, label, shift. If you can't draw the diagram in 30 seconds, you don't know it.</li>
                                 <li><strong>RWE (Real World Examples):</strong> Keep a list. "Inflation in Turkey," "Sugar Tax in UK." Link every theory to a story.</li>
-                                <li><strong>Evaluation:</strong> Always ask "Short run vs Long run" and "Stakeholders."</li>
                             </ul>
                         </div>
                     </div>
-
-                    <div class="card subj-lang">
-                        <div class="card-header">
-                            📚 English L&L SL
-                            <span class="card-label" style="background: var(--c-lang); color: white;">Analyze</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Global Issues:</strong> Connect every text to a Global Issue (Power, Identity, Culture).</li>
-                                <li><strong>Big 5:</strong> Audience, Purpose, Content, Theme, Tone. Identify these in the first 2 mins.</li>
-                                <li><strong>Quote Bank:</strong> maintain a digital bank of versatile quotes for your literary texts.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <a href="https://www.notion.so/chiuy6/tok-2696ca83c26680c5ad58ff4d441acf7a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open TOK Notion Page">
+    
+                    <a href="https://www.notion.so/chiuy6/tok-2696ca83c26680c5ad58ff4d441acf7a" class="card-link" target="_blank" title="Open TOK Notion Page">
                         <div class="card subj-tok">
                             <div class="card-header">
                                 🧠 TOK
@@ -763,8 +711,11 @@
                             </div>
                         </div>
                     </a>
-
+    
                 </div>
+    
+                <div style="text-align: center; margin-top: 40px; color: #888; font-size: 0.9rem;">
+                    Generated for IBDP Schedule • Keep Grinding 💪
                 </div>
             </div>
         </div>
