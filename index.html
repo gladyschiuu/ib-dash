@@ -410,7 +410,8 @@
                 <div class="calendar-grid">
                     <div class="header">Time</div><div class="header">Mon</div><div class="header">Tue</div><div class="header">Wed</div><div class="header">Thu</div><div class="header">Fri</div><div class="header">Sat</div><div class="header">Sun</div>
 
-                    <div class="time-label" style="grid-row: 2 / 6"><span>06:30</span></div>
+                    <div class="time-label-top" style="grid-row: 2 / 4"><span>06:30</span></div>
+                    <div class="time-label" style="grid-row: 4 / 6"><span>07:00</span></div>
                     <div class="time-label" style="grid-row: 6 / 10"><span>07:30</span></div>
                     <div class="time-label" style="grid-row: 10 / 14"><span>08:30</span></div>
                     <div class="time-label" style="grid-row: 14 / 18"><span>09:30</span></div>
@@ -430,12 +431,26 @@
                     <div class="time-label" style="grid-row: 68 / 70"><span>23:00</span></div>
 
                     <div class="event c-routine" style="grid-column: 2; grid-row: 2 / 4;">Wake Up</div>
+                    <div class="event c-routine" style="grid-column: 3; grid-row: 2 / 4;">Wake Up</div>
+                    <div class="event c-routine" style="grid-column: 4; grid-row: 2 / 4;">Wake Up</div>
+                    <div class="event c-routine" style="grid-column: 5; grid-row: 2 / 4;">Wake Up</div>
+                    <div class="event c-routine" style="grid-column: 6; grid-row: 2 / 4;">Wake Up</div>
+                    
+                    <div class="event c-routine" style="grid-column: 7; grid-row: 2 / 6;">Wake Up & Bkfst</div>
+                    <div class="event c-routine" style="grid-column: 8; grid-row: 2 / 6;">Wake Up & Bkfst</div>
+
                     <div class="event c-routine" style="grid-column: 2; grid-row: 4 / 6;">Breakfast</div>
-                    <div class="event c-travel" style="grid-column: 2; grid-row: 6 / 8;">Travel</div>
+                    <div class="event c-routine" style="grid-column: 3; grid-row: 4 / 6;">Breakfast</div>
+                    <div class="event c-routine" style="grid-column: 4; grid-row: 4 / 6;">Breakfast</div>
+                    <div class="event c-routine" style="grid-column: 5; grid-row: 4 / 6;">Breakfast</div>
+                    <div class="event c-routine" style="grid-column: 6; grid-row: 4 / 6;">Breakfast</div>
+
+
+                    <div class="event c-travel" style="grid-column: 2; grid-row: 6 / 10;">Travel to School</div>
                     <div class="event c-school" style="grid-column: 2; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:10</span></div>
                     <div class="event c-travel" style="grid-column: 2; grid-row: 37 / 41;">Travel to PE</div>
                     
-                    <div class="event c-econ-l" style="grid-column: 2; grid-row: 41 / 47;">Gap Block<br><span class="event-time">Chi/Econ</span></div>
+                    <div class="event c-econ-l" style="grid-column: 2; grid-row: 41 / 47;">Gap Block<br><span class="event-time">Chi/Econ<br>16:15 - 17:45</span></div>
                     
                     <div class="event c-tutor" style="grid-column: 2; grid-row: 48 / 54;">Chinese Tutor</div>
                     <div class="event c-travel" style="grid-column: 2; grid-row: 54 / 57;">Travel Home</div>
@@ -444,9 +459,8 @@
                     <div class="event c-chem-l" style="grid-column: 2; grid-row: 61 / 64;">Chem Review</div>
                     <div class="event c-routine" style="grid-column: 2; grid-row: 64 / 68;">Wind Down</div>
 
-                    <div class="event c-routine" style="grid-column: 3; grid-row: 2 / 4;">Wake Up</div>
-                    <div class="event c-routine" style="grid-column: 3; grid-row: 4 / 6;">Breakfast</div>
-                    <div class="event c-travel" style="grid-column: 3; grid-row: 6 / 8;">Travel</div>
+
+                    <div class="event c-travel" style="grid-column: 3; grid-row: 6 / 10;">Travel to School</div>
                     <div class="event c-school" style="grid-column: 3; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:10</span></div>
                     <div class="event c-travel" style="grid-column: 3; grid-row: 37 / 39;">Travel Shek Mun</div>
                     <div class="event c-tutor" style="grid-column: 3; grid-row: 39 / 43;">Bio Tutor</div>
@@ -458,9 +472,8 @@
                     <div class="event c-routine" style="grid-column: 3; grid-row: 60 / 66;">Free Time</div>
                     <div class="event c-routine" style="grid-column: 3; grid-row: 66 / 68;">Wind Down</div>
 
-                    <div class="event c-routine" style="grid-column: 4; grid-row: 2 / 4;">Wake Up</div>
-                    <div class="event c-routine" style="grid-column: 4; grid-row: 4 / 6;">Breakfast</div>
-                    <div class="event c-travel" style="grid-column: 4; grid-row: 6 / 8;">Travel</div>
+
+                    <div class="event c-travel" style="grid-column: 4; grid-row: 6 / 10;">Travel to School</div>
                     <div class="event c-school" style="grid-column: 4; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:10</span></div>
                     <div class="event c-travel" style="grid-column: 4; grid-row: 37 / 41;">Travel to PE</div>
                     
@@ -473,32 +486,28 @@
                     <div class="event c-bio-l" style="grid-column: 4; grid-row: 61 / 64;">Bio Review</div>
                     <div class="event c-routine" style="grid-column: 4; grid-row: 64 / 68;">Wind Down</div>
 
-                    <div class="event c-routine" style="grid-column: 5; grid-row: 2 / 4;">Wake Up</div>
-                    <div class="event c-routine" style="grid-column: 5; grid-row: 4 / 6;">Breakfast</div>
-                    <div class="event c-travel" style="grid-column: 5; grid-row: 6 / 8;">Travel</div>
+
+                    <div class="event c-travel" style="grid-column: 5; grid-row: 6 / 10;">Travel to School</div>
                     <div class="event c-school" style="grid-column: 5; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:10</span></div>
                     <div class="event c-travel" style="grid-column: 5; grid-row: 37 / 38;">Rush</div>
                     <div class="event c-tutor" style="grid-column: 5; grid-row: 38 / 42;">Chem Tutor</div>
                     <div class="event c-travel" style="grid-column: 5; grid-row: 42 / 46;">Travel Home</div>
-                    
                     <div class="event c-routine" style="grid-column: 5; grid-row: 46 / 48;">Dinner</div>
-                    
                     <div class="event c-routine" style="grid-column: 5; grid-row: 48 / 50;">Shower</div>
                     
                     <div class="event c-other" style="grid-column: 5; grid-row: 50 / 58;">TOK / EE / Lang<br><span class="event-time">18:30 - 20:30</span></div>
-                    
                     <div class="event c-tutor" style="grid-column: 5; grid-row: 58 / 64;">Chinese Class (金金)<br><span class="event-time">20:30 - 22:00</span></div>
-                    
                     <div class="event c-routine" style="grid-column: 5; grid-row: 64 / 66;">Free Time / Rev</div>
                     <div class="event c-routine" style="grid-column: 5; grid-row: 66 / 68;">Wind Down</div>
 
-                    <div class="event c-routine" style="grid-column: 6; grid-row: 2 / 4;">Wake Up</div>
-                    <div class="event c-routine" style="grid-column: 6; grid-row: 4 / 6;">Breakfast</div>
-                    <div class="event c-travel" style="grid-column: 6; grid-row: 6 / 8;">Travel</div>
+
+                    <div class="event c-travel" style="grid-column: 6; grid-row: 6 / 10;">Travel to School</div>
                     <div class="event c-school" style="grid-column: 6; grid-row: 10 / 28;">School<br><span class="event-time">08:25 - 13:00</span></div>
                     <div class="event c-routine" style="grid-column: 6; grid-row: 28 / 36;">Lunch Friends</div>
                     <div class="event c-travel" style="grid-column: 6; grid-row: 36 / 40;">Travel Home</div>
+                    
                     <div class="event c-econ-d" style="grid-column: 6; grid-row: 40 / 48;">Study Econ & HW</div>
+                    
                     <div class="event c-routine" style="grid-column: 6; grid-row: 48 / 52;">Light Dinner</div>
                     <div class="event c-travel" style="grid-column: 6; grid-row: 52 / 55;">Travel</div>
                     <div class="event c-tutor" style="grid-column: 6; grid-row: 55 / 62;">Ballet</div>
@@ -506,8 +515,7 @@
                     <div class="event c-routine" style="grid-column: 6; grid-row: 64 / 66;">Shower</div>
                     <div class="event c-routine" style="grid-column: 6; grid-row: 66 / 68;">Wind Down</div>
 
-                    <div class="event c-routine" style="grid-column: 7; grid-row: 2 / 4;">Wake Up</div>
-                    <div class="event c-routine" style="grid-column: 7; grid-row: 4 / 6;">Breakfast</div>
+
                     <div class="event c-lang-l" style="grid-column: 7; grid-row: 6 / 14;">Eng Read & CAS<br><span class="event-time">07:30 - 09:30</span></div>
                     <div class="event c-routine" style="grid-column: 7; grid-row: 14 / 18;">Prep<br><span class="event-time">09:30 - 10:00</span></div>
                     <div class="event c-tutor" style="grid-column: 7; grid-row: 18 / 22;">Chinese Tutor<br><span class="event-time">10:00 - 11:00</span></div>
@@ -525,8 +533,7 @@
                     <div class="event c-routine" style="grid-column: 7; grid-row: 60 / 62;">Shower</div>
                     <div class="event c-routine" style="grid-column: 7; grid-row: 62 / 68;">Movie Night</div>
 
-                    <div class="event c-routine" style="grid-column: 8; grid-row: 2 / 4;">Wake Up</div>
-                    
+
                     <div class="event c-math-d" style="grid-column: 8; grid-row: 6 / 12;">Math AA Practice<br><span class="event-time">07:30 - 09:00</span></div>
                     
                     <div class="event c-routine" style="grid-column: 8; grid-row: 12 / 18;">Free Time</div>
