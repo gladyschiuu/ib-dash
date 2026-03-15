@@ -1647,7 +1647,32 @@
             updateUIForStep();
             document.getElementById('workout-dashboard').scrollIntoView({ behavior: 'smooth' });
         }
+// --- WAKE LOCK API (Prevents screen from sleeping) ---
+        let wakeLock = null;
 
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Screen Wake Lock active');
+                    // If the user switches tabs, the browser auto-releases it. Re-acquire when they come back.
+                    document.addEventListener('visibilitychange', async () => {
+                        if (wakeLock !== null && document.visibilityState === 'visible' && !isPaused) {
+                            wakeLock = await navigator.wakeLock.request('screen');
+                        }
+                    });
+                }
+            } catch (err) {
+                console.log(`Wake Lock error: ${err.name}, ${err.message}`);
+            }
+        }
+
+        function releaseWakeLock() {
+            if (wakeLock !== null) {
+                wakeLock.release().then(() => { wakeLock = null; });
+            }
+        }
+        
         function toggleTimer() {
             initAudio();
             if (currentSequence.length === 0) return;
@@ -1656,10 +1681,12 @@
                 isPaused = false;
                 document.getElementById('play-pause-btn').innerHTML = "⏸️ Pause";
                 timerInterval = setInterval(tick, 1000);
+                requestWakeLock(); // Keeps screen awake
             } else {
                 isPaused = true;
                 document.getElementById('play-pause-btn').innerHTML = "▶️ Resume";
                 clearInterval(timerInterval);
+                releaseWakeLock(); // Lets screen sleep again
             }
         }
 
@@ -1667,6 +1694,8 @@
             clearInterval(timerInterval);
             isPaused = true;
             document.getElementById('play-pause-btn').innerHTML = "▶️ Start";
+            releaseWakeLock(); // Lets screen sleep again
+            
             if (currentSequence.length > 0) {
                 currentStepIndex = 0;
                 timeRemaining = currentSequence[0].duration;
@@ -1688,6 +1717,8 @@
                 } else {
                     clearInterval(timerInterval);
                     isPaused = true;
+                    releaseWakeLock(); // Lets screen sleep again when workout is done!
+                    
                     document.getElementById('play-pause-btn').innerHTML = "▶️ Start";
                     document.getElementById('current-phase').innerText = "Workout Complete! 🎉";
                     document.getElementById('time-display').innerText = "00:00";
