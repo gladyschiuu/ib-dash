@@ -370,6 +370,47 @@
         .workout-details-box ul { padding-left: 20px; margin-bottom: 0; }
         .workout-details-box li { margin-bottom: 8px; color: var(--text-main); line-height: 1.5;}
 
+        /* --- TEMPORARY CATCH-UP TAB STYLES --- */
+        .cu-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .cu-header { background: #2563eb; color: white; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .cu-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .cu-badge { background: #3b82f6; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; font-weight: bold; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .cu-progress-bg { background: #1e3a8a; height: 16px; border-radius: 8px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .cu-progress-fill { background: #34d399; height: 100%; width: 0%; transition: width 0.5s ease; border-radius: 8px; }
+        .cu-progress-text { text-align: right; font-size: 0.85rem; margin-top: 8px; color: #bfdbfe; font-weight: bold; }
+        
+        .cu-day { margin-bottom: 35px; }
+        .cu-day-title { border-left: 4px solid #3b82f6; padding-left: 15px; margin-bottom: 15px; }
+        .cu-day-title h2 { margin: 0; font-size: 1.5rem; color: var(--text-main); }
+        .cu-day-title p { margin: 5px 0 0 0; color: #6b7280; font-size: 0.95rem; font-weight: 500; }
+        
+        .cu-task { background: var(--card-bg); border: 1px solid var(--border); padding: 15px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 15px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+        .cu-task:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        
+        .cu-checkbox-wrap { position: relative; display: flex; align-items: center; justify-content: center; margin-top: 3px; }
+        .cu-checkbox { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+        .cu-checkmark { height: 24px; width: 24px; background-color: var(--card-bg); border: 2px solid #cbd5e1; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .cu-checkbox:checked ~ .cu-checkmark { background-color: #10b981; border-color: #10b981; }
+        .cu-checkmark svg { display: none; width: 14px; height: 14px; color: white; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+        .cu-checkbox:checked ~ .cu-checkmark svg { display: block; }
+        
+        .cu-task-content { flex: 1; }
+        .cu-task-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; flex-wrap: wrap; gap: 5px; }
+        .cu-task-title { font-weight: bold; font-size: 1.1rem; color: var(--text-main); margin: 0; transition: 0.2s; }
+        .cu-time-badge { background: #e0e7ff; color: #3730a3; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; font-weight: bold; white-space: nowrap; }
+        .cu-task-desc { margin: 0; font-size: 0.9rem; color: #64748b; transition: 0.2s; line-height: 1.4; }
+
+        /* Completed State */
+        .cu-task.completed { background: var(--dashboard-bg); opacity: 0.7; }
+        .cu-task.completed .cu-task-title { text-decoration: line-through; color: #9ca3af; }
+        .cu-task.completed .cu-task-desc { text-decoration: line-through; color: #9ca3af; }
+
+        /* Dark Mode Support */
+        body.dark-mode .cu-day-title p { color: #9ca3af; }
+        body.dark-mode .cu-task-desc { color: #9ca3af; }
+        body.dark-mode .cu-time-badge { background: #3730a3; color: #e0e7ff; }
+        body.dark-mode .cu-checkmark { border-color: #4b5563; }
+
         /* --- (ARCHIEVE) DYNAMIC ATTACK CARDS (TODO) 
         .todo-controls { text-align: center; margin-bottom: 20px; }
         .btn-new-card {
@@ -521,6 +562,7 @@
                 <button class="nav-btn" onclick="switchTab('workout', this)">🏋️ workout</button>
                 <button class="nav-btn" onclick="switchTab('strategy', this)">🧠 strat</button>
                 <button class="nav-btn" onclick="switchTab('resources', this)">🔗 resources</button>
+                <button class="nav-btn" onclick="switchTab('catchup', this)">🏃‍♂️ Catch-Up</button>
                 <!--<button class="nav-btn" onclick="switchTab('todo', this)">⚡ todo</button>-->
             </div>
             
@@ -1137,6 +1179,28 @@
                 </a>
                 </div>
             </div>
+
+        <div id="catchup" class="tab-content">
+            <div class="cu-container">
+                
+                <div class="cu-header">
+                    <div class="cu-header-top">
+                        <h1 style="margin: 0; font-size: 1.8rem;">🏆 IB Survival Plan</h1>
+                        <span class="cu-badge">ACAMIS Catch-up</span>
+                    </div>
+                    <p style="margin: 5px 0 15px 0; color: #bfdbfe;">Crush the Bio Quiz, finish the Chem IA, and get back on track.</p>
+                    
+                    <div class="cu-progress-bg">
+                        <div id="cu-progress-bar" class="cu-progress-fill"></div>
+                    </div>
+                    <div id="cu-progress-text" class="cu-progress-text">0% Completed</div>
+                </div>
+    
+                <div id="cu-days-container">
+                    </div>
+    
+            </div>
+        </div>
 
     <!--Archive: todo tab
         <div id="todo" class="tab-content">
@@ -1755,6 +1819,139 @@
             document.getElementById('timer-box').className = boxClass;
             updateTimerDisplay();
         }
+
+        // --- TEMPORARY CATCH-UP LOGIC ---
+        const planData = [
+            {
+                day: "🔴 Sunday, March 22 (Today)",
+                focus: "Triage, Chem IA Phase 1, and Bio Foundations.",
+                tasks: [
+                    { time: "4:00 PM - 4:10 PM", title: "English Recon", desc: "Message a classmate right now. Ask exactly what the 'English LL Checkpoint' entails.", completed: false },
+                    { time: "4:10 PM - 6:40 PM", title: "Chem Practice IA (Phase 1)", desc: "Do the Math (q=mcΔT, molar enthalpy), generate your scatter plot graphs, and write the Introduction/Background.", completed: false },
+                    { time: "7:40 PM - 8:30 PM", title: "Bio Quiz Prep (D1.1 DNA Replication)", desc: "Review enzymes (Helicase, Primase, DNA Pol I/III, Ligase). Draw leading/lagging strand and Okazaki fragments.", completed: false },
+                    { time: "8:30 PM - 9:15 PM", title: "Math AA Catch-up", desc: "Knock out half of the missed Geometry questions. Put on music and grind formulas.", completed: false }
+                ]
+            },
+            {
+                day: "🟡 Monday, March 23",
+                focus: "Heavy Bio lifting and Finishing Chem IA.",
+                tasks: [
+                    { time: "4:30 PM - 5:30 PM", title: "Bio Quiz Prep (D1.2 Protein Synthesis)", desc: "Review Transcription (nucleus, RNA pol, splicing) and Translation (ribosomes, tRNA, codons).", completed: false },
+                    { time: "5:30 PM - 6:00 PM", title: "Bio Quiz Prep (D1.3 Mutations)", desc: "Quick review of point mutations and gene editing/CRISPR basics.", completed: false },
+                    { time: "7:00 PM - 9:00 PM", title: "Chem Practice IA (Phase 2 - DONE!)", desc: "Write Analysis, Evaluation (heat loss, soot), and Conclusion. Format citations and save as PDF.", completed: false },
+                    { time: "9:00 PM - 9:45 PM", title: "Econ Catch-up", desc: "Read Macro 3.3 (Conflicts between objectives). Focus on drawing the Short-Run Phillips Curve.", completed: false }
+                ]
+            },
+            {
+                day: "🟠 Tuesday, March 24",
+                focus: "Final Bio prep & Catch-up Buffer.",
+                tasks: [
+                    { time: "4:30 PM - 5:15 PM", title: "Bio Quiz Prep (D2.2 Gene Expression - HL)", desc: "Review nucleosomes, methylation, acetylation, and epigenetics.", completed: false },
+                    { time: "5:15 PM - 6:00 PM", title: "Bio Quiz Practice!", desc: "Do 25 MCQs online (D1.1-D1.3, D2.2) timed for 30 mins. Review wrong answers.", completed: false },
+                    { time: "7:00 PM - 8:00 PM", title: "Chem Catch-up", desc: "Review Hess's Law. Do 3 practice calculation problems manipulating equations.", completed: false },
+                    { time: "8:00 PM onwards", title: "Free Evening!", desc: "Because you finished the Chem IA early, take the rest of the night to relax before the quiz.", completed: false }
+                ]
+            },
+            {
+                day: "🟢 Wednesday, March 25",
+                focus: "Bio Quiz Day!",
+                tasks: [
+                    { time: "Morning/Lunch", title: "Final Bio Review", desc: "15-minute quick skim of flashcards. Focus strictly on enzyme names and HL Gene Expression.", completed: false },
+                    { time: "In Class", title: "CRUSH THE BIO QUIZ! 🧬", desc: "You've got this. Read carefully.", completed: false },
+                    { time: "5:00 PM - 6:00 PM", title: "Math AA & English", desc: "Finish remaining Geometry questions and do the English Checkpoint work.", completed: false }
+                ]
+            },
+            {
+                day: "🔵 Thursday, March 26",
+                focus: "Polish and Buffer Day.",
+                tasks: [
+                    { time: "4:30 PM - 5:30 PM", title: "Bio Catch-up (D2.1)", desc: "Catch up on the D2.1 Cell Division class you missed (mitosis, cyclins, cell cycle).", completed: false },
+                    { time: "5:30 PM - 6:15 PM", title: "Chem IA Polish", desc: "Check against rubric. Perfect citations? Uncertainties labeled? Export to PDF.", completed: false },
+                    { time: "6:15 PM - 6:30 PM", title: "Econ Micro IA Polish", desc: "Open 'basically done' IA. Final read-through. Export to PDF.", completed: false }
+                ]
+            },
+            {
+                day: "🟣 Friday, March 27",
+                focus: "Submission Day",
+                tasks: [
+                    { time: "Deadline", title: "SUBMIT ECON MICRO IA", desc: "Upload to ManageBac or teacher's portal.", completed: false },
+                    { time: "Deadline", title: "SUBMIT CHEM PRACTICE IA", desc: "Upload the finished PDF.", completed: false },
+                    { time: "Weekend", title: "Rest!", desc: "Sleep well, you survived the post-tournament catch-up week!", completed: false }
+                ]
+            }
+        ];
+
+        function renderCatchup() {
+            const container = document.getElementById('cu-days-container');
+            container.innerHTML = '';
+            
+            planData.forEach((dayData, dayIndex) => {
+                const daySection = document.createElement('div');
+                daySection.className = 'cu-day';
+
+                daySection.innerHTML = `
+                    <div class="cu-day-title">
+                        <h2>${dayData.day}</h2>
+                        <p>${dayData.focus}</p>
+                    </div>
+                `;
+
+                dayData.tasks.forEach((task, taskIndex) => {
+                    const isChecked = task.completed;
+                    
+                    const taskEl = document.createElement('label');
+                    taskEl.className = `cu-task ${isChecked ? 'completed' : ''}`;
+                    
+                    taskEl.innerHTML = `
+                        <div class="cu-checkbox-wrap">
+                            <input type="checkbox" class="cu-checkbox" onchange="toggleCuTask(${dayIndex}, ${taskIndex})" ${isChecked ? 'checked' : ''}>
+                            <div class="cu-checkmark">
+                                <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                        </div>
+                        <div class="cu-task-content">
+                            <div class="cu-task-header">
+                                <h3 class="cu-task-title">${task.title}</h3>
+                                <span class="cu-time-badge">${task.time}</span>
+                            </div>
+                            <p class="cu-task-desc">${task.desc}</p>
+                        </div>
+                    `;
+                    daySection.appendChild(taskEl);
+                });
+
+                container.appendChild(daySection);
+            });
+
+            updateCuProgress();
+        }
+
+        window.toggleCuTask = function(dayIndex, taskIndex) {
+            planData[dayIndex].tasks[taskIndex].completed = !planData[dayIndex].tasks[taskIndex].completed;
+            renderCatchup();
+        };
+
+        function updateCuProgress() {
+            let total = 0, completed = 0;
+            planData.forEach(day => day.tasks.forEach(task => { total++; if (task.completed) completed++; }));
+
+            const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+            const progressBar = document.getElementById('cu-progress-bar');
+            const progressText = document.getElementById('cu-progress-text');
+
+            progressBar.style.width = `${percentage}%`;
+            
+            if (percentage === 100) {
+                progressBar.style.backgroundColor = '#fbbf24'; // Yellow when done
+                progressText.innerText = "🎉 100% Completed! You survived the week! 🎉";
+            } else {
+                progressBar.style.backgroundColor = '#34d399'; // Back to green
+                progressText.innerText = `${percentage}% Completed (${completed}/${total} Tasks)`;
+            }
+        }
+
+        // Initialize Catchup Tab
+        renderCatchup();
         
 </script>
 </body>
