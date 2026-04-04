@@ -693,17 +693,16 @@
 
         <div id="workout" class="tab-content">
         <div class="workout-ui-container">
-            <h1 style="text-align: center; color: var(--text-main); margin-bottom: 30px;">⏱️ Interval Timer</h1>
+            <h1 style="text-align: center; color: var(--text-main); margin-bottom: 30px;">🏋️ Gym Plan</h1>
             
             <div class="workout-selector-container">
                 <div class="workout-row">
-                    <button onclick="loadWorkout('strengthA')">🦵 Strength A (Lower)</button>
-                    <button onclick="loadWorkout('strengthB')">💪 Strength B (Upper)</button>
-                    <button onclick="loadWorkout('strengthC')">🔥 Strength C (Full)</button>
+                    <button onclick="loadWorkout('lower')">🦵 Lower</button>
+                    <button onclick="loadWorkout('upper')">💪 Upper</button>
                 </div>
-                <div class="workout-row">
-                    <button onclick="loadWorkout('cardio')">🏃 Cardio Circuit</button>
-                    <button onclick="loadWorkout('recovery')">🚶 Active Recovery</button>
+                 <div class="workout-row">
+                    <button onclick="loadWorkout('fullBody')">🔥 Full Body</button>
+                    <button onclick="loadWorkout('cardioCore')">🏃 Cardio Core</button>
                 </div>
             </div>
 
@@ -1558,48 +1557,78 @@
 
 // --- WORKOUT TIMER LOGIC ---
         const workouts = {
-            strengthA: {
-                name: "🦵 Strength A: Lower Body Focus",
-                desc: "3 rounds | 40s work / 20s rest per exercise",
-                warmup: "Marching, arm circles, 10 bodyweight squats",
-                cooldown: "Hamstring + quad stretch",
-                work: 40, rest: 20, rounds: 3,
-                exercises: ["Squats (feet shoulder-width, or chair sit-to-stand)", "Reverse lunges (step back, alternate legs)", "Glute bridges (lie on floor, lift hips)", "Calf raises (hold wall for balance)", "Bicycle crunches (elbows to opposite knees)"]
-            },
-            strengthB: {
-                name: "💪 Strength B: Upper Body Focus",
-                desc: "3 rounds | 40s work / 20s rest",
-                warmup: "Arm circles, 8 wall push-ups, cat-cow stretch",
-                cooldown: "Chest + shoulder stretch",
-                work: 40, rest: 20, rounds: 3,
-                exercises: ["Incline push-ups (hands on bed/desk edge)", "Shoulder taps (high plank, tap opposite shoulder)", "Tricep dips (sit on chair edge, dip down)", "Superman holds (lie face-down, lift arms/legs)", "Side plank (20s each side, knees OK)"]
-            },
-            strengthC: {
-                name: "🔥 Strength C: Full Body",
-                desc: "3 rounds | 45s work / 15s rest",
-                warmup: "Jumping jacks (low impact), dynamic leg swings",
-                cooldown: "Full body stretch",
-                work: 45, rest: 15, rounds: 3,
-                exercises: ["Squat to overhead reach (squat down, reach up)", "Alternating lunges (step forward/back)", "Plank (forearms, knees OK)", "Good mornings (hinge at hips, flat back)", "Mountain climbers (slow, controlled)"]
-            },
-            cardio: {
-                name: "🏃 Cardio Circuit",
-                desc: "3 rounds | 45s work / 15s rest",
-                warmup: "March in place, arm swings",
-                cooldown: "Hamstring + calf stretch",
-                work: 45, rest: 15, rounds: 3,
-                exercises: ["High knees march (lift knees, pump arms)", "Side steps (left 5x → right 5x)", "Step jacks (step out/in, low impact)", "Butt kicks (slow, controlled)", "Shadow boxing (jabs + crosses)"]
-            },
-            recovery: {
-                name: "🚶 Active Recovery",
-                desc: "20 min total recovery session",
-                warmup: "", cooldown: "", work: 0, rest: 0, rounds: 0, exercises: [],
-                custom: [
-                    { name: "Brisk walk (around estate, conversational pace)", duration: 900 },
-                    { name: "Stretches: Hamstrings, quads, shoulders, cat-cow", duration: 300 }
+              lower: {
+                name: "🦵 Lower Body",
+                desc: "3 rounds | 10-12 reps each exercise",
+                warmup: "5 min treadmill walk or bike, then leg swings and bodyweight squats",
+                cooldown: "Quad, hamstring, and glute stretch",
+                work: 45,
+                rest: 20,
+                rounds: 3,
+                exercises: [
+                  "Leg press OR goblet squats",
+                  "Leg extension",
+                  "Leg curl",
+                  "Dumbbell reverse lunges",
+                  "Dumbbell Romanian deadlifts",
+                  "Calf raises"
                 ]
-            }
-        };
+              },
+            
+              upper: {
+                name: "💪 Upper Body",
+                desc: "3 rounds | 10-12 reps each exercise",
+                warmup: "5 min elliptical or rower, then arm circles and bandless shoulder mobility",
+                cooldown: "Chest, shoulder, and back stretch",
+                work: 45,
+                rest: 20,
+                rounds: 3,
+                exercises: [
+                  "Lat pulldown",
+                  "Seated row",
+                  "Chest press machine",
+                  "Shoulder press machine",
+                  "Dumbbell lateral raises",
+                  "Dual cable triceps pressdown or cable curls"
+                ]
+              },
+            
+              fullBody: {
+                name: "🔥 Full Body",
+                desc: "3 rounds | 8-12 reps each exercise",
+                warmup: "5 min incline walk or bike, then dynamic full-body mobility",
+                cooldown: "Full body stretch on mat",
+                work: 45,
+                rest: 15,
+                rounds: 3,
+                exercises: [
+                  "Dumbbell squat to press",
+                  "Row machine OR cable row",
+                  "Incline chest press",
+                  "Walking lunges",
+                  "Plank",
+                  "Dumbbell deadlift"
+                ]
+              },
+            
+              cardioCore: {
+                name: "🏃 Cardio + Core",
+                desc: "20-30 min conditioning session",
+                warmup: "5 min easy treadmill or elliptical",
+                cooldown: "Slow walk and stretching on mat",
+                work: 40,
+                rest: 20,
+                rounds: 4,
+                exercises: [
+                  "Treadmill incline walk or run",
+                  "Stairmaster or free climber",
+                  "Rowing machine",
+                  "Bike machine",
+                  "Sit-up bench crunches",
+                  "Yoga ball plank or dead bug"
+                ]
+              }
+            };
 
         let timerInterval = null;
         let currentSequence = [];
