@@ -197,7 +197,7 @@
         .c-math-d { background: var(--c-math-d); color: #fff; }
         .c-other { background: var(--c-other); color: #000; }
         .c-big-study { background: var(--c-big-study); color: #fff; }
-        .c-workout { background: var(--c-workout); color: #fff; }
+        .c- { background: var(--c-); color: #fff; }
         .c-gym { background: var(--c-gym); color: #fff; font-weight: bold; }
         .c-sport { background: var(--c-sport); color: #fff; font-weight: bold; }
         .c-plan { background: var(--c-plan); color: #000; font-weight: bold; }
@@ -330,12 +330,12 @@
         .subj-tok { border-left-color: var(--c-other); }
         .subj-ee { border-left-color: var(--c-big-study); }
 
-        /* --- WORKOUT TAB STYLES --- */
-        .workout-selector-container { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-bottom: 30px; }
-        .workout-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .workout-row button { 
+        /* ---  TAB STYLES --- */
+        .-selector-container { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-bottom: 30px; }
+        .-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .-row button { 
             padding: 12px 20px; 
-            border: 2px solid var(--c-workout); /* Colored border */
+            border: 2px solid var(--c-); /* Colored border */
             border-radius: 8px; 
             background: var(--card-bg); /* White fill (adapts to dark mode) */
             color: var(--text-main); /* Text color */
@@ -345,8 +345,8 @@
             font-size: 0.95rem; 
         }
         
-        .workout-row button:hover { 
-            background: var(--c-workout); 
+        .-row button:hover { 
+            background: var(--c-); 
             opacity: 0.2;
             color: #000; 
             transform: translateY(-2px); 
@@ -375,10 +375,10 @@
         body.dark-mode .phase-warmup #time-display, body.dark-mode .phase-warmup #current-phase,
         body.dark-mode .phase-cooldown #time-display, body.dark-mode .phase-cooldown #current-phase { color: #fff !important; }
 
-        .workout-details-box { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border); }
-        .workout-details-box h3 { margin-top: 0; color: var(--text-main); border-bottom: 2px solid var(--border); padding-bottom: 10px;}
-        .workout-details-box ul { padding-left: 20px; margin-bottom: 0; }
-        .workout-details-box li { margin-bottom: 8px; color: var(--text-main); line-height: 1.5;}
+        .-details-box { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .-details-box h3 { margin-top: 0; color: var(--text-main); border-bottom: 2px solid var(--border); padding-bottom: 10px;}
+        .-details-box ul { padding-left: 20px; margin-bottom: 0; }
+        .-details-box li { margin-bottom: 8px; color: var(--text-main); line-height: 1.5;}
 
 
         /* --- (ARCHIEVE) DYNAMIC ATTACK CARDS (TODO) 
@@ -529,7 +529,7 @@
             <div class="nav-centered">
                 <button class="nav-btn" onclick="switchTab('school', this)">🏫 school</button>
                 <button class="nav-btn active" onclick="switchTab('schedule', this)">📅 week</button>
-                <button class="nav-btn" onclick="switchTab('workout', this)">🏋️ workout</button>
+                <button class="nav-btn" onclick="switchTab('', this)">🏋️ </button>
                 <button class="nav-btn" onclick="switchTab('strategy', this)">🧠 strat</button>
                 <button class="nav-btn" onclick="switchTab('resources', this)">🔗 resources</button>
                 <!--<button class="nav-btn" onclick="switchTab('todo', this)">⚡ todo</button>-->
@@ -678,21 +678,17 @@
         </div>
     </div>
 
-        <div id="workout" class="tab-content">
+        <div id="" class="tab-content">
         <div class="workout-ui-container">
             <h1 style="text-align: center; color: var(--text-main); margin-bottom: 30px;">🏋️ Gym Plan</h1>
             
             <div class="workout-selector-container">
                 <div class="workout-row">
-                    <button onclick="loadWorkout('lower')">🦵 Lower</button>
-                    <button onclick="loadWorkout('upper')">💪 Upper</button>
-                </div>
-                 <div class="workout-row">
-                    <button onclick="loadWorkout('fullBody')">🔥 Full Body</button>
-                    <button onclick="loadWorkout('cardioCore')">🏃 Cardio Core</button>
+                    <button onclick="loadWorkout('day1')">🦵 Day 1: Lower (Lean)</button>
+                    <button onclick="loadWorkout('day2')">💪 Day 2: Upper + Core</button>
+                    <button onclick="loadWorkout('day3')">🔥 Day 3: Full + Intervals</button>
                 </div>
             </div>
-
             <div id="workout-dashboard" style="display:none;">
                 <div id="timer-box" class="timer-box phase-warmup">
                     <div id="current-phase">Ready?</div>
@@ -1544,78 +1540,50 @@
 
 // --- WORKOUT TIMER LOGIC ---
         const workouts = {
-              lower: {
-                name: "🦵 Lower Body",
-                desc: "3 rounds | 10-12 reps each exercise",
-                warmup: "5 min treadmill walk or bike, then leg swings and bodyweight squats",
-                cooldown: "Quad, hamstring, and glute stretch",
-                work: 45,
-                rest: 20,
-                rounds: 3,
+            day1: {
+                name: "🦵 Day 1: Lower Body (Lean Focus)",
+                desc: "Leg tone, glutes, and technique. Moderate loads, clean form.",
+                warmup: "Treadmill or bike (8-10m) + leg swings, hip circles, bodyweight squats",
+                cooldown: "Light walking and stretching",
+                work: 45, rest: 60, rounds: 3,
                 exercises: [
-                  "Leg press OR goblet squats",
-                  "Leg extension",
-                  "Leg curl",
-                  "Dumbbell reverse lunges",
-                  "Dumbbell Romanian deadlifts",
-                  "Calf raises"
+                    "Leg press (12–15 reps, keep knees soft)",
+                    "Leg curl (12–15 reps, squeeze hamstrings)",
+                    "Dumbbell Romanian deadlift (12–15 reps, flat back)",
+                    "Step-ups (12–15 reps each leg)",
+                    "Side-lying leg raises (12–15 reps each leg)"
                 ]
-              },
-            
-              upper: {
-                name: "💪 Upper Body",
-                desc: "3 rounds | 10-12 reps each exercise",
-                warmup: "5 min elliptical or rower, then arm circles and bandless shoulder mobility",
-                cooldown: "Chest, shoulder, and back stretch",
-                work: 45,
-                rest: 20,
-                rounds: 3,
+            },
+            day2: {
+                name: "💪 Day 2: Upper Body + Core",
+                desc: "Balanced upper body strength and solid core control.",
+                warmup: "Elliptical or bike (8-10m) + arm circles, torso twists",
+                cooldown: "Chest + shoulder stretch",
+                work: 45, rest: 60, rounds: 3,
                 exercises: [
-                  "Lat pulldown",
-                  "Seated row",
-                  "Chest press machine",
-                  "Shoulder press machine",
-                  "Dumbbell lateral raises",
-                  "Dual cable triceps pressdown or cable curls"
+                    "Chest/shoulder press machine (10–12 reps)",
+                    "Lat pulldown (10–12 reps, pull to upper chest)",
+                    "Seated row (10–12 reps, squeeze shoulder blades)",
+                    "Incline dumbbell press (10–12 reps, smooth motion)",
+                    "Core Circuit: Plank + crunch + dead bug"
                 ]
-              },
-            
-              fullBody: {
-                name: "🔥 Full Body",
-                desc: "3 rounds | 8-12 reps each exercise",
-                warmup: "5 min incline walk or bike, then dynamic full-body mobility",
-                cooldown: "Full body stretch on mat",
-                work: 45,
-                rest: 15,
-                rounds: 3,
+            },
+            day3: {
+                name: "🔥 Day 3: Full Body + Intervals",
+                desc: "Head-to-toe strength with a sharper cardio finisher.",
+                warmup: "Bike or treadmill (8-10m) + dynamic lunges, hip openers",
+                cooldown: "Easy walking or pedaling and light stretching",
+                work: 45, rest: 60, rounds: 3,
                 exercises: [
-                  "Dumbbell squat to press",
-                  "Row machine OR cable row",
-                  "Incline chest press",
-                  "Walking lunges",
-                  "Plank",
-                  "Dumbbell deadlift"
+                    "Leg press (10–12 reps, moderate load)",
+                    "Chest/shoulder press machine (10–12 reps)",
+                    "Lat pulldown (10–12 reps, control the way up)",
+                    "Seated row (10–12 reps, neutral spine)",
+                    "Dumbbell Romanian deadlift (10–12 reps)",
+                    "Intervals: 45 sec FAST / 60 sec RECOVERY (Repeat for 6-8 mins)"
                 ]
-              },
-            
-              cardioCore: {
-                name: "🏃 Cardio + Core",
-                desc: "20-30 min conditioning session",
-                warmup: "5 min easy treadmill or elliptical",
-                cooldown: "Slow walk and stretching on mat",
-                work: 40,
-                rest: 20,
-                rounds: 4,
-                exercises: [
-                  "Treadmill incline walk or run",
-                  "Stairmaster or free climber",
-                  "Rowing machine",
-                  "Bike machine",
-                  "Sit-up bench crunches",
-                  "Yoga ball plank or dead bug"
-                ]
-              }
-            };
+            }
+        };
 
         let timerInterval = null;
         let currentSequence = [];
