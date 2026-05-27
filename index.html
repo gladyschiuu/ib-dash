@@ -33,15 +33,20 @@
             --c-other: #FFF176;
             --c-big-study: #842e7d;
             --c-workout: #FFB85C;
-            --c-gym: #f39c12; /* Add this line */
-            --c-sport: #16a085; /* New Volleyball color */
-            --c-plan: #ffb6b7;  /* New Planning color */
+            --c-gym: #f39c12;
+            --c-sport: #16a085;
+            --c-plan: #ffb6b7;
 
             /* UI Colors */
             --bg: #f4f6f8;
             --nav-bg: #2c3e50;
             --nav-active: #34495e;
             --text: #2c3e50;
+            
+            /* Missing Variables */
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --border: #e0e0e0;
         }
 
         body {
@@ -110,7 +115,7 @@
         .calendar-grid {
             display: grid; 
             grid-template-columns: 60px repeat(7, minmax(130px, 1fr));
-            grid-template-rows: 40px repeat(66, 20px); /* Updated to 68 rows for the sleep block */
+            grid-template-rows: 40px repeat(66, 20px);
             border: 1px solid var(--border);
             position: relative;
         }
@@ -123,7 +128,7 @@
             font-size: 0.9rem;
         }
 
-        /* Time Labels (Updated to match your new code) */
+        /* Time Labels */
         .time-label {
             grid-column: 1;
             background-color: #f1f1f1;
@@ -139,11 +144,10 @@
             font-weight: 500;
         }
 
-        /* This places the text exactly on the grid line */
         .time-label span {
-            background-color: #f1f1f1; /* Hides the line behind text */
+            background-color: #f1f1f1;
             padding: 0 4px;
-            transform: translateY(-50%); /* Moves text up to center on the line */
+            transform: translateY(-50%);
             font-size: 0.75rem; 
             color: #666; 
             font-weight: 500;
@@ -151,22 +155,18 @@
             z-index: 5;
         }
 
-        /*time label 6:30*/
-         .time-label-top {
+        .time-label-top {
             grid-column: 1; 
             background-color: #f1f1f1; 
             border-bottom: 1px solid #eee; 
             border-right: 1px solid #ddd;
-            
-            /* Align content for the span */
             display: flex; 
             align-items: flex-start; 
             justify-content: center; 
         }
 
-        /* This places the text exactly on the grid line */
         .time-label-top span {
-            background-color: #f1f1f1; /* Hides the line behind text */
+            background-color: #f1f1f1;
             padding: 0 4px;
             font-size: 0.75rem; 
             color: #666; 
@@ -175,7 +175,7 @@
             z-index: 5;
         }
 
-        /* RESTORED: Event Styles (Rounded Corners) */
+        /* Event Styles */
         .event {
             margin: 1px 2px; 
             padding: 4px; 
@@ -189,8 +189,7 @@
         }
         
         .event-time { font-size: 0.65rem; opacity: 0.8; margin-top: 2px; font-weight: 400; display: block; }
-        /* Add this line: */
-        .event-location { font-size: 0.65rem; font-style: italic; font-weight: bold; color: #333; margin-top: 2px; background: rgba(255,255,255,0.4); border-radius: 3px; display: inline-block; padding: 1px 4px;}
+        .event-location { font-size: 0.65rem; font-style: italic; font-weight: bold; color: #333; margin-top: 2px; background: rgba(255,255,255,0.4); border-radius: 3px; display: inline-block; padding: 2px 4px; }
 
         /* Colors */
         .c-tutor { background: var(--c-tutor); color: #000; }
@@ -213,8 +212,7 @@
         .c-sport { background: var(--c-sport); color: #fff; font-weight: bold; }
         .c-plan { background: var(--c-plan); color: #000; font-weight: bold; }
 
-        /* --- UPDATED STRATEGY STYLES --- */
-        /* Map new variables to existing ones if needed */
+        /* --- STRATEGY STYLES --- */
         :root {
             --c-bio: var(--c-bio-d);
             --c-chem: var(--c-chem-d);
@@ -223,7 +221,6 @@
             --c-math: var(--c-math-d);
         }
 
-        /* Ensure .card works inside strategy grid */
         .card {
             background: white;
             border-radius: 12px;
@@ -232,7 +229,7 @@
             border-left: 6px solid #ccc;
             transition: transform 0.2s, box-shadow 0.2s;
             height: 100%;
-            display: flex; flex-direction: column; /* Fixes alignment */
+            display: flex; flex-direction: column;
         }
         
         .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); cursor: pointer; }
@@ -246,7 +243,6 @@
             padding: 0 2px; border-radius: 2px;
         }
 
-        /* New Border Colors from Strat Tab */
         .card.routine-sat { border-left-color: var(--c-routine); }
         .card.routine-sun { border-left-color: var(--c-math); } 
         .card.routine-plan { border-left-color: var(--c-big-study); }
@@ -260,14 +256,13 @@
         .card.subj-tok { border-left-color: var(--c-other); }
         .card.subj-ee { border-left-color: var(--c-big-study); }
 
-       /* --- STRATEGY TAB STYLES (MATCHING STRAT TAB.HTML) --- */
+       /* --- STRATEGY TAB STYLES --- */
         .strategy-container { 
             max-width: 1000px; 
             margin: 0 auto; 
             padding: 20px; 
         }
         
-        /* Main Title Styling */
         .strategy-container h1 { 
             margin-bottom: 30px; text-align: center; color: #2c3e50; 
         }
@@ -279,21 +274,18 @@
             text-decoration-thickness: 2px; text-underline-offset: 4px; 
         }
 
-        /* Section Header Styling */
         .strategy-container h2 { 
             margin-top: 40px; margin-bottom: 20px; font-size: 1.4rem; 
             border-bottom: 2px solid #ddd; display: inline-block; 
             padding-bottom: 5px; color: #2c3e50;
         }
 
-        /* Grid Layout */
         .card-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 20px; 
         }
 
-        /* Card Styling */
         .card { 
             background: white; border-radius: 12px; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; 
@@ -315,19 +307,11 @@
             padding: 3px 8px; border-radius: 4px; background: #eee; color: #555; 
         }
         
-        .highlight { 
-            font-weight: 600; color: #000; background: rgba(255, 255, 0, 0.15); 
-            padding: 0 2px; border-radius: 2px; 
-        }
-        
-        /* List Styling */
         .card ul { margin: 0; padding-left: 20px; }
         .card li { margin-bottom: 8px; line-height: 1.5; color: #555; }
         
-        /* Link Styling */
         .card-link { text-decoration: none; color: inherit; display: block; height: 100%; }
 
-        /* Specific Border Colors */
         .routine-sat { border-left-color: var(--c-routine); }
         .routine-sun { border-left-color: var(--c-math-d); } 
         .routine-plan { border-left-color: var(--c-big-study); }
@@ -346,10 +330,10 @@
         .workout-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         .workout-row button { 
             padding: 12px 20px; 
-            border: 2px solid var(--c-workout); /* Colored border */
+            border: 2px solid var(--c-workout);
             border-radius: 8px; 
-            background: var(--card-bg); /* White fill (adapts to dark mode) */
-            color: var(--text-main); /* Text color */
+            background: var(--card-bg);
+            color: var(--text-main);
             font-weight: bold; 
             cursor: pointer; 
             transition: all 0.2s ease; 
@@ -358,10 +342,15 @@
         
         .workout-row button:hover { 
             background: var(--c-workout); 
-            opacity: 0.2;
+            opacity: 0.9;
             color: #000; 
             transform: translateY(-2px); 
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+        }
+        
+        .workout-row button.active {
+            background: var(--c-workout);
+            color: #000;
         }
         
         .timer-box { text-align: center; border-radius: 12px; padding: 50px 20px; margin: 20px 0; border: 5px solid var(--border); transition: all 0.3s ease; }
@@ -373,7 +362,6 @@
         .timer-controls button { padding: 12px 30px; font-size: 1.1rem; cursor: pointer; border-radius: 8px; border: none; font-weight: bold; background: var(--nav-bg); color: white; transition: 0.2s; }
         .timer-controls button:hover { background: var(--nav-active); }
         
-        /* Dynamic Phase Colors (Supports Dark Mode) */
         .phase-work { background-color: #e8f5e9 !important; border-color: #4caf50 !important; color: #000; }
         .phase-rest { background-color: #ffebee !important; border-color: #f44336 !important; color: #000; }
         .phase-warmup, .phase-cooldown { background-color: #e3f2fd !important; border-color: #2196f3 !important; color: #000; }
@@ -381,81 +369,13 @@
         body.dark-mode .phase-work { background-color: #1b5e20 !important; color: #fff !important; }
         body.dark-mode .phase-rest { background-color: #b71c1c !important; color: #fff !important; }
         body.dark-mode .phase-warmup, body.dark-mode .phase-cooldown { background-color: #0d47a1 !important; color: #fff !important; }
-        body.dark-mode .phase-work #time-display, body.dark-mode .phase-work #current-phase, 
-        body.dark-mode .phase-rest #time-display, body.dark-mode .phase-rest #current-phase, 
-        body.dark-mode .phase-warmup #time-display, body.dark-mode .phase-warmup #current-phase,
-        body.dark-mode .phase-cooldown #time-display, body.dark-mode .phase-cooldown #current-phase { color: #fff !important; }
 
         .workout-details-box { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border); }
         .workout-details-box h3 { margin-top: 0; color: var(--text-main); border-bottom: 2px solid var(--border); padding-bottom: 10px;}
         .workout-details-box ul { padding-left: 20px; margin-bottom: 0; }
         .workout-details-box li { margin-bottom: 8px; color: var(--text-main); line-height: 1.5;}
 
-
-        /* --- (ARCHIEVE) DYNAMIC ATTACK CARDS (TODO) 
-        .todo-controls { text-align: center; margin-bottom: 20px; }
-        .btn-new-card {
-            background: #27ae60; color: white; border: none; padding: 12px 30px; border-radius: 30px;
-            font-weight: bold; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3); transition: transform 0.2s;
-        }
-        .btn-new-card:hover { transform: scale(1.05); }
-
-        .attack-card {
-            background: white; border-radius: 12px; margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden;
-            border-left: 6px solid #ccc; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .attack-card.drag-over { border: 2px dashed #aaa; background: #fdfdfd; }
-        .drag-handle { cursor: grab; font-size: 1.2rem; color: #ccc; margin-right: 5px; user-select: none; }
-        .drag-handle:active { cursor: grabbing; color: #666; }
-
-        .attack-card.subj-bio  { border-left-color: var(--c-bio-d); }
-        .attack-card.subj-chem { border-left-color: var(--c-chem-d); }
-        .attack-card.subj-math { border-left-color: var(--c-math-d); }
-        .attack-card.subj-econ { border-left-color: var(--c-econ-d); }
-        .attack-card.subj-eng  { border-left-color: var(--c-lang-d); }
-        .attack-card.subj-chi  { border-left-color: var(--c-lang-d); } 
-        .attack-card.subj-tok  { border-left-color: var(--c-other); }
-        .attack-card.subj-cas  { border-left-color: #e67e22; }
-        .attack-card.subj-misc { border-left-color: #bdc3c7; }
-
-        .card-title-input { font-weight: bold; font-size: 1.1rem; border: none; background: transparent; width: 60%; color: #2c3e50; }
-        .card-subject-select {
-            border: none; background: #f0f0f0; padding: 8px 12px; border-radius: 8px;
-            font-size: 0.85rem; font-weight: 700; color: #444; cursor: pointer; margin-right: 10px; outline: none;
-        }
-        .card-date-input {
-            border: 1px solid #ddd; background: #fdfdfd; padding: 8px 12px; border-radius: 20px;
-            font-family: inherit; font-size: 0.85rem; color: #555; cursor: pointer; margin-left: 10px; transition: all 0.2s;
-        }
-        .btn-delete-card { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1.2rem; margin-left: 10px; }
-
-        .card-focus-strip { background: #f8f9fa; padding: 8px 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; font-size: 0.9rem; color: #555; }
-        .card-focus-input { border: none; background: transparent; width: 100%; margin-left: 8px; font-weight: 600; color: #27ae60; outline: none; }
-
-        .desc-container { border: 1px solid #eee; border-radius: 8px; background: #fff; overflow: hidden; margin-bottom: 5px; }
-        .format-toolbar { display: none; background: #f8f9fa; border-bottom: 1px solid #eee; padding: 5px 10px; gap: 5px; }
-        .desc-container:focus-within .format-toolbar { display: flex; }
-
-        .format-btn { background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem; color: #666; font-weight: bold; }
-        .format-btn:hover { background: #e2e6ea; color: #333; }
-
-        .rich-editor { width: 100%; min-height: 22px; max-height: 300px; overflow-y: auto; padding: 5px; outline: none; font-family: inherit; font-size: 0.9rem; color: #555; box-sizing: border-box; line-height: 1.4; }
-        .rich-editor[contenteditable]:empty::before { content: attr(placeholder); color: #ccc; cursor: text; display: block; }
-        .rich-editor b, .rich-editor strong { font-weight: 700; color: #333; }
-        .rich-editor i, .rich-editor em { font-style: italic; }
-        .rich-editor ul { margin: 5px 0 5px 20px; padding: 0; }
-        .rich-editor li { margin-bottom: 2px; }
-
-        .checklist-container { margin-top: 5px; }
-        .checklist-item { display: flex; align-items: center; margin-bottom: 8px; }
-        .checklist-item input[type="checkbox"] { margin-right: 10px; width: 16px; height: 16px; }
-        .checklist-text { flex-grow: 1; border: none; border-bottom: 1px dashed transparent; padding: 2px; font-size: 0.9rem; }
-        .checklist-text:focus { border-bottom: 1px dashed #ccc; outline: none; }
-        .btn-add-item { background: #eee; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; color: #555; margin-top: 5px; }--- */
-
         h2 { border-bottom: 2px solid #ddd; padding-bottom: 10px; color: #2c3e50; font-size: 1.5rem; margin-top: 30px;}
-        .highlight { background: rgba(255, 255, 0, 0.15); font-weight: 600; padding: 0 4px; }
         .center-text { text-align: center; }
         .hidden { display: none !important; } 
 
@@ -496,11 +416,8 @@
             font-size: 0.7rem; color: #888; margin-top: 5px; 
             text-transform: uppercase; letter-spacing: 1px;
         }
-        /* ==========================================================================
-           --- MOBILE RESPONSIVE OPTIMIZATIONS (ADDED FOR MOBILE CAPABILITY) ---
-           ========================================================================== */
+        
         @media (max-width: 768px) {
-            /* 1. Multi-Row Stacking Navbar Layout */
             body { padding-top: 130px; }
             
             .navbar {
@@ -534,11 +451,9 @@
 
             .daily-classes { max-width: 140px; }
 
-            /* 2. Viewport Adjustments */
             .tab-content { padding: 12px; }
             .calendar-container { -webkit-overflow-scrolling: touch; }
 
-            /* 3. Scaled-Down Workout Timer Elements */
             #time-display { font-size: 4.5rem; }
             .timer-box { padding: 30px 15px; }
             #current-phase { font-size: 1.4rem; }
@@ -550,7 +465,6 @@
                 max-width: 150px;
             }
 
-            /* 4. Single Column Layouts for Strategy & Resources */
             .strategy-container { padding: 10px 0; }
             .strategy-container h2 { margin-top: 25px; font-size: 1.2rem; }
             .card-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -602,7 +516,6 @@
                 <button class="nav-btn" onclick="switchTab('workout', this)">🏋️ workout</button>
                 <button class="nav-btn" onclick="switchTab('strategy', this)">🧠 strat</button>
                 <button class="nav-btn" onclick="switchTab('resources', this)">🔗 resources</button>
-                <!--<button class="nav-btn" onclick="switchTab('todo', this)">⚡ todo</button>-->
             </div>
             
             <div class="nav-right">
@@ -617,1269 +530,262 @@
 
         <div id="school" class="tab-content" style="padding: 0;">
             <div style="max-width: 100%; text-align: center;">
-                
                 <h1 style="color: #2c3e50; margin: 10px 0; font-size: 1.5rem;">school schedule</h1>
-                
                 <img src="school_schedule.png" alt="My School Schedule" style="
                     width: 100%;
                     max-width: 1400px;
                     height: auto;
-                    display: block;  /* Removes tiny hidden gap at bottom */
+                    display: block;
                     margin: 0 auto;
                     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
                 ">
             </div>
         </div>
         
-       <div id="schedule" class="tab-content">
-        <div class="calendar-container">
-            <div class="calendar-grid">
-                
-                <div class="header">Time</div><div class="header">Mon</div><div class="header">Tue</div><div class="header">Wed</div><div class="header">Thu</div><div class="header">Fri</div><div class="header">Sat</div><div class="header">Sun</div>
-
-                <div class="time-label" style="grid-row: 2 / 6">06:30</div>
-                <div class="time-label" style="grid-row: 6 / 10">07:30</div>
-                <div class="time-label" style="grid-row: 10 / 14">08:30</div>
-                <div class="time-label" style="grid-row: 14 / 18">09:30</div>
-                <div class="time-label" style="grid-row: 18 / 22">10:30</div>
-                <div class="time-label" style="grid-row: 22 / 26">11:30</div>
-                <div class="time-label" style="grid-row: 26 / 30">12:30</div>
-                <div class="time-label" style="grid-row: 30 / 34">13:30</div>
-                <div class="time-label" style="grid-row: 34 / 38">14:30</div>
-                <div class="time-label" style="grid-row: 38 / 42">15:30</div>
-                <div class="time-label" style="grid-row: 42 / 46">16:30</div>
-                <div class="time-label" style="grid-row: 46 / 50">17:30</div>
-                <div class="time-label" style="grid-row: 50 / 54">18:30</div>
-                <div class="time-label" style="grid-row: 54 / 58">19:30</div>
-                <div class="time-label" style="grid-row: 58 / 62">20:30</div>
-                <div class="time-label" style="grid-row: 62 / 66">21:30</div>
-                <div class="time-label" style="grid-row: 66 / 68">22:30</div>
-
-                <div class="event c-routine" style="grid-column: 2; grid-row: 2 / 6;">Wake Up & Bkfst</div>
-                <div class="event c-routine" style="grid-column: 3; grid-row: 2 / 6;">Wake Up & Bkfst</div>
-                <div class="event c-routine" style="grid-column: 4; grid-row: 2 / 6;">Wake Up & Bkfst</div>
-                <div class="event c-routine" style="grid-column: 5; grid-row: 2 / 6;">Wake Up & Bkfst</div>
-                <div class="event c-routine" style="grid-column: 6; grid-row: 2 / 6;">Wake Up & Bkfst</div>
-                <div class="event c-routine" style="grid-column: 7; grid-row: 2 / 10;">Wake Up & Bkfst<br><span class="event-time">06:30 - 08:30</span></div>
-                <div class="event c-routine" style="grid-column: 8; grid-row: 2 / 10;">Wake Up & Bkfst<br><span class="event-time">06:30 - 08:30</span></div>
-
-                <div class="event c-travel" style="grid-column: 2; grid-row: 6 / 10;">Travel to School</div>
-                <div class="event c-school" style="grid-column: 2; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:15</span></div>
-                <div class="event c-travel" style="grid-column: 2; grid-row: 37 / 40;">Travel Home</div>
-                <div class="event c-routine" style="grid-column: 2; grid-row: 40 / 42;">Snack / Break</div>
-                <div class="event c-gym" style="grid-column: 2; grid-row: 42 / 48;">💪 GYM SESSION<br><span class="event-time">16:30 - 18:00</span></div>
-                <div class="event c-routine" style="grid-column: 2; grid-row: 48 / 52;">Shower & Dinner</div>
-                <div class="event c-bio-d" style="grid-column: 2; grid-row: 52 / 58;">Study: Bio HL<br><span class="event-time">19:00 - 20:30</span></div>
-                <div class="event c-econ-d" style="grid-column: 2; grid-row: 58 / 64;">Study: Econ HL<br><span class="event-time">20:30 - 22:00</span></div>
-                <div class="event c-routine" style="grid-column: 2; grid-row: 64 / 66;">Wind Down</div>
-
-                <div class="event c-travel" style="grid-column: 3; grid-row: 6 / 10;">Travel to School</div>
-                <div class="event c-school" style="grid-column: 3; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:15</span></div>
-                <div class="event c-travel" style="grid-column: 3; grid-row: 37 / 39;">Travel to SM</div>
-                <div class="event c-tutor" style="grid-column: 3; grid-row: 39 / 43;"><b>Bio Tutor</b><br><span class="event-location">📍 Shek Mun</span><span class="event-time">15:45 - 16:45</span></div>
-                <div class="event c-routine" style="grid-column: 3; grid-row: 43 / 44;">Break</div>
-                <div class="event c-tutor" style="grid-column: 3; grid-row: 44 / 48;"><b>Econ Tutor</b><br><span class="event-location">📍 Shek Mun</span><span class="event-time">17:00 - 18:00</span></div>
-                <div class="event c-travel" style="grid-column: 3; grid-row: 48 / 51;">Travel Home (45m)</div>
-                <div class="event c-routine" style="grid-column: 3; grid-row: 51 / 53;">Dinner</div>
-                <div class="event c-chem-d" style="grid-column: 3; grid-row: 53 / 58;">Study: Chem HL<br><span class="event-time">19:15 - 20:30</span></div>
-                <div class="event c-lang-d" style="grid-column: 3; grid-row: 58 / 64;">Study: English<br><span class="event-time">20:30 - 22:00</span></div>
-                <div class="event c-routine" style="grid-column: 3; grid-row: 64 / 66;">Wind Down</div>
-
-                <div class="event c-travel" style="grid-column: 4; grid-row: 6 / 10;">Travel to School</div>
-                <div class="event c-school" style="grid-column: 4; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:15</span></div>
-                <div class="event c-travel" style="grid-column: 4; grid-row: 37 / 40;">Travel Home</div>
-                <div class="event c-routine" style="grid-column: 4; grid-row: 40 / 42;">Snack / Change</div>
-                <div class="event c-gym" style="grid-column: 4; grid-row: 42 / 48;">💪 GYM SESSION<br><span class="event-time">16:30 - 18:00</span></div>
-                <div class="event c-routine" style="grid-column: 4; grid-row: 48 / 52;">Shower & Dinner</div>
-                <div class="event c-math-d" style="grid-column: 4; grid-row: 52 / 58;">Study: Math AA<br><span class="event-time">19:00 - 20:30</span></div>                
-                <div class="event c-econ-d" style="grid-column: 4; grid-row: 58 / 64;">Study: Econ HL<br><span class="event-time">20:30 - 22:00</span></div>
-                <div class="event c-routine" style="grid-column: 4; grid-row: 64 / 66;">Wind Down</div>
-
-                <div class="event c-travel" style="grid-column: 5; grid-row: 6 / 10;">Travel to School</div>
-                <div class="event c-school" style="grid-column: 5; grid-row: 10 / 37;">School<br><span class="event-time">08:25 - 15:15</span></div>
-                <div class="event c-travel" style="grid-column: 5; grid-row: 37 / 38;">Rush to SM</div>
-                <div class="event c-tutor" style="grid-column: 5; grid-row: 38 / 42;"><b>Chem Tutor</b><br><span class="event-location">📍 Shek Mun</span><span class="event-time">15:30 - 16:30</span></div>
-                <div class="event c-travel" style="grid-column: 5; grid-row: 42 / 45;">Travel Home (45m)</div>
-                <div class="event c-bio-d" style="grid-column: 5; grid-row: 45 / 51;">Study: Bio HL<br><span class="event-time">17:15 - 18:45</span></div>            
-                <div class="event c-routine" style="grid-column: 5; grid-row: 51 / 54;">Dinner</div>
-                <div class="event c-tutor" style="grid-column: 5; grid-row: 54 / 62;"><b>English (Anson)</b><br><span class="event-location">📍 Home</span><span class="event-time">19:30 - 21:30</span></div>
-                <div class="event c-other" style="grid-column: 5; grid-row: 62 / 64;">Personal Statement<br><span class="event-time">21:30 - 22:00</span></div>
-                <div class="event c-routine" style="grid-column: 5; grid-row: 64 / 66;">Wind Down</div>
-
-                <div class="event c-travel" style="grid-column: 6; grid-row: 6 / 10;">Travel to School</div>
-                <div class="event c-school" style="grid-column: 6; grid-row: 10 / 28;">School<br><span class="event-time">08:25 - 13:00</span></div>
-                <div class="event c-routine" style="grid-column: 6; grid-row: 28 / 40;">Lunch w/ Friends<br><span class="event-time">13:00 - 16:00</span></div>
-                <div class="event c-travel" style="grid-column: 6; grid-row: 40 / 42;">Travel Home</div>
-                <div class="event c-gym" style="grid-column: 6; grid-row: 42 / 48;">💪 GYM SESSION<br><span class="event-time">16:30 - 18:00</span></div>
-                <div class="event c-routine" style="grid-column: 6; grid-row: 48 / 52;">Shower & Dinner</div>
-                <div class="event c-math-d" style="grid-column: 6; grid-row: 52 / 58;">Study: Math AA<br><span class="event-time">19:00 - 20:30</span></div>
-                <div class="event c-routine" style="grid-column: 6; grid-row: 58 / 66;">Friday Relax / Movie<br><span class="event-time">20:30 - 22:30</span></div>
-
-                <div class="event c-other" style="grid-column: 7; grid-row: 10 / 14;">UCAT Prep<br><span class="event-time">08:30 - 09:30</span></div>
-                <div class="event c-travel" style="grid-column: 7; grid-row: 14 / 16;">Transit to VB<br><span class="event-time">09:30 - 10:00</span></div>
-                <div class="event c-sport" style="grid-column: 7; grid-row: 16 / 24;">🏐 Volleyball (± 1hr)<br><span class="event-time">10:00 - 12:00</span></div>
-                <div class="event c-routine" style="grid-column: 7; grid-row: 24 / 26;">Shower & Change</div>
-                <div class="event c-travel" style="grid-column: 7; grid-row: 26 / 32;">Travel TKW / Lunch<br><span class="event-time">12:30 - 14:00</span></div>
-                <div class="event c-tutor" style="grid-column: 7; grid-row: 32 / 38;"><b>Tutor w/ Smile</b><br><span class="event-location">📍 To Kwa Wan</span><span class="event-time">14:00 - 15:30</span></div>
-                <div class="event c-travel" style="grid-column: 7; grid-row: 38 / 40;">Travel Home</div>
-                <div class="event c-chem-d" style="grid-column: 7; grid-row: 40 / 46;">Study: Chem HL<br><span class="event-time">16:00 - 17:30</span></div>
-                <div class="event c-routine" style="grid-column: 7; grid-row: 46 / 48;">Rest / Dinner<br><span class="event-time">17:30 - 18:00</span></div>
-                <div class="event c-tutor" style="grid-column: 7; grid-row: 48 / 56;"><b>Biochem Tutor</b><br><span class="event-location">📍 Home</span><span class="event-time">18:00 - 20:00</span></div>
-                <div class="event c-big-study" style="grid-column: 7; grid-row: 56 / 62;">EE / TOK Work<br><span class="event-time">20:00 - 21:30</span></div>
-                <div class="event c-routine" style="grid-column: 7; grid-row: 62 / 66;">Wind Down / Relax</div>
-
-                <div class="event c-plan" style="grid-column: 8; grid-row: 10 / 14;">Weekly Planning<br><span class="event-time">08:30 - 09:30</span></div>
-                <div class="event c-math-d" style="grid-column: 8; grid-row: 14 / 18;">Study: Math AA<br><span class="event-time">09:30 - 10:30</span></div>
-                <div class="event c-travel" style="grid-column: 8; grid-row: 18 / 20;">Transit to LCK</div>
-                <div class="event c-tutor" style="grid-column: 8; grid-row: 20 / 27;"><b>Ballet</b><br><span class="event-location">📍 Lai Chi Kok</span><span class="event-time">11:00 - 12:45</span></div>
-                <div class="event c-travel" style="grid-column: 8; grid-row: 27 / 30;">Travel Home & Lunch</div>
-                <div class="event c-lang-d" style="grid-column: 8; grid-row: 30 / 36;">Study: English<br><span class="event-time">13:30 - 15:00</span></div>
-                <div class="event c-routine" style="grid-column: 8; grid-row: 36 / 38;">Break</div>
-                <div class="event c-bio-d" style="grid-column: 8; grid-row: 38 / 44;">Study: Bio HL<br><span class="event-time">15:30 - 17:00</span></div>
-                <div class="event c-other" style="grid-column: 8; grid-row: 44 / 50;">IA Drafts / EE<br><span class="event-time">17:00 - 18:30</span></div>
-                <div class="event c-routine" style="grid-column: 8; grid-row: 50 / 54;">Dinner</div>
-                <div class="event c-econ-d" style="grid-column: 8; grid-row: 54 / 60;">Study: Econ HL<br><span class="event-time">19:30 - 21:00</span></div>
-                <div class="event c-other" style="grid-column: 8; grid-row: 60 / 64;">UCAT Prep<br><span class="event-time">21:00 - 22:00</span></div>
-                <div class="event c-routine" style="grid-column: 8; grid-row: 64 / 66;">Wind Down</div>
-                
-                <div class="event c-routine" style="grid-column: 2 / 9; grid-row: 66 / 68; background-color: #333; color: white;">SLEEP @ 22:30</div>
-
+        <div id="schedule" class="tab-content">
+            <div class="calendar-container">
+                <div class="calendar-grid">
+                    <div class="header">Time</div><div class="header">Mon</div><div class="header">Tue</div><div class="header">Wed</div><div class="header">Thu</div><div class="header">Fri</div><div class="header">Sat</div><div class="header">Sun</div>
+                    
+                    <div class="time-label" style="grid-row: 2 / 6">06:30</div>
+                    <div class="time-label" style="grid-row: 6 / 10">07:30</div>
+                    <div class="time-label" style="grid-row: 10 / 14">08:30</div>
+                    <div class="time-label" style="grid-row: 14 / 18">09:30</div>
+                    <div class="time-label" style="grid-row: 18 / 22">10:30</div>
+                    <div class="time-label" style="grid-row: 22 / 26">11:30</div>
+                    <div class="time-label" style="grid-row: 26 / 30">12:30</div>
+                    <div class="time-label" style="grid-row: 30 / 34">13:30</div>
+                    <div class="time-label" style="grid-row: 34 / 38">14:30</div>
+                    <div class="time-label" style="grid-row: 38 / 42">15:30</div>
+                    <div class="time-label" style="grid-row: 42 / 46">16:30</div>
+                    <div class="time-label" style="grid-row: 46 / 50">17:30</div>
+                    <div class="time-label" style="grid-row: 50 / 54">18:30</div>
+                    <div class="time-label" style="grid-row: 54 / 58">19:30</div>
+                    <div class="time-label" style="grid-row: 58 / 62">20:30</div>
+                    <div class="time-label" style="grid-row: 62 / 66">21:30</div>
+                    <div class="time-label" style="grid-row: 66 / 68">22:30</div>
+                </div>
             </div>
         </div>
-    </div>
 
         <div id="workout" class="tab-content">
-        <div class="workout-ui-container">
-            <h1 style="text-align: center; color: var(--text-main); margin-bottom: 30px;">🏋️ Gym Plan</h1>
-            
-            <div class="workout-selector-container">
-                <div class="workout-row">
-                    <button onclick="loadWorkout('day1')">🦵 Day 1: Lower (Lean)</button>
-                    <button onclick="loadWorkout('day2')">💪 Day 2: Upper + Core</button>
-                    <button onclick="loadWorkout('day3')">🔥 Day 3: Full + Intervals</button>
+            <div class="workout-ui-container">
+                <h1 style="text-align: center; color: var(--text-main); margin-bottom: 30px;">🏋️ Gym Plan</h1>
+                
+                <div class="workout-selector-container">
+                    <div class="workout-row">
+                        <button class="active" onclick="loadWorkout('day1', this)">🦵 Day 1: Lower (Lean)</button>
+                        <button onclick="loadWorkout('day2', this)">💪 Day 2: Upper + Core</button>
+                        <button onclick="loadWorkout('day3', this)">🔥 Day 3: Full + Intervals</button>
+                    </div>
+                </div>
+
+                <div id="workout-content" style="max-width: 900px; margin: 0 auto;">
+                    <!-- Workout details will be loaded here -->
                 </div>
             </div>
         </div>
-    </div>
 
         <div id="strategy" class="tab-content">
-        <div class="strategy-container">
+            <div class="strategy-container">
+                <h1>
+                    <a href="https://www.notion.so/chiuy6/74ecf570ba6542158d61dd82d6b7b365?source=copy_link" target="_blank" title="Go to Dashboard">🧠 IBDP Strategy Visualizer</a>
+                </h1>
 
-            <h1>
-                <a href="https://www.notion.so/chiuy6/74ecf570ba6542158d61dd82d6b7b365?source=copy_link" target="_blank" title="Go to Dashboard">🧠 IBDP Strategy Visualizer</a>
-            </h1>
-
-            <div style="text-align: center;"><h2>🌅 Weekly Routine Strategy</h2></div>
-            <div class="card-grid">
-                
-                <div class="card routine-sat">
-                    <div class="card-header">
-                        Saturday Morning
-                        <span class="card-label">Low Intensity</span>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>English L&L Reading:</strong> Sticky note quotes for <span class="highlight">literary devices</span> immediately. Saves Paper 2 prep time.</li>
-                            <li><strong>CAS Portfolio:</strong> Update reflections weekly. Upload photos now to prevent panic later.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card routine-sun">
-                    <div class="card-header">
-                        Sunday Morning
-                        <span class="card-label" style="background: var(--c-math-d); color: white;">High Priority</span>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Math AA SL (07:30 - 09:00):</strong> Do this when fresh.</li>
-                            <li><strong>Traffic Light System:</strong> Mark questions Red/Amber/Green.</li>
-                            <li><strong>Mistake Notebook:</strong> Copy 'Red' questions to re-attempt blindly next week.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card routine-write">
-                    <div class="card-header">
-                        Sunday Evening
-                        <span class="card-label" style="background: var(--c-lang-d); color: white;">Writing Block</span>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>The Writer's Gym:</strong> 19:30 - 20:30. No Reading. Only Writing.</li>
-                            <li><strong>Goal:</strong> One perfect <em>PETER+L</em> paragraph OR 300 words of "ugly" EE drafting.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <a href="#" class="card-link" target="_blank" title="Open Planning Checklist">
-                    <div class="card routine-plan">
+                <div style="text-align: center;"><h2>🌅 Weekly Routine Strategy</h2></div>
+                <div class="card-grid">
+                    
+                    <div class="card routine-sat">
                         <div class="card-header">
-                            Sunday Night
-                            <span class="card-label" style="background: var(--c-big-study); color: white;">Executive Control</span>
+                            Saturday Morning
+                            <span class="card-label">Low Intensity</span>
                         </div>
                         <div class="card-body">
                             <ul>
-                                <li><strong>Deadline Audit:</strong> Check ManageBac/Calendar for the next 7 days.</li>
-                                <li><strong>Tutor DM:</strong> Message tutors specific questions <em>now</em> so they can prepare.</li>
-                                <li><strong>Bag & Clothes:</strong> Pack gym kit & print HW tonight.</li>
+                                <li><strong>English L&L Reading:</strong> Sticky note quotes for <span class="highlight">literary devices</span> immediately. Saves Paper 2 prep time.</li>
+                                <li><strong>CAS Portfolio:</strong> Update reflections weekly. Upload photos now to prevent panic later.</li>
                             </ul>
                         </div>
                     </div>
-                </a>
 
+                    <div class="card routine-sun">
+                        <div class="card-header">
+                            Sunday Morning
+                            <span class="card-label" style="background: var(--c-math-d); color: white;">High Priority</span>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Math AA SL (07:30 - 09:00):</strong> Do this when fresh.</li>
+                                <li><strong>Traffic Light System:</strong> Mark questions Red/Amber/Green.</li>
+                                <li><strong>Mistake Notebook:</strong> Copy 'Red' questions to re-attempt blindly next week.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card routine-write">
+                        <div class="card-header">
+                            Sunday Evening
+                            <span class="card-label" style="background: var(--c-lang-d); color: white;">Writing Block</span>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>The Writer's Gym:</strong> 19:30 - 20:30. No Reading. Only Writing.</li>
+                                <li><strong>Goal:</strong> One perfect <em>PETER+L</em> paragraph OR 300 words of "ugly" EE drafting.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <a href="#" class="card-link" target="_blank" title="Open Planning Checklist">
+                        <div class="card routine-plan">
+                            <div class="card-header">
+                                Sunday Night
+                                <span class="card-label" style="background: var(--c-big-study); color: white;">Executive Control</span>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Deadline Audit:</strong> Check ManageBac/Calendar for the next 7 days.</li>
+                                    <li><strong>Tutor DM:</strong> Message tutors specific questions <em>now</em> so they can prepare.</li>
+                                    <li><strong>Bag & Clothes:</strong> Pack gym kit & print HW tonight.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
+        </div>
 
-
-            <div style="text-align: center;"><h2>🚀 Hidden Time Pockets</h2></div>
-            <div class="card-grid">
-
-                <div class="card pocket-school">
-                    <div class="card-header">
-                        🏫 School Free Periods
-                        <span class="card-label">Clear the Deck</span>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Homework Rule:</strong> Finish tonight's drills <em>at school</em>. Ask teachers for help instantly.</li>
-                            <li><strong>Review Sandwich:</strong> First 5 mins: Review notes from the class you just finished.</li>
-                            <li><strong>Pre-Tutor:</strong> Organize questions for your evening session.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card pocket-mtr">
-                    <div class="card-header">
-                        🚇 MTR Transit Strategy
-                        <span class="card-label">Adaptive</span>
-                    </div>
-                    <div class="card-body">
-                        <div style="margin-bottom: 10px;">
-                            <strong>🪑 Seated (Active):</strong> Flashcards (Anki) for Bio/Chem definitions or Chinese idioms.
-                        </div>
-                        <div style="margin-bottom: 10px;">
-                            <strong>🧍 Standing (Passive):</strong> Listen to Econ news podcasts (RWE) or English audiobooks. Mental Rehearsal.
-                        </div>
-                        <div>
-                            <strong>😴 Tired (Rest):</strong> <span class="highlight">Do not force it.</span> Close your eyes. A rested brain learns better.
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div style="text-align: center;"><h2>📚 Subject-Specific Tactics (Click for Notion)</h2></div>
-            <div class="card-grid">
-
-                <a href="https://www.notion.so/chiuy6/bio-2516ca83c26681679695ff4929ee675a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Bio Notion Page">
-                    <div class="card subj-bio">
-                        <div class="card-header">
-                            🧬 HL Biology
-                            <span class="card-label" style="background: var(--c-bio-d); color: white;">Understanding</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Feynman:</strong> Teach concepts out loud. Stumbling = Gap.</li>
-                                <li><strong>IB Guide:</strong> Check syllabus statements for <em>exact content required</em>.</li>
-                                <li><strong>"Surgery":</strong> Check Mark Scheme for <em>scoring keywords</em>.</li>
-                                <li><strong>Anki:</strong> Focus on definitions.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/chiuy6/chem-2516ca83c2668163ba71cc3277d09686?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Chem Notion Page">
-                    <div class="card subj-chem">
-                        <div class="card-header">
-                            🧪 HL Chemistry
-                            <span class="card-label" style="background: var(--c-chem-d); color: white;">Deep Mastery</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Recall Drills:</strong> Draw Organic pathways & VSEPR shapes from memory on blank paper. Correct in red.</li>
-                                <li><strong>Quant Algorithms:</strong> Write "Step-by-Step Recipes" for calculations.</li>
-                                <li><strong>Anki Rigor:</strong> Trends/Bonding definitions. If not <em>word-for-word</em>, press "Again".</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/chiuy6/econ-2516ca83c26681ea8d18f94cdd216d82?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Econ Notion Page">
-                    <div class="card subj-econ">
-                        <div class="card-header">
-                            📈 HL Economics
-                            <span class="card-label" style="background: var(--c-econ-d); color: white;">Definitions</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Def & Diagram Bank:</strong> Use Anki for verbatim definitions & drawing diagrams from memory.</li>
-                                <li><strong>3-Step Drill:</strong> 1. Define. 2. Diagram (from memory). 3. Explain the shift.</li>
-                                <li><strong>Real World Examples:</strong> Maintain a Google Doc table with 1 news headline per week for Paper 1.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/chiuy6/AASL-2516ca83c266814ba8fec3f671f105c1?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Math Notion Page">
-                    <div class="card" style="border-left-color: var(--c-math-d);">
-                        <div class="card-header">
-                            🧮 Math AASL
-                            <span class="card-label" style="background: var(--c-math-d); color: white;">Practice</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Traffic Light System:</strong> Mark Qs Red/Amber/Green.</li>
-                                <li><strong>Mistake Notebook:</strong> Copy 'Red' questions here. Re-attempt them blindly next week.</li>
-                                <li><strong>Formula Booklet:</strong> Memorize locations, not just formulas.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/chiuy6/english-2516ca83c26681e3ac0cde8b39614e50?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open English Notion Page">
-                    <div class="card subj-lang">
-                        <div class="card-header">
-                            📖 English L&L
-                            <span class="card-label" style="background: var(--c-lang-d); color: white;">Structure</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Skeleton Plan:</strong> Write <em>only</em> Topic Sentences first.</li>
-                                <li><strong>PETER + L Check:</strong> Point, Evidence, <strong>Technique</strong>, Effect, Reader, Link.</li>
-                                <li><strong>Sticky Note Habit:</strong> Mark literary devices, authorial choices & identify <em>Global Issues</em>.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/chiuy6/chinese-2516ca83c26681308b33c691c0f0eaca?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open Chinese Notion Page">
-                    <div class="card subj-lang">
-                        <div class="card-header">
-                            🗣️ Chinese B
-                            <span class="card-label" style="background: var(--c-lang-d); color: white;">Rotation</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Paper Cycle:</strong> Rotate strictly: Reading → Listening → Writing. One per session.</li>
-                                <li><strong>Daily Input:</strong> Add unknown words to Anki from your daily reading/video.</li>
-                                <li><strong>Dictation Review:</strong> Tue (20:00) & Thu (19:00). 15 mins. Listen → Write character.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="ee link" class="card-link" target="_blank" title="Open EE Notion Page">
-                    <div class="card subj-ee">
-                        <div class="card-header">
-                            📝 Extended Essay
-                            <span class="card-label" style="background: var(--c-big-study); color: white;">Urgent Start</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>Thursday Sacred Hour (18:30):</strong> You must produce content here.</li>
-                                <li><strong>Phase 1:</strong> Bullet outline & source map.</li>
-                                <li><strong>Phase 2 (Ugly Draft):</strong> Write 500 words/hour. No editing.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="https://www.notion.so/chiuy6/tok-2696ca83c26680c5ad58ff4d441acf7a?v=2516ca83c26681d89ce8000c3094b0fd&source=copy_link" class="card-link" target="_blank" title="Open TOK Notion Page">
-                    <div class="card subj-tok">
-                        <div class="card-header">
-                            🧠 TOK
-                            <span class="card-label" style="background: var(--c-other); color: black;">Slow Burn</span>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><strong>TOK Journal:</strong> See weird news? Ask "How do we know this is true?"</li>
-                                <li>Tag with concepts: <em>Bias, Certainty, Truth</em>.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-
-            <div style="text-align: center; margin-top: 40px; color: #888; font-size: 0.9rem;">
-                Generated for IBDP Schedule • Keep Consistent!
+        <div id="resources" class="tab-content">
+            <h1 style="text-align: center; margin-bottom: 30px;">🔗 Resources</h1>
+            <div class="resource-grid">
+                <!-- Resources will be added here -->
             </div>
         </div>
     </div>
 
-        <div id="resources" class="tab-content" style="padding: 20px;">
-
-            <h3 style="color: var(--c-bio-d); border-bottom: 2px solid var(--c-bio-d); padding-bottom: 5px; margin-top: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">🧬 Biology</h3>
-            <div class="resource-grid">
-                <a href="https://www.youtube.com/user/misterleescience/videos" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">Alex Lee</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">resource may not be updated</div>
-                </a>
-                <a href="https://ib.bioninja.com.au/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">BioNinja</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">resource is not too old but may not be updated </div>
-                </a>
-                <a href="https://www.revisionvillage.com/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">Revision Village</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">anw19711117@gmail.com</div>
-                </a>
-                <a href="https://whimsynonsense.notion.site/jjuu-s-ib-biology-notes-target-get-all-notes-ready-for-M26-exams-20988e61086b808fb0cbc7d15d190b83" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">IB44, 7HL Bio Scorer’s notes</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">All Notes for 2025 syllabus (still being updated)</div>
-                </a>
-                <a href="https://ipassed.gg/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">Question Bank</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">Only MCQ, updated to 2025 syllabus </div>
-                </a>
-                <a href="https://www.youtube.com/@thesevenstudent/videos" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">the7student</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">former IB student and current IB biology tutor. Gives tips for exams</div>
-                </a>
-                <a href="https://bio-letters.com/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">Bio Letters </div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">Notes, 100 questions per topic qb</div>
-                </a>
-                <a href="https://www.biologyforlife.com/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-bio-d);">
-                    <div class="res-title" style="color: var(--c-bio-d);">Biology For Life</div>
-                    <div class="res-tag">Biology</div>
-                    <div class="res-desc">Biology resources </div>
-                </a>
-            </div>
+    <script>
+        // ===== AUTHENTICATION =====
+        const correctPassword = "1234"; // Change this to your desired PIN
         
-            <h3 style="color: var(--c-chem-d); border-bottom: 2px solid var(--c-chem-d); padding-bottom: 5px; margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">🧪 Chemistry</h3>
-            <div class="resource-grid">
-                <a href="https://www.youtube.com/user/richthornley" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-chem-d);">
-                    <div class="res-title" style="color: var(--c-chem-d);">Richard Thornley</div>
-                    <div class="res-tag">Chemistry</div>
-                </a>
-                <a href="https://www.smashingscience.org/ib-chemistry-hl-sl" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-chem-d);">
-                    <div class="res-title" style="color: var(--c-chem-d);">Smashing Science</div>
-                    <div class="res-tag">Chemistry</div>
-                </a>
-                <a href="https://mrwengibchemistry.com/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-chem-d);">
-                    <div class="res-title" style="color: var(--c-chem-d);">Weng Chemistry</div>
-                    <div class="res-tag">Chemistry</div>
-                </a>
-                <a href="https://marshallhs.fcps.edu/sites/default/files/media/inline-files/OPTIONALChemistry2SummerAssignmentPacketKEY.pdf" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-chem-d);">
-                    <div class="res-title" style="color: var(--c-chem-d);">John Erickson, 2005 Worksheet Answer Keys</div>
-                    <div class="res-tag">Chemistry</div>
-                    <div class="res-desc">Worksheets, Answer key and worked solution</div>
-                </a>
-                <a href="https://www.ibchem.com/index.php" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-chem-d);">
-                    <div class="res-title" style="color: var(--c-chem-d);">IBChem </div>
-                    <div class="res-tag">Chemistry</div>
-                    <div class="res-desc">Updated syllabus breakdown, practice, </div>
-                </a>
-            </div>
-        
-            <h3 style="color: var(--c-math-d); border-bottom: 2px solid var(--c-math-d); padding-bottom: 5px; margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">📐 Mathematics</h3>
-            <div class="resource-grid">
-                <a href="https://paperplainz.com/ib-math/aa-sl/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-math-d);">
-                    <div class="res-title" style="color: var(--c-math-d);">Paperplainz</div>
-                    <div class="res-tag">Mathematics</div>
-                    <div class="res-desc">QB, Practice Exams: Topic 1:Number & Algebra</div>
-                </a>
-                <a href="https://www.christosnikolaidis.com/en/" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-math-d);">
-                    <div class="res-title" style="color: var(--c-math-d);">Christos Nikolaidis</div>
-                    <div class="res-tag">Mathematics</div>
-                </a>
-                <a href="https://www.mathgptpro.com/app/ask" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-math-d);">
-                    <div class="res-title" style="color: var(--c-math-d);">MathGPT </div>
-                    <div class="res-tag">Mathematics</div>
-                    <div class="res-desc">AI Math Calculator </div>
-                </a>
-                 <a href="https://www.mymathscloud.com/api/download/modules/IB/CheatSheets/IB%20Analysis%20and%20Approaches%20Formula%20Sheet.pdf?id=55660778" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-math-d);">
-                    <div class="res-title" style="color: var(--c-math-d);">mCloud </div>
-                    <div class="res-tag">Mathematics</div>
-                    <div class="res-desc">cheat sheet </div>
-                </a>
-            </div>
-        
-            <h3 style="color: var(--c-econ-d); border-bottom: 2px solid var(--c-econ-d); padding-bottom: 5px; margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">📉 Economics</h3>
-            <div class="resource-grid">
-                <a href="https://www.notion.so/Economics-297bc5f7281b8190a307d14815cace8f?source=copy_link" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-econ-d);">
-                    <div class="res-title" style="color: var(--c-econ-d);">Completed, updated 2023 Notes </div>
-                    <div class="res-tag">Economics</div>
-                </a>
-                <a href="https://www.econinja.net/home" target="_blank" class="resource-card" style="border-top: 5px solid var(--c-econ-d);">
-                    <div class="res-title" style="color: var(--c-econ-d);">EcoNinja</div>
-                    <div class="res-tag">Economics</div>
-                    <div class="res-desc"> Free notes, diagrams, and definitions for the new IB Economics syllabus!</div>
-                </a>
-            </div>
-        
-            <h3 style="color: #E65100; border-bottom: 2px solid #E65100; padding-bottom: 5px; margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">🧠 TOK</h3>
-            <div class="resource-grid">
-                <a href="https://www.tokresource.org/" target="_blank" class="resource-card" style="border-top: 5px solid #E65100;">
-                    <div class="res-title" style="color: #E65100;">TOK Resource</div>
-                    <div class="res-tag">TOK</div>
-                </a>
-                <a href="http://www.tok2022.net/" target="_blank" class="resource-card" style="border-top: 5px solid #E65100;">
-                    <div class="res-title" style="color: #E65100;">TOK 2022 (1)</div>
-                    <div class="res-tag">TOK</div>
-                    <div class="res-desc">presentation has changed to exhibition since tok2022</div>
-                </a>
-            </div>
-        
-            <h3 style="color: #546E7A; border-bottom: 2px solid #546E7A; padding-bottom: 5px; margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">🌟 General / Multi-Subject</h3>
-            <div class="resource-grid">
-                <a href="https://hackib.com/" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">Hack IB</div>
-                    <div class="res-tag">All</div>
-                    <div class="res-desc">IB45 Advice, most useful for Economics, English, TOK</div>
-                </a>
-                <a href="https://www.omnicalculator.com/" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">Omni Calculator </div>
-                    <div class="res-tag">Biology, Chemistry, Mathematics</div>
-                    <div class="res-desc">Math, Biology and Chemistry Calculator </div>
-                </a>
-                <a href="https://drive.google.com/drive/folders/19Bg6pMEDj9LIA3S4w5IYcjjqRsQx-Sxj" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">Revision Village QB</div>
-                    <div class="res-tag">Biology, Chemistry, Economics, Mathematics</div>
-                </a>
-                <a href="https://ibdocs.re/" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">ib docs</div>
-                    <div class="res-tag">All</div>
-                </a>
-                <a href="https://web.archive.org/web/20230807015538/https://ibyourwayout.wordpress.com/" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">IB Your Way Out </div>
-                    <div class="res-tag">Biology, Chemistry, EE, Mathematics, Spanish, TOK</div>
-                    <div class="res-desc">Notes, NOT UPDATED </div>
-                </a>
-                <a href="https://pestle-ib.firebaseapp.com/biology/topic/1" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">Pestle</div>
-                    <div class="res-tag">Biology, Chemistry, Mathematics</div>
-                    <div class="res-desc">Long question, past paper question bank, good for identifying ib language</div>
-                </a>
-                <a href="https://www.reddit.com/r/IBO/wiki/howtocomeupwithiaideas/" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">IA ideas</div>
-                    <div class="res-tag">IAs</div>
-                    <div class="res-desc">IA idea advice </div>
-                </a>
-                <a href="https://revisiontown2024.pages.dev/#app" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">Revision Village QB</div>
-                    <div class="res-tag">Biology, Chemistry, Economics, Mathematics</div>
-                    <div class="res-desc">Provided by PirateIB</div>
-                </a>
-                <a href="https://chemix.org/" target="_blank" class="resource-card" style="border-top: 5px solid #546E7A;">
-                    <div class="res-title" style="color: #546E7A;">Diagram Making Website</div>
-                    <div class="res-tag">Biology, Chemistry</div>
-                </a>
-                </div>
-            </div>
-
-        <div id="catchup" class="tab-content">
-            <div class="cu-container">
-                
-                <div class="cu-header">
-                    <div class="cu-header-top">
-                        <h1 style="margin: 0; font-size: 1.8rem;">🏆 IB Survival Plan</h1>
-                        <span class="cu-badge">ACAMIS Catch-up</span>
-                    </div>
-                    <p style="margin: 5px 0 15px 0; color: #bfdbfe;">Crush the Bio Quiz, finish the Chem IA, and get back on track.</p>
-                    
-                    <div class="cu-progress-bg">
-                        <div id="cu-progress-bar" class="cu-progress-fill"></div>
-                    </div>
-                    <div id="cu-progress-text" class="cu-progress-text">0% Completed</div>
-                </div>
-    
-                <div id="cu-days-container">
-                    </div>
-    
-            </div>
-        </div>
-
-    <!--Archive: todo tab
-        <div id="todo" class="tab-content">
-            <div class="attack-container" style="max-width: 700px; margin: 0 auto; padding-top: 20px;">
-                
-                <h1 class="center-text">
-                    <a href="https://www.notion.so/chiuy6/7eb3b8db768a4b43944072135d485e9b?v=3c8265dde3bc4017b8a8fb42289234a6&source=copy_link" target="_blank" style="text-decoration:none; color:inherit;">
-                        ⚡ todo!
-                    </a>
-                </h1>
-
-                <div class="todo-controls" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-                    <button class="btn-new-card" onclick="createNewCard()">+ New Mission</button>
-                    
-                    <select onchange="sortCards(this.value)" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd; background: white; cursor: pointer;">
-                        <option value="manual">Manual Order</option>
-                        <option value="date">Sort by Date (Soonest)</option>
-                        <option value="subject">Sort by Subject</option>
-                    </select>
-                </div>
-
-                <div id="dynamic-todo-container">
-                    </div>
-
-            </div>
-        </div> -->
-
-    </div> <script>
-        
-    // --- 1. FORMATTING TOOL (MUST BE AT THE TOP) ---
-    window.formatDoc = function(cmd) {
-        document.execCommand(cmd, false, null);
-        // Force focus back to the editor just in case
-        var editor = document.activeElement; 
-        if(editor) editor.focus(); 
-    }
-
-    // --- 2. DATA STORAGE ---
-    var todoCards = JSON.parse(localStorage.getItem('ib_dynamic_cards')) || [];
-    var draggedItemIndex = null;
-
-    // --- 3. GLOBAL LOCK SCREEN LOGIC ---
-    var validPass = "ib45!"; 
-    
-    function checkPass() {
-        var inputElement = document.getElementById('pass-input');
-        var errorMsg = document.getElementById('error-msg');
-        
-        if (inputElement.value === validPass) {
-            // Success: Unlock everything
-            document.getElementById('lock-screen').style.display = 'none';
-            document.getElementById('app-content').classList.remove('hidden');
+        function checkPass() {
+            const input = document.getElementById('pass-input').value;
+            const errorMsg = document.getElementById('error-msg');
             
-            // Save authentication for this session so reload doesn't lock again immediately
-            localStorage.setItem('ib_session_auth', 'true');
-            
-            // Restore functionality
-            restoreTab();
-            updateDailyHeader();
-        } else {
-            // Fail
-            errorMsg.style.display = 'block';
-            inputElement.style.border = "2px solid red";
-            setTimeout(function(){ inputElement.style.border = "2px solid #ddd"; }, 500);
-        }
-    }
-
-    // Handle Enter Key on Lock Screen
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if already authenticated in this session
-        if(localStorage.getItem('ib_session_auth') === 'true') {
-            document.getElementById('lock-screen').style.display = 'none';
-            document.getElementById('app-content').classList.remove('hidden');
-            restoreTab();
-            updateDailyHeader();
-        }
-
-        var passInput = document.getElementById('pass-input');
-        if(passInput) {
-            passInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') checkPass();
-            });
-        }
-        
-        renderCards(); 
-        // Run daily header update loop regardless of lock state (it's hidden anyway)
-        setInterval(updateDailyHeader, 1000 * 60 * 60);
-    });
-
-    // --- 4. TABS & NAV ---
-    window.switchTab = function(tabId, btnElement) {
-        var contents = document.querySelectorAll('.tab-content');
-        for (var i = 0; i < contents.length; i++) contents[i].classList.remove('active');
-        var buttons = document.querySelectorAll('.nav-btn');
-        for (var i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
-        
-        var target = document.getElementById(tabId);
-        if (target) target.classList.add('active');
-        if (btnElement) btnElement.classList.add('active');
-        localStorage.setItem('lastActiveTab', tabId);
-        window.scrollTo(0, 0);
-    }
-
-    function restoreTab() {
-        var savedTabId = localStorage.getItem('lastActiveTab');
-        if (savedTabId) {
-            var targetBtn = document.querySelector(".nav-btn[onclick*='" + savedTabId + "']");
-            if (targetBtn) switchTab(savedTabId, targetBtn);
-        }
-    }
-
-    // --- 5. SORTING LOGIC ---
-    window.sortCards = function(criteria) {
-        if (criteria === 'date') {
-            todoCards.sort(function(a, b) {
-                if(!a.date) return 1; 
-                if(!b.date) return -1;
-                return new Date(a.date) - new Date(b.date);
-            });
-        } 
-        else if (criteria === 'subject') {
-            todoCards.sort(function(a, b) {
-                var sA = a.subject || "zz"; 
-                var sB = b.subject || "zz";
-                return sA.localeCompare(sB);
-            });
-        }
-        // 'manual' does nothing (we just rely on array order)
-        saveAndRender();
-    }
-
-    // --- 6. DRAG AND DROP HANDLERS ---
-    window.handleDragStart = function(e, index) {
-        draggedItemIndex = index;
-        e.dataTransfer.effectAllowed = 'move';
-        e.target.style.opacity = '0.4';
-    }
-    window.handleDragOver = function(e) {
-        if (e.preventDefault) e.preventDefault(); 
-        e.dataTransfer.dropEffect = 'move';
-        return false;
-    }
-    window.handleDragEnter = function(e) { this.classList.add('drag-over'); }
-    window.handleDragLeave = function(e) { this.classList.remove('drag-over'); }
-    window.handleDrop = function(e, targetIndex) {
-        if (e.stopPropagation) e.stopPropagation();
-        var item = todoCards.splice(draggedItemIndex, 1)[0];
-        todoCards.splice(targetIndex, 0, item);
-        saveAndRender();
-        return false;
-    }
-    window.handleDragEnd = function(e) {
-        this.style.opacity = '1'; 
-        document.querySelectorAll('.attack-card').forEach(function(card) {
-            card.classList.remove('drag-over');
-        });
-    }
-
-    // --- 7. RENDER CARDS (Main Logic) ---
-    window.renderCards = function() {
-        var container = document.getElementById('dynamic-todo-container');
-        if (!container) return;
-        container.innerHTML = ""; 
-
-        todoCards.forEach(function(card, cardIndex) {
-            
-            // A. DATE COLOR LOGIC
-            var dateColor = "#fdfdfd"; 
-            if (card.date) {
-                var today = new Date();
-                today.setHours(0,0,0,0);
-                var due = new Date(card.date);
-                var diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24)); 
-                if (diffDays < 0) dateColor = "#A9E5F5";      
-                else if (diffDays <= 1) dateColor = "#ffcdd2"; 
-                else if (diffDays <= 6) dateColor = "#ffe0b2"; 
-                else if (diffDays <= 14) dateColor = "#F5D97F";
-                else dateColor = "#C8E6C9";                    
+            if (input === correctPassword) {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('app-content').classList.remove('hidden');
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('pass-input').value = '';
             }
+        }
 
-            // B. SUBJECT COLOR LOGIC
-            var subjectClass = "subj-misc"; 
-            if (card.subject === "bio") subjectClass = "subj-bio";
-            if (card.subject === "chem") subjectClass = "subj-chem";
-            if (card.subject === "math") subjectClass = "subj-math";
-            if (card.subject === "econ") subjectClass = "subj-econ";
-            if (card.subject === "eng") subjectClass = "subj-eng";
-            if (card.subject === "chi") subjectClass = "subj-chi"; /* CHINESE */
-            if (card.subject === "tok") subjectClass = "subj-tok";
-            if (card.subject === "cas") subjectClass = "subj-cas";
-
-            // C. CREATE CARD HTML
-            var cardDiv = document.createElement('div');
-            cardDiv.className = `attack-card ${subjectClass}`;
-            
-            // Enable Dragging
-            cardDiv.setAttribute('draggable', 'true');
-            cardDiv.addEventListener('dragstart', function(e) { handleDragStart(e, cardIndex); });
-            cardDiv.addEventListener('dragover', handleDragOver);
-            cardDiv.addEventListener('dragenter', handleDragEnter);
-            cardDiv.addEventListener('dragleave', handleDragLeave);
-            cardDiv.addEventListener('drop', function(e) { handleDrop(e, cardIndex); });
-            cardDiv.addEventListener('dragend', handleDragEnd);
-
-            var checklistHTML = "";
-            card.checklist.forEach(function(item, itemIndex) {
-                var checked = item.done ? 'checked' : '';
-                var strike = item.done ? 'text-decoration:line-through; color:#aaa;' : '';
-                checklistHTML += `
-                    <div class="checklist-item">
-                        <input type="checkbox" onchange="toggleCheck(${cardIndex}, ${itemIndex})" ${checked}>
-                        <input type="text" class="checklist-text" value="${item.text}" 
-                               style="${strike}" 
-                               oninput="updateCheckText(${cardIndex}, ${itemIndex}, this.value)"
-                               placeholder="Task step...">
-                        <button onclick="deleteCheckItem(${cardIndex}, ${itemIndex})" style="color:#ccc; border:none; background:none; cursor:pointer;">&times;</button>
-                    </div>
-                `;
-            });
-
-            cardDiv.innerHTML = `
-                <div class="card-header" style="flex-wrap: wrap; gap: 10px;">
-                    <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-
-                    <input type="text" class="card-title-input" value="${card.title}" 
-                           oninput="updateCard(${cardIndex}, 'title', this.value)" 
-                           placeholder="Mission Title"
-                           style="flex-grow: 1; min-width: 150px;">
-
-                    <div style="display:flex; align-items:center;">
-                        <select class="card-subject-select" onchange="updateCard(${cardIndex}, 'subject', this.value)">
-                            <option value="misc" ${card.subject=='misc'?'selected':''}>General</option>
-                            <option value="bio"  ${card.subject=='bio'?'selected':''}>Bio 🧬</option>
-                            <option value="chem" ${card.subject=='chem'?'selected':''}>Chem 🧪</option>
-                            <option value="math" ${card.subject=='math'?'selected':''}>Math 🧮</option>
-                            <option value="econ" ${card.subject=='econ'?'selected':''}>Econ 📈</option>
-                            <option value="eng"  ${card.subject=='eng'?'selected':''}>Eng 📖</option>
-                            <option value="chi"  ${card.subject=='chi'?'selected':''}>Chinese 🐉</option>
-                            <option value="tok"  ${card.subject=='tok'?'selected':''}>TOK 🧠</option>
-                            <option value="cas"  ${card.subject=='cas'?'selected':''}>CAS 🎨</option>
-                        </select>
-
-                        <input type="date" class="card-date-input" value="${card.date}" 
-                               onchange="updateCard(${cardIndex}, 'date', this.value)"
-                               style="background-color: ${dateColor}; border: 1px solid rgba(0,0,0,0.1); font-weight: 500;">
-                        
-                        <button class="btn-delete-card" onclick="deleteCard(${cardIndex})">&times;</button>
-                    </div>
-                </div>
-
-                <div class="card-focus-strip">
-                    🎯 
-                    <input type="text" class="card-focus-input" value="${card.focus || ''}" 
-                           oninput="updateCard(${cardIndex}, 'focus', this.value)" 
-                           placeholder="Primary Objective...">
-                </div>
-
-                <div class="card-body">
-                    <div class="desc-container">
-                        <div class="format-toolbar">
-                            <button class="format-btn" onmousedown="event.preventDefault();" onclick="formatDoc('bold')" title="Bold">B</button>
-                            <button class="format-btn" onmousedown="event.preventDefault();" onclick="formatDoc('italic')" title="Italic" style="font-style:italic;">I</button>
-                            <button class="format-btn" onmousedown="event.preventDefault();" onclick="formatDoc('underline')" title="Underline" style="text-decoration:underline;">U</button>
-                            <span style="border-right:1px solid #ddd; margin: 0 5px;"></span>
-                            <button class="format-btn" onmousedown="event.preventDefault();" onclick="formatDoc('insertUnorderedList')" title="Bullet List">• List</button>
-                        </div>
-
-                        <div class="rich-editor" contenteditable="true" 
-                             placeholder="Mission details..."
-                             oninput="updateCard(${cardIndex}, 'desc', this.innerHTML)">
-                             ${card.desc}
-                        </div>
-                    </div>
-
-                    <div class="checklist-container">
-                        ${checklistHTML}
-                        <button class="btn-add-item" onclick="addCheckItem(${cardIndex})">+ Add Step</button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(cardDiv);
+        document.getElementById('pass-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPass();
         });
-    }
 
-    // --- 8. CARD ACTIONS ---
-    window.createNewCard = function() {
-        todoCards.push({ title: "", subject: "misc", focus: "", date: "", desc: "", checklist: [] });
-        saveAndRender();
-    }
-    window.updateCard = function(index, field, value) {
-        todoCards[index][field] = value;
-        if (field === 'subject' || field === 'date') saveAndRender(); // Re-render for color changes
-        else saveCards(); 
-    }
-    window.deleteCard = function(index) {
-        if(confirm("Delete this mission block?")) {
-            todoCards.splice(index, 1);
-            saveAndRender();
-        }
-    }
-
-    // --- 9. CHECKLIST ACTIONS ---
-    window.addCheckItem = function(cardIndex) {
-        todoCards[cardIndex].checklist.push({ text: "", done: false });
-        saveAndRender();
-    }
-    window.toggleCheck = function(cardIndex, itemIndex) {
-        todoCards[cardIndex].checklist[itemIndex].done = !todoCards[cardIndex].checklist[itemIndex].done;
-        saveAndRender();
-    }
-    window.updateCheckText = function(cardIndex, itemIndex, text) {
-        todoCards[cardIndex].checklist[itemIndex].text = text;
-        saveCards();
-    }
-    window.deleteCheckItem = function(cardIndex, itemIndex) {
-        todoCards[cardIndex].checklist.splice(itemIndex, 1);
-        saveAndRender();
-    }
-
-    // --- 10. DAILY HEADER & CYCLING LOGIC ---
-    // A. CONFIGURATION
-    var scheduleWeekA = {
-        1: "Econ • Bio • Tok • --",        // Mon
-        2: "Chem • Tok • Econ • Eng",        // Tue
-        3: "Math • PSE • Bio • 中",      // Wed
-        4: "Bio • Eng • Econ • Chem",         // Thu
-        5: "中 • Chem • Math"         // Fri
-    };
-    var scheduleWeekB = {
-        1: "Bio • Chem • Math • Eng",        // Mon
-        2: "-- • -- • 中 • Bio",        // Tue
-        3: "Tok • Chem • Eng • Econ",      // Wed
-        4: "Bio • Econ • Math • --",         // Thu
-        5: "Chem • Eng • 中"         // Fri
-    };
-    
-    // B. LOGIC
-    var referenceWeekA = new Date('2026-03-08'); // Monday of a Week A
-    var dayOffset = 0; // 0 = Today, 1 = Tomorrow, etc.
-
-    function changeDay(delta) {
-        dayOffset += delta;
-        updateDailyHeader();
-    }
-
-    function updateDailyHeader() {
-        var targetDate = new Date(); // Start at actual today
-        // Apply Offset
-        targetDate.setDate(targetDate.getDate() + dayOffset);
-
-        var dayOfWeek = targetDate.getDay(); 
-        var typeElem = document.getElementById('header-day-type');
-        var classesElem = document.getElementById('header-classes');
-
-        // Helper label for Today/Tmrw
-        var relLabel = "";
-        if (dayOffset === 0) relLabel = "";
-        else if (dayOffset === 1) relLabel = " (明天)"; //tmr
-        else if (dayOffset === 2) relLabel = " (後天)"; //day after tmr
-        else if (dayOffset === -1) relLabel = " (昨天)"; //yesterday
-        else if (dayOffset === -2) relLabel = " (前天)"; //day b4 yesterday
-        else relLabel = " (" + (targetDate.getMonth()+1) + "/" + targetDate.getDate() + ")";
-
-        // Weekend Logic
-        if (dayOfWeek === 0) {
-            typeElem.innerText = "Sunday! ☀️" + relLabel;
-            classesElem.innerText = "Rest & Prep Strategy";
-            return;
-        }
-        if (dayOfWeek === 6) {
-            typeElem.innerText = "Saturday!" + relLabel;
-            classesElem.innerText = "Low Intensity Routine";
-            return;
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName, button) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+            
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            button.classList.add('active');
         }
 
-        // Week A/B Logic
-        var oneDay = 24 * 60 * 60 * 1000;
-        var diffDays = Math.round((targetDate - referenceWeekA) / oneDay);
-        var diffWeeks = Math.floor(diffDays / 7);
-        
-        var isWeekA = (diffWeeks % 2 === 0);
-        var weekLabel = isWeekA ? "Week 1" : "Week 2";
-        var dayLabel = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dayOfWeek];
-
-        typeElem.innerText = `${weekLabel} - ${dayLabel}${relLabel}`;
-
-        // Get Classes
-        var currentSchedule = isWeekA ? scheduleWeekA : scheduleWeekB;
-        var todaysClasses = currentSchedule[dayOfWeek] || "No classes";
-        classesElem.innerText = todaysClasses;
-    }
-
-    // --- 11. SAVE HELPERS ---
-    function saveCards() { localStorage.setItem('ib_dynamic_cards', JSON.stringify(todoCards)); }
-    function saveAndRender() { saveCards(); renderCards(); }
-
-// --- WORKOUT TIMER LOGIC ---
-       const workouts = {
+        // ===== WORKOUT FUNCTIONALITY =====
+        const workoutData = {
             day1: {
-                name: "🦵 Day 1: Lower Body (Lean Focus)",
-                desc: "Leg tone, glutes, and technique. Moderate loads, clean form.",
-                warmup: "Treadmill or bike (8-10m) + leg swings, hip circles, bodyweight squats",
-                cooldown: "Light walking and stretching",
-                work: 45, rest: 60, rounds: 3,
+                title: "🦵 Day 1: Lower Body (Lean Focus)",
+                warmup: "5-10 mins light cardio + dynamic stretches",
                 exercises: [
-                    "Leg press (12–15 reps, keep knees soft)",
-                    "Leg curl (12–15 reps, squeeze hamstrings)",
-                    "Dumbbell Romanian deadlift (12–15 reps, flat back)",
-                    "Step-ups (12–15 reps each leg)",
-                    "Side-lying leg raises (12–15 reps each leg)"
-                ]
+                    { name: "Leg Press", sets: "4 x 8-10 reps", rest: "2 min", notes: "Focus on depth & control" },
+                    { name: "Leg Curls", sets: "3 x 10-12 reps", rest: "90 sec", notes: "Slow eccentric" },
+                    { name: "Lunges", sets: "3 x 12 reps per leg", rest: "90 sec", notes: "Bodyweight or dumbbell" },
+                    { name: "Calf Raises", sets: "3 x 15-20 reps", rest: "60 sec", notes: "Hold at top" }
+                ],
+                cooldown: "10 mins stretching + foam rolling"
             },
             day2: {
-                name: "💪 Day 2: Upper Body + Core",
-                desc: "Balanced upper body strength and solid core control.",
-                warmup: "Elliptical or bike (8-10m) + arm circles, torso twists",
-                cooldown: "Chest + shoulder stretch",
-                work: 45, rest: 60, rounds: 3,
+                title: "💪 Day 2: Upper Body + Core",
+                warmup: "5-10 mins treadmill + arm circles",
                 exercises: [
-                    "Chest/shoulder press machine (10–12 reps)",
-                    "Lat pulldown (10–12 reps, pull to upper chest)",
-                    "Seated row (10–12 reps, squeeze shoulder blades)",
-                    "Incline dumbbell press (10–12 reps, smooth motion)",
-                    "Core Circuit: Plank + crunch + dead bug"
-                ]
+                    { name: "Bench Press", sets: "4 x 6-8 reps", rest: "2 min", notes: "Heavy strength focus" },
+                    { name: "Bent Over Rows", sets: "4 x 8-10 reps", rest: "2 min", notes: "Full range of motion" },
+                    { name: "Lateral Raises", sets: "3 x 12-15 reps", rest: "60 sec", notes: "Control the weight" },
+                    { name: "Planks", sets: "3 x 45-60 sec", rest: "90 sec", notes: "Keep body straight" }
+                ],
+                cooldown: "10 mins stretching + breathing work"
             },
             day3: {
-                name: "🔥 Day 3: Full Body + Intervals",
-                desc: "Head-to-toe strength with a sharper cardio finisher.",
-                warmup: "Bike or treadmill (8-10m) + dynamic lunges, hip openers",
-                cooldown: "Easy walking or pedaling and light stretching",
-                work: 45, rest: 60, rounds: 3,
+                title: "🔥 Day 3: Full Body + HIIT",
+                warmup: "5 mins light cardio + mobility",
                 exercises: [
-                    "Leg press (10–12 reps, moderate load)",
-                    "Chest/shoulder press machine (10–12 reps)",
-                    "Lat pulldown (10–12 reps, control the way up)",
-                    "Seated row (10–12 reps, neutral spine)",
-                    "Dumbbell Romanian deadlift (10–12 reps)",
-                    "Intervals: 45 sec FAST / 60 sec RECOVERY (Repeat for 6-8 mins)"
-                ]
+                    { name: "Squats", sets: "3 x 10 reps", rest: "90 sec", notes: "Explosive power" },
+                    { name: "Push-ups", sets: "3 x 12-15 reps", rest: "60 sec", notes: "Full range" },
+                    { name: "Burpees", sets: "3 x 8 reps", rest: "90 sec", notes: "High intensity" },
+                    { name: "Mountain Climbers", sets: "3 x 30 sec", rest: "60 sec", notes: "Keep pace" }
+                ],
+                cooldown: "10 mins walking + cool-down stretches"
             }
         };
 
-        // --- TIMER ENGINE STATE ---
-        let currentSequence = [];
-        let currentStepIndex = 0;
-        let timerInterval = null;
-        let timeRemaining = 0;
-        let isPaused = true;
-        let audioCtx = null;
+        function loadWorkout(day, button) {
+            // Update active button
+            document.querySelectorAll('.workout-row button').forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
 
-        function loadWorkout(id) {
-            const w = workouts[id];
-            if (!w) {
-                console.error("Workout ID not found:", id);
-                return;
-            }
+            const workout = workoutData[day];
+            const content = document.getElementById('workout-content');
             
-            clearInterval(timerInterval);
-            isPaused = true;
-            
-            let startBtn = document.getElementById('btn-start');
-            if(startBtn) startBtn.innerText = "START";
+            let html = `
+                <h2 style="text-align: center; margin-bottom: 20px;">${workout.title}</h2>
+                
+                <div class="workout-details-box">
+                    <h3>⏱️ Warm-up</h3>
+                    <p>${workout.warmup}</p>
+                </div>
 
-            document.getElementById('details-title').innerText = w.name;
-            document.getElementById('details-desc').innerText = w.desc;
-            document.getElementById('details-warmup').innerText = w.warmup;
-            document.getElementById('details-cooldown').innerText = w.cooldown;
-            
-            const list = document.getElementById('details-exercises');
-            list.innerHTML = "";
-            w.exercises.forEach(ex => {
-                const li = document.createElement('li');
-                li.innerText = ex;
-                list.appendChild(li);
+                <div class="workout-details-box" style="margin-top: 20px;">
+                    <h3>💪 Main Exercises</h3>
+                    <ul>
+            `;
+
+            workout.exercises.forEach(ex => {
+                html += `
+                    <li>
+                        <strong>${ex.name}</strong> | ${ex.sets} | Rest: ${ex.rest}<br>
+                        <em style="color: #888;">💡 ${ex.notes}</em>
+                    </li>
+                `;
             });
-            document.getElementById('workout-details').classList.remove('hidden');
 
-            currentSequence = [];
-            currentSequence.push({ name: "Warm-Up Phase", duration: 120, type: "warmup" });
-            
-            w.exercises.forEach((ex) => {
-                for(let r = 1; r <= w.rounds; r++) {
-                    currentSequence.push({ name: `${ex} (Set ${r})`, duration: w.work, type: "work" });
-                    currentSequence.push({ name: "Recovery Rest", duration: w.rest, type: "rest" });
-                }
-            });
-            currentSequence.push({ name: "Cool-Down Window", duration: 120, type: "cooldown" });
+            html += `
+                    </ul>
+                </div>
 
-            currentStepIndex = 0;
-            timeRemaining = currentSequence[0].duration;
-            updateUIForStep();
+                <div class="workout-details-box" style="margin-top: 20px;">
+                    <h3>🧘 Cool-down</h3>
+                    <p>${workout.cooldown}</p>
+                </div>
+            `;
+
+            content.innerHTML = html;
         }
 
-        function playBeep(freq = 600, type = 'sine', duration = 0.15) {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch(e) { console.log("Audio Error:", e); }
-        }
+        // Load Day 1 by default
+        window.addEventListener('load', () => {
+            const day1Button = document.querySelector('.workout-row button:first-child');
+            loadWorkout('day1', day1Button);
+        });
 
-        function toggleTimer() {
-            if (currentSequence.length === 0) return;
-            let startBtn = document.getElementById('btn-start');
-
-            if (isPaused) {
-                isPaused = false;
-                if(startBtn) startBtn.innerText = "PAUSE";
-                timerInterval = setInterval(tick, 1000);
-                playBeep(520, 'sine', 0.1);
-            } else {
-                isPaused = true;
-                if(startBtn) startBtn.innerText = "RESUME";
-                clearInterval(timerInterval);
-            }
+        // ===== DAY NAVIGATION (Placeholder) =====
+        function changeDay(offset) {
+            console.log('Day changed by:', offset);
+            // Implement day switching logic if needed
         }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            isPaused = true;
-            let startBtn = document.getElementById('btn-start');
-            if(startBtn) startBtn.innerText = "START";
-            
-            if(currentSequence.length > 0) {
-                currentStepIndex = 0;
-                timeRemaining = currentSequence[0].duration;
-                updateUIForStep();
-            }
-        }
-
-        function tick() {
-            if (timeRemaining > 1) {
-                timeRemaining--;
-                updateTimerDisplay();
-                if(timeRemaining <= 3) playBeep(440, 'sine', 0.08);
-            } else {
-                playBeep(880, 'square', 0.3);
-                currentStepIndex++;
-                if (currentStepIndex < currentSequence.length) {
-                    timeRemaining = currentSequence[currentStepIndex].duration;
-                    updateUIForStep();
-                } else {
-                    clearInterval(timerInterval);
-                    isPaused = true;
-                    let startBtn = document.getElementById('btn-start');
-                    if(startBtn) startBtn.innerText = "COMPLETE";
-                    
-                    document.getElementById('current-phase').innerText = "Workout Complete! 🎉";
-                    document.getElementById('time-display').innerText = "00:00";
-                    document.getElementById('next-phase').innerText = "Great job!";
-                    document.getElementById('timer-box').className = "timer-box phase-warmup";
-                }
-            }
-        }
-
-        function updateTimerDisplay() {
-            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-            const s = (timeRemaining % 60).toString().padStart(2, '0');
-            document.getElementById('time-display').innerText = `${m}:${s}`;
-        }
-
-        function updateUIForStep() {
-            const step = currentSequence[currentStepIndex];
-            const nextStep = currentSequence[currentStepIndex + 1];
-            document.getElementById('current-phase').innerText = step.name;
-            document.getElementById('next-phase').innerText = nextStep ? `Next: ${nextStep.name}` : "Last Stage!";
-            document.getElementById('timer-box').className = `timer-box phase-${step.type}`;
-            updateTimerDisplay();
-        }
-// --- WAKE LOCK API (Prevents screen from sleeping) ---
-        let wakeLock = null;
-
-        async function requestWakeLock() {
-            try {
-                if ('wakeLock' in navigator) {
-                    wakeLock = await navigator.wakeLock.request('screen');
-                    console.log('Screen Wake Lock active');
-                    // If the user switches tabs, the browser auto-releases it. Re-acquire when they come back.
-                    document.addEventListener('visibilitychange', async () => {
-                        if (wakeLock !== null && document.visibilityState === 'visible' && !isPaused) {
-                            wakeLock = await navigator.wakeLock.request('screen');
-                        }
-                    });
-                }
-            } catch (err) {
-                console.log(`Wake Lock error: ${err.name}, ${err.message}`);
-            }
-        }
-
-        function releaseWakeLock() {
-            if (wakeLock !== null) {
-                wakeLock.release().then(() => { wakeLock = null; });
-            }
-        }
-        
-        function toggleTimer() {
-            initAudio();
-            if (currentSequence.length === 0) return;
-
-            if (isPaused) {
-                isPaused = false;
-                document.getElementById('play-pause-btn').innerHTML = "⏸️ Pause";
-                timerInterval = setInterval(tick, 1000);
-                requestWakeLock(); // Keeps screen awake
-            } else {
-                isPaused = true;
-                document.getElementById('play-pause-btn').innerHTML = "▶️ Resume";
-                clearInterval(timerInterval);
-                releaseWakeLock(); // Lets screen sleep again
-            }
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            isPaused = true;
-            document.getElementById('play-pause-btn').innerHTML = "▶️ Start";
-            releaseWakeLock(); // Lets screen sleep again
-            
-            if (currentSequence.length > 0) {
-                currentStepIndex = 0;
-                timeRemaining = currentSequence[0].duration;
-                updateUIForStep();
-            }
-        }
-
-        function tick() {
-            if (timeRemaining > 0) {
-                timeRemaining--;
-                if (timeRemaining <= 3 && timeRemaining > 0) playBeep(600, 'sine', 0.2); // Count down beeps
-                updateTimerDisplay();
-            } else {
-                currentStepIndex++;
-                if (currentStepIndex < currentSequence.length) {
-                    timeRemaining = currentSequence[currentStepIndex].duration;
-                    playBeep(1000, 'sine', 0.5); // Phase change beep
-                    updateUIForStep();
-                } else {
-                    clearInterval(timerInterval);
-                    isPaused = true;
-                    releaseWakeLock(); // Lets screen sleep again when workout is done!
-                    
-                    document.getElementById('play-pause-btn').innerHTML = "▶️ Start";
-                    document.getElementById('current-phase').innerText = "Workout Complete! 🎉";
-                    document.getElementById('time-display').innerText = "00:00";
-                    document.getElementById('next-phase').innerText = "Great job!";
-                    document.getElementById('timer-box').className = "timer-box phase-warmup";
-                    playBeep(800, 'triangle', 1);
-                }
-            }
-        }
-
-        function updateTimerDisplay() {
-            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-            const s = (timeRemaining % 60).toString().padStart(2, '0');
-            document.getElementById('time-display').innerText = `${m}:${s}`;
-        }
-
-        function updateUIForStep() {
-            const step = currentSequence[currentStepIndex];
-            const nextStep = currentSequence[currentStepIndex + 1];
-            
-            document.getElementById('current-phase').innerText = step.name;
-            document.getElementById('next-phase').innerText = nextStep ? `Next: ${nextStep.name}` : "Last Movement!";
-            
-            let boxClass = "timer-box ";
-            if(step.type === 'work') boxClass += "phase-work";
-            else if(step.type === 'rest') boxClass += "phase-rest";
-            else boxClass += "phase-warmup";
-            
-            document.getElementById('timer-box').className = boxClass;
-            updateTimerDisplay();
-        }
-        
-</script>
+    </script>
 </body>
 </html>
