@@ -1640,79 +1640,141 @@
             }
         };
 
-        let timerInterval = null;
+        // --- TIMER ENGINE STATE ---
         let currentSequence = [];
         let currentStepIndex = 0;
+        let timerInterval = null;
         let timeRemaining = 0;
         let isPaused = true;
-        let audioCtx;
+        let audioCtx = null;
 
-        function initAudio() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-        }
-
-        function playBeep(freq, type, duration) {
-            if(!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = type;
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            gain.gain.setValueAtTime(1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        function buildSequence(workoutKey) {
-            const w = workouts[workoutKey];
-            let seq = [];
-
-            if (w.custom) {
-                w.custom.forEach(c => seq.push({ type: 'work', name: c.name, duration: c.duration }));
-                return seq;
+        function loadWorkout(id) {
+            const w = workouts[id];
+            if (!w) {
+                console.error("Workout ID not found:", id);
+                return;
             }
-
-            seq.push({ type: 'warmup', name: "Warm-up: " + w.warmup, duration: 300 });
-
-            for (let r = 1; r <= w.rounds; r++) {
-                w.exercises.forEach((ex, idx) => {
-                    seq.push({ type: 'work', name: `Round ${r}: ${ex}`, duration: w.work });
-                    if (r === w.rounds && idx === w.exercises.length - 1) {
-                        // Skip rest after the very last exercise
-                    } else {
-                        seq.push({ type: 'rest', name: `Rest & Prepare`, duration: w.rest });
-                    }
-                });
-            }
-
-            seq.push({ type: 'cooldown', name: "Cool-down: " + w.cooldown, duration: 120 });
-            return seq;
-        }
-
-        function loadWorkout(workoutKey) {
+            
             clearInterval(timerInterval);
             isPaused = true;
-            document.getElementById('play-pause-btn').innerHTML = "▶️ Start";
-            document.getElementById('workout-dashboard').style.display = "block";
+            
+            let startBtn = document.getElementById('btn-start');
+            if(startBtn) startBtn.innerText = "START";
 
-            const w = workouts[workoutKey];
-            currentSequence = buildSequence(workoutKey);
+            document.getElementById('details-title').innerText = w.name;
+            document.getElementById('details-desc').innerText = w.desc;
+            document.getElementById('details-warmup').innerText = w.warmup;
+            document.getElementById('details-cooldown').innerText = w.cooldown;
+            
+            const list = document.getElementById('details-exercises');
+            list.innerHTML = "";
+            w.exercises.forEach(ex => {
+                const li = document.createElement('li');
+                li.innerText = ex;
+                list.appendChild(li);
+            });
+            document.getElementById('workout-details').classList.remove('hidden');
+
+            currentSequence = [];
+            currentSequence.push({ name: "Warm-Up Phase", duration: 120, type: "warmup" });
+            
+            w.exercises.forEach((ex) => {
+                for(let r = 1; r <= w.rounds; r++) {
+                    currentSequence.push({ name: `${ex} (Set ${r})`, duration: w.work, type: "work" });
+                    currentSequence.push({ name: "Recovery Rest", duration: w.rest, type: "rest" });
+                }
+            });
+            currentSequence.push({ name: "Cool-Down Window", duration: 120, type: "cooldown" });
+
             currentStepIndex = 0;
             timeRemaining = currentSequence[0].duration;
-
-            let html = `<h3>${w.name}</h3><p><em>${w.desc}</em></p><ul>`;
-            if (w.warmup) html += `<li><strong>Warm-up (5 min):</strong> ${w.warmup}</li>`;
-            w.exercises.forEach(ex => html += `<li>${ex}</li>`);
-            if (w.cooldown) html += `<li><strong>Cool-down (2 min):</strong> ${w.cooldown}</li>`;
-            if (w.custom) w.custom.forEach(c => html += `<li>${c.name} (${c.duration/60} min)</li>`);
-            html += `</ul>`;
-            document.getElementById("workout-details").innerHTML = html;
-
             updateUIForStep();
-            document.getElementById('workout-dashboard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function playBeep(freq = 600, type = 'sine', duration = 0.15) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) { console.log("Audio Error:", e); }
+        }
+
+        function toggleTimer() {
+            if (currentSequence.length === 0) return;
+            let startBtn = document.getElementById('btn-start');
+
+            if (isPaused) {
+                isPaused = false;
+                if(startBtn) startBtn.innerText = "PAUSE";
+                timerInterval = setInterval(tick, 1000);
+                playBeep(520, 'sine', 0.1);
+            } else {
+                isPaused = true;
+                if(startBtn) startBtn.innerText = "RESUME";
+                clearInterval(timerInterval);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isPaused = true;
+            let startBtn = document.getElementById('btn-start');
+            if(startBtn) startBtn.innerText = "START";
+            
+            if(currentSequence.length > 0) {
+                currentStepIndex = 0;
+                timeRemaining = currentSequence[0].duration;
+                updateUIForStep();
+            }
+        }
+
+        function tick() {
+            if (timeRemaining > 1) {
+                timeRemaining--;
+                updateTimerDisplay();
+                if(timeRemaining <= 3) playBeep(440, 'sine', 0.08);
+            } else {
+                playBeep(880, 'square', 0.3);
+                currentStepIndex++;
+                if (currentStepIndex < currentSequence.length) {
+                    timeRemaining = currentSequence[currentStepIndex].duration;
+                    updateUIForStep();
+                } else {
+                    clearInterval(timerInterval);
+                    isPaused = true;
+                    let startBtn = document.getElementById('btn-start');
+                    if(startBtn) startBtn.innerText = "COMPLETE";
+                    
+                    document.getElementById('current-phase').innerText = "Workout Complete! 🎉";
+                    document.getElementById('time-display').innerText = "00:00";
+                    document.getElementById('next-phase').innerText = "Great job!";
+                    document.getElementById('timer-box').className = "timer-box phase-warmup";
+                }
+            }
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+            const s = (timeRemaining % 60).toString().padStart(2, '0');
+            document.getElementById('time-display').innerText = `${m}:${s}`;
+        }
+
+        function updateUIForStep() {
+            const step = currentSequence[currentStepIndex];
+            const nextStep = currentSequence[currentStepIndex + 1];
+            document.getElementById('current-phase').innerText = step.name;
+            document.getElementById('next-phase').innerText = nextStep ? `Next: ${nextStep.name}` : "Last Stage!";
+            document.getElementById('timer-box').className = `timer-box phase-${step.type}`;
+            updateTimerDisplay();
         }
 // --- WAKE LOCK API (Prevents screen from sleeping) ---
         let wakeLock = null;
