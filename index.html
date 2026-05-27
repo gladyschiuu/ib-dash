@@ -42,6 +42,9 @@
             --nav-bg: #2c3e50;
             --nav-active: #34495e;
             --text: #2c3e50;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --border: #e0e0e0;
         }
 
         body {
@@ -748,19 +751,23 @@
         </div>
     </div>
 
-        <div id="workout" class="tab-content">
+       <div id="workout" class="tab-content">
         <div class="workout-ui-container">
             <h1 style="text-align: center; color: var(--text-main); margin-bottom: 30px;">🏋️ Gym Plan</h1>
             
             <div class="workout-selector-container">
                 <div class="workout-row">
-                    <button onclick="loadWorkout('day1')">🦵 Day 1: Lower (Lean)</button>
-                    <button onclick="loadWorkout('day2')">💪 Day 2: Upper + Core</button>
-                    <button onclick="loadWorkout('day3')">🔥 Day 3: Full + Intervals</button>
+                    <button class="active" onclick="loadWorkout('day1', this)">🦵 Day 1: Lower (Lean)</button>
+                    <button onclick="loadWorkout('day2', this)">💪 Day 2: Upper + Core</button>
+                    <button onclick="loadWorkout('day3', this)">🔥 Day 3: Full + Intervals</button>
+                </div>
+            </div>
+    
+            <div id="workout-content" style="max-width: 900px; margin: 0 auto;">
+                <!-- Workout details will be loaded here -->
                 </div>
             </div>
         </div>
-    </div>
 
         <div id="strategy" class="tab-content">
         <div class="strategy-container">
@@ -1593,189 +1600,93 @@
     function saveCards() { localStorage.setItem('ib_dynamic_cards', JSON.stringify(todoCards)); }
     function saveAndRender() { saveCards(); renderCards(); }
 
-// --- WORKOUT TIMER LOGIC ---
-       const workouts = {
-            day1: {
-                name: "🦵 Day 1: Lower Body (Lean Focus)",
-                desc: "Leg tone, glutes, and technique. Moderate loads, clean form.",
-                warmup: "Treadmill or bike (8-10m) + leg swings, hip circles, bodyweight squats",
-                cooldown: "Light walking and stretching",
-                work: 45, rest: 60, rounds: 3,
-                exercises: [
-                    "Leg press (12–15 reps, keep knees soft)",
-                    "Leg curl (12–15 reps, squeeze hamstrings)",
-                    "Dumbbell Romanian deadlift (12–15 reps, flat back)",
-                    "Step-ups (12–15 reps each leg)",
-                    "Side-lying leg raises (12–15 reps each leg)"
-                ]
-            },
-            day2: {
-                name: "💪 Day 2: Upper Body + Core",
-                desc: "Balanced upper body strength and solid core control.",
-                warmup: "Elliptical or bike (8-10m) + arm circles, torso twists",
-                cooldown: "Chest + shoulder stretch",
-                work: 45, rest: 60, rounds: 3,
-                exercises: [
-                    "Chest/shoulder press machine (10–12 reps)",
-                    "Lat pulldown (10–12 reps, pull to upper chest)",
-                    "Seated row (10–12 reps, squeeze shoulder blades)",
-                    "Incline dumbbell press (10–12 reps, smooth motion)",
-                    "Core Circuit: Plank + crunch + dead bug"
-                ]
-            },
-            day3: {
-                name: "🔥 Day 3: Full Body + Intervals",
-                desc: "Head-to-toe strength with a sharper cardio finisher.",
-                warmup: "Bike or treadmill (8-10m) + dynamic lunges, hip openers",
-                cooldown: "Easy walking or pedaling and light stretching",
-                work: 45, rest: 60, rounds: 3,
-                exercises: [
-                    "Leg press (10–12 reps, moderate load)",
-                    "Chest/shoulder press machine (10–12 reps)",
-                    "Lat pulldown (10–12 reps, control the way up)",
-                    "Seated row (10–12 reps, neutral spine)",
-                    "Dumbbell Romanian deadlift (10–12 reps)",
-                    "Intervals: 45 sec FAST / 60 sec RECOVERY (Repeat for 6-8 mins)"
-                ]
-            }
-        };
+    // ===== WORKOUT FUNCTIONALITY =====
+    const workoutData = {
+        day1: {
+            title: "🦵 Day 1: Lower Body (Lean Focus)",
+            warmup: "5-10 mins light cardio + dynamic stretches",
+            exercises: [
+                { name: "Leg Press", sets: "4 x 8-10 reps", rest: "2 min", notes: "Focus on depth & control" },
+                { name: "Leg Curls", sets: "3 x 10-12 reps", rest: "90 sec", notes: "Slow eccentric" },
+                { name: "Lunges", sets: "3 x 12 reps per leg", rest: "90 sec", notes: "Bodyweight or dumbbell" },
+                { name: "Calf Raises", sets: "3 x 15-20 reps", rest: "60 sec", notes: "Hold at top" }
+            ],
+            cooldown: "10 mins stretching + foam rolling"
+        },
+        day2: {
+            title: "💪 Day 2: Upper Body + Core",
+            warmup: "5-10 mins treadmill + arm circles",
+            exercises: [
+                { name: "Bench Press", sets: "4 x 6-8 reps", rest: "2 min", notes: "Heavy strength focus" },
+                { name: "Bent Over Rows", sets: "4 x 8-10 reps", rest: "2 min", notes: "Full range of motion" },
+                { name: "Lateral Raises", sets: "3 x 12-15 reps", rest: "60 sec", notes: "Control the weight" },
+                { name: "Planks", sets: "3 x 45-60 sec", rest: "90 sec", notes: "Keep body straight" }
+            ],
+            cooldown: "10 mins stretching + breathing work"
+        },
+        day3: {
+            title: "🔥 Day 3: Full Body + HIIT",
+            warmup: "5 mins light cardio + mobility",
+            exercises: [
+                { name: "Squats", sets: "3 x 10 reps", rest: "90 sec", notes: "Explosive power" },
+                { name: "Push-ups", sets: "3 x 12-15 reps", rest: "60 sec", notes: "Full range" },
+                { name: "Burpees", sets: "3 x 8 reps", rest: "90 sec", notes: "High intensity" },
+                { name: "Mountain Climbers", sets: "3 x 30 sec", rest: "60 sec", notes: "Keep pace" }
+            ],
+            cooldown: "10 mins walking + cool-down stretches"
+        }
+    };
 
-        // --- TIMER ENGINE STATE ---
-        let currentSequence = [];
-        let currentStepIndex = 0;
-        let timerInterval = null;
-        let timeRemaining = 0;
-        let isPaused = true;
-        let audioCtx = null;
+    function loadWorkout(day, button) {
+        document.querySelectorAll('.workout-row button').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
 
-        function loadWorkout(id) {
-            const w = workouts[id];
-            if (!w) {
-                console.error("Workout ID not found:", id);
-                return;
-            }
+        const workout = workoutData[day];
+        const content = document.getElementById('workout-content');
+        
+        let html = `
+            <h2 style="text-align: center; margin-bottom: 20px;">${workout.title}</h2>
             
-            clearInterval(timerInterval);
-            isPaused = true;
-            
-            let startBtn = document.getElementById('btn-start');
-            if(startBtn) startBtn.innerText = "START";
+            <div class="workout-details-box">
+                <h3>⏱️ Warm-up</h3>
+                <p>${workout.warmup}</p>
+            </div>
 
-            document.getElementById('details-title').innerText = w.name;
-            document.getElementById('details-desc').innerText = w.desc;
-            document.getElementById('details-warmup').innerText = w.warmup;
-            document.getElementById('details-cooldown').innerText = w.cooldown;
-            
-            const list = document.getElementById('details-exercises');
-            list.innerHTML = "";
-            w.exercises.forEach(ex => {
-                const li = document.createElement('li');
-                li.innerText = ex;
-                list.appendChild(li);
-            });
-            document.getElementById('workout-details').classList.remove('hidden');
+            <div class="workout-details-box" style="margin-top: 20px;">
+                <h3>💪 Main Exercises</h3>
+                <ul>
+        `;
 
-            currentSequence = [];
-            currentSequence.push({ name: "Warm-Up Phase", duration: 120, type: "warmup" });
-            
-            w.exercises.forEach((ex) => {
-                for(let r = 1; r <= w.rounds; r++) {
-                    currentSequence.push({ name: `${ex} (Set ${r})`, duration: w.work, type: "work" });
-                    currentSequence.push({ name: "Recovery Rest", duration: w.rest, type: "rest" });
-                }
-            });
-            currentSequence.push({ name: "Cool-Down Window", duration: 120, type: "cooldown" });
+        workout.exercises.forEach(ex => {
+            html += `
+                <li>
+                    <strong>${ex.name}</strong> | ${ex.sets} | Rest: ${ex.rest}<br>
+                    <em style="color: #888;">💡 ${ex.notes}</em>
+                </li>
+            `;
+        });
 
-            currentStepIndex = 0;
-            timeRemaining = currentSequence[0].duration;
-            updateUIForStep();
-        }
+        html += `
+                </ul>
+            </div>
 
-        function playBeep(freq = 600, type = 'sine', duration = 0.15) {
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch(e) { console.log("Audio Error:", e); }
-        }
+            <div class="workout-details-box" style="margin-top: 20px;">
+                <h3>🧘 Cool-down</h3>
+                <p>${workout.cooldown}</p>
+            </div>
+        `;
 
-        function toggleTimer() {
-            if (currentSequence.length === 0) return;
-            let startBtn = document.getElementById('btn-start');
+        content.innerHTML = html;
+    }
 
-            if (isPaused) {
-                isPaused = false;
-                if(startBtn) startBtn.innerText = "PAUSE";
-                timerInterval = setInterval(tick, 1000);
-                playBeep(520, 'sine', 0.1);
-            } else {
-                isPaused = true;
-                if(startBtn) startBtn.innerText = "RESUME";
-                clearInterval(timerInterval);
-            }
-        }
+    window.addEventListener('load', () => {
+        const day1Button = document.querySelector('.workout-row button:first-child');
+        loadWorkout('day1', day1Button);
+    });
 
-        function resetTimer() {
-            clearInterval(timerInterval);
-            isPaused = true;
-            let startBtn = document.getElementById('btn-start');
-            if(startBtn) startBtn.innerText = "START";
-            
-            if(currentSequence.length > 0) {
-                currentStepIndex = 0;
-                timeRemaining = currentSequence[0].duration;
-                updateUIForStep();
-            }
-        }
-
-        function tick() {
-            if (timeRemaining > 1) {
-                timeRemaining--;
-                updateTimerDisplay();
-                if(timeRemaining <= 3) playBeep(440, 'sine', 0.08);
-            } else {
-                playBeep(880, 'square', 0.3);
-                currentStepIndex++;
-                if (currentStepIndex < currentSequence.length) {
-                    timeRemaining = currentSequence[currentStepIndex].duration;
-                    updateUIForStep();
-                } else {
-                    clearInterval(timerInterval);
-                    isPaused = true;
-                    let startBtn = document.getElementById('btn-start');
-                    if(startBtn) startBtn.innerText = "COMPLETE";
-                    
-                    document.getElementById('current-phase').innerText = "Workout Complete! 🎉";
-                    document.getElementById('time-display').innerText = "00:00";
-                    document.getElementById('next-phase').innerText = "Great job!";
-                    document.getElementById('timer-box').className = "timer-box phase-warmup";
-                }
-            }
-        }
-
-        function updateTimerDisplay() {
-            const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-            const s = (timeRemaining % 60).toString().padStart(2, '0');
-            document.getElementById('time-display').innerText = `${m}:${s}`;
-        }
-
-        function updateUIForStep() {
-            const step = currentSequence[currentStepIndex];
-            const nextStep = currentSequence[currentStepIndex + 1];
-            document.getElementById('current-phase').innerText = step.name;
-            document.getElementById('next-phase').innerText = nextStep ? `Next: ${nextStep.name}` : "Last Stage!";
-            document.getElementById('timer-box').className = `timer-box phase-${step.type}`;
-            updateTimerDisplay();
-        }
+    function changeDay(offset) {
+        console.log('Day changed by:', offset);
+    }
 // --- WAKE LOCK API (Prevents screen from sleeping) ---
         let wakeLock = null;
 
