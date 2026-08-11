@@ -2202,15 +2202,22 @@
           toggleLock(ev, el);
         });
 
+        var pointerMoved = false;
+        var DRAG_THRESHOLD = 4; // px of movement before a click counts as a drag
+        
         el.addEventListener('pointerdown', function(e){
           if(e.target.closest('.wsb-type-select')) return;
-          if(editMode){
-            if(e.target === labelDiv) return;
-            e.stopPropagation(); toggleSelect(ev.id, el); return;
-          }
-          if(ev.locked) return;
           if(e.target === labelDiv) return;
+        
+          /* Locked widgets never move or resize, in either mode.
+             In Edit Mode they can still be selected. */
+          if(ev.locked){
+            if(editMode){ e.stopPropagation(); toggleSelect(ev.id, el); }
+            return;
+          }
+        
           mode = e.target.classList.contains('wsb-resize-handle') ? 'resize' : 'move';
+          pointerMoved = false;
           el.classList.add('wsb-dragging');
           try { el.setPointerCapture(e.pointerId); } catch(err){}
           startX = e.clientX; startY = e.clientY;
@@ -2218,13 +2225,19 @@
           boardRect = board.getBoundingClientRect();
           e.stopPropagation();
         });
-
+        
         el.addEventListener('pointermove', function(e){
           if(!mode) return;
           var dx = e.clientX - startX, dy = e.clientY - startY;
+        
+          if(!pointerMoved){
+            if(Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+            pointerMoved = true;
+          }
+        
           var rowDelta = Math.round(dy / ROW_H);
           var maxDay = 6 - ((ev.colSpan || 1) - 1);
-
+        
           if(mode === 'move'){
             var dayW = boardRect.width > 0 ? (boardRect.width - 60) / 7 : 150;
             var dayDelta = Math.round(dx / dayW);
@@ -2235,17 +2248,24 @@
             ev.span = Math.min(newSpan, ROWS - ev.startRow);
           }
           setGridArea(el, ev);
-          timeDiv.textContent = timeStrFromRow(ev.startRow+2) + '\u2013' + timeStrFromRow(ev.startRow+2+ev.span);
+          timeDiv.textContent = timeStrFromRow(ev.startRow+2) + '–' + timeStrFromRow(ev.startRow+2+ev.span);
         });
-
+        
         function finish(e){
-          if(!mode) return;
+          if(!mode){ return; }
           try { el.releasePointerCapture(e.pointerId); } catch(err){}
-          el.classList.remove('wsb-dragging'); mode = null; persist();
+          el.classList.remove('wsb-dragging');
+        
+          if(editMode && !pointerMoved){
+            toggleSelect(ev.id, el);
+          } else if(pointerMoved){
+            persist();
+          }
+          mode = null;
+          pointerMoved = false;
         }
         el.addEventListener('pointerup', finish);
         el.addEventListener('pointercancel', finish);
-      }
 
       function renderWidgets(){
         var existing = board.querySelectorAll('.wsb-widget');
