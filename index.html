@@ -1874,75 +1874,55 @@
         
 </script>
     <script>
-        /* ============================================================
-   DRAG & DROP WEEK WIDGET BOARD — logic
-   Paste this whole block into a NEW <script> tag right before your
-   closing </body> tag (after your existing scripts, e.g. after the
-   switchTab function). It only touches elements with the wsb- prefix,
-   so it will not interfere with your other tabs (workout, strat, etc.)
-   ============================================================ */
-(function(){
-  "use strict";
-
-  function showBootError(err){
-    var box = document.getElementById('wsb-boot-error');
-    if(!box) return;
-    box.style.display = 'block';
-    box.textContent = 'The week widget board hit an error while loading:\n\n' + (err && err.stack ? err.stack : err);
-  }
-
-  var memoryStore = {};
-  var storageWorks = true;
-  try {
-    window.localStorage.setItem('__wsb_test__', '1');
-    window.localStorage.removeItem('__wsb_test__');
-  } catch(e){ storageWorks = false; }
-  var safeStorage = {
-    getItem: function(key){
-      if(storageWorks){ try { return window.localStorage.getItem(key); } catch(e){ return memoryStore[key] || null; } }
-      return memoryStore[key] || null;
-    },
-    setItem: function(key, val){
-      if(storageWorks){ try { window.localStorage.setItem(key, val); return; } catch(e){} }
-      memoryStore[key] = val;
-    }
-  };
-
-  function initWsb(){
-    var boardEl = document.getElementById('wsb-board');
-    if(!boardEl) return; // schedule tab markup not present, skip safely
-
-    try {
-      var DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-      var START_HOUR = 6.5;
-      var END_HOUR = 23.0;
-      var ROW_MIN = 15;
-      var ROWS = Math.round((END_HOUR - START_HOUR) * 60 / ROW_MIN);
-      var ROW_H = 16;
-
-      /* ---- Subject/type colors: reuses your existing CSS variables ---- */
-      var COLORS = {
-        "tutor": "var(--c-tutor)", "routine": "var(--c-routine)", "travel": "var(--c-travel)",
-        "school": "var(--c-school)", "bio-d": "var(--c-bio-d)", "chem-d": "var(--c-chem-d)",
-        "lang-d": "var(--c-lang-d)", "econ-d": "var(--c-econ-d)", "math-d": "var(--c-math-d)",
-        "other": "var(--c-other)", "big-study": "var(--c-big-study)", "gym": "var(--c-gym)",
-        "sport": "var(--c-sport)", "plan": "var(--c-plan)", "sleep": "#333333"
+       (function(){
+      "use strict";
+    
+      function showBootError(err){
+        var box = document.getElementById('wsb-boot-error');
+        if(!box) return;
+        box.style.display = 'block';
+        box.textContent = 'The week widget board hit an error while loading:\n\n' + (err && err.stack ? err.stack : err);
+      }
+    
+      var memoryStore = {};
+      var storageWorks = true;
+      try {
+        window.localStorage.setItem('__wsb_test__', '1');
+        window.localStorage.removeItem('__wsb_test__');
+      } catch(e){ storageWorks = false; }
+      var safeStorage = {
+        getItem: function(key){
+          if(storageWorks){ try { return window.localStorage.getItem(key); } catch(e){ return memoryStore[key] || null; } }
+          return memoryStore[key] || null;
+        },
+        setItem: function(key, val){
+          if(storageWorks){ try { window.localStorage.setItem(key, val); return; } catch(e){} }
+          memoryStore[key] = val;
+        }
       };
-      var CAT_ORDER = Object.keys(COLORS).filter(function(c){ return c !== 'sleep'; });
-
-      /* ============================================================
-         THIS IS YOUR BASELINE SCHEDULE.
-         To permanently change what shows up after "Reset to Original",
-         edit this array directly. Each entry:
-           cat   -> one of the keys in COLORS above
-           day   -> 0=Mon, 1=Tue, ... 6=Sun
-           row   -> grid row start (2 = 06:30, each row = 15 min)
-           span  -> how many 15-min rows it lasts
-           label -> the text shown on the widget
-         Everyday edits DON'T require touching this — just drag/resize/
-         rename live on the board, then click "Save Layout".
-         ============================================================ */
-      var RAW_EVENTS = [{"cat": "routine", "day": 0, "row": 2, "span": 4, "label": "Wake Up & Bkfst"}, 
+    
+      function initWsb(){
+        var boardEl = document.getElementById('wsb-board');
+        if(!boardEl) return;
+    
+        try {
+          var DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+          var START_HOUR = 6.5;
+          var END_HOUR = 23.0;
+          var ROW_MIN = 15;
+          var ROWS = Math.round((END_HOUR - START_HOUR) * 60 / ROW_MIN);
+          var ROW_H = 16;
+    
+          var COLORS = {
+            "tutor": "var(--c-tutor)", "routine": "var(--c-routine)", "travel": "var(--c-travel)",
+            "school": "var(--c-school)", "bio-d": "var(--c-bio-d)", "chem-d": "var(--c-chem-d)",
+            "lang-d": "var(--c-lang-d)", "econ-d": "var(--c-econ-d)", "math-d": "var(--c-math-d)",
+            "other": "var(--c-other)", "big-study": "var(--c-big-study)", "gym": "var(--c-gym)",
+            "sport": "var(--c-sport)", "plan": "var(--c-plan)", "sleep": "#333333"
+          };
+          var CAT_ORDER = Object.keys(COLORS).filter(function(c){ return c !== 'sleep'; });
+    
+          var RAW_EVENTS = [{"cat": "routine", "day": 0, "row": 2, "span": 4, "label": "Wake Up & Bkfst"}, 
                         {"cat": "routine", "day": 1, "row": 2, "span": 4, "label": "Wake Up & Bkfst"}, 
                         {"cat": "routine", "day": 2, "row": 2, "span": 4, "label": "Wake Up & Bkfst"}, 
                         {"cat": "routine", "day": 3, "row": 2, "span": 4, "label": "Wake Up & Bkfst"}, 
@@ -1990,7 +1970,7 @@
                         {"cat": "bio-d", "day": 3, "row": 45, "span": 6, "label": "Study: Bio HL"}, 
                         {"cat": "routine", "day": 3, "row": 51, "span": 3, "label": "Dinner"}, 
                         {"cat": "tutor", "day": 3, "row": 54, "span": 8, "label": "English (Anson) \ud83d\udccd Home"}, 
-                        {"cat": "other", "day": 3, "row": 62, "span": 2, "label": "Personal Statement"}, 
+                        {"cat": "other", "day": 3, "row": 62, "span": 2, "label": "ps"}, 
                         {"cat": "routine", "day": 3, "row": 64, "span": 2, "label": "Wind Down"}, 
                         
                         {"cat": "travel", "day": 4, "row": 6, "span": 4, "label": "Travel to School"}, 
@@ -2002,7 +1982,7 @@
                         {"cat": "math-d", "day": 4, "row": 52, "span": 6, "label": "Study: Math AA"}, 
                         {"cat": "routine", "day": 4, "row": 58, "span": 8, "label": "Friday Relax / Movie"}, 
                         
-                        {"cat": "other", "day": 5, "row": 10, "span": 4, "label": "UCAT Prep"}, 
+                        {"cat": "other", "day": 5, "row": 10, "span": 4, "label": "ps writing"}, 
                         {"cat": "travel", "day": 5, "row": 14, "span": 2, "label": "Transit to VB"}, 
                         {"cat": "sport", "day": 5, "row": 16, "span": 8, "label": "\ud83c\udfd0 Volleyball (\u00b1 1hr)"}, 
                         {"cat": "routine", "day": 5, "row": 24, "span": 2, "label": "Shower & Change"}, 
@@ -2026,481 +2006,477 @@
                         {"cat": "other", "day": 6, "row": 44, "span": 6, "label": "IA Drafts / EE"}, 
                         {"cat": "routine", "day": 6, "row": 50, "span": 4, "label": "Dinner"}, 
                         {"cat": "econ-d", "day": 6, "row": 54, "span": 6, "label": "Study: Econ HL"}, 
-                        {"cat": "other", "day": 6, "row": 60, "span": 4, "label": "ucat"}, 
-                        {"cat": "routine", "day": 6, "row": 64, "span": 2, "label": "Wind Down"}, 
+                        {"cat": "routine", "day": 6, "row": 60, "span": 6, "label": "Wind Down"}, 
                         {"cat": "sleep", "day": 0, "colSpan": 7, "row": 66, "span": 2, "label": "SLEEP @ 22:30"}];
-
-      var STORAGE_KEY = 'ib_widget_schedule_wsb1';
-      var nextIdCounter = RAW_EVENTS.length + 1;
-      var editMode = false;
-      var selectedIds = new Set();
-      var clipboard = [];
-
-      function timeStrFromRow(row){
-        var totalMin = START_HOUR*60 + (row-2)*ROW_MIN;
-        var h = Math.floor(totalMin/60), m = totalMin%60;
-        return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
-      }
-
-      function normalizeRaw(){
-        return RAW_EVENTS.map(function(e, i){
-          return {
-            id: 'ev'+i, day: e.day, startRow: e.row - 2, span: e.span, cat: e.cat,
-            label: e.label, locked: !!e.locked || e.cat === 'sleep', colSpan: e.colSpan || 1
-          };
-        });
-      }
-
-      function loadState(){
-        var saved = safeStorage.getItem(STORAGE_KEY);
-        if(saved){
-          try {
-            var parsed = JSON.parse(saved);
-            if(Array.isArray(parsed) && parsed.length > 0){
-              return parsed.map(function(ev){ return Object.assign({ locked: false, colSpan: 1 }, ev); });
+    
+          var STORAGE_KEY = 'ib_widget_schedule_wsb2';
+          var nextIdCounter = RAW_EVENTS.length + 1;
+          var editMode = false;
+          var selectedIds = new Set();
+          var clipboard = [];
+    
+          function timeStrFromRow(row){
+            var totalMin = START_HOUR*60 + (row-2)*ROW_MIN;
+            var h = Math.floor(totalMin/60), m = totalMin%60;
+            return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+          }
+    
+          function normalizeRaw(){
+            return RAW_EVENTS.map(function(e, i){
+              return {
+                id: 'ev'+i, day: e.day, startRow: e.row - 2, span: e.span, cat: e.cat,
+                label: e.label, locked: !!e.locked || e.cat === 'sleep', colSpan: e.colSpan || 1
+              };
+            });
+          }
+    
+          function loadState(){
+            var saved = safeStorage.getItem(STORAGE_KEY);
+            if(saved){
+              try {
+                var parsed = JSON.parse(saved);
+                if(Array.isArray(parsed) && parsed.length > 0){
+                  return parsed.map(function(ev){ return Object.assign({ locked: false, colSpan: 1 }, ev); });
+                }
+              } catch(e){}
             }
-          } catch(e){}
-        }
-        return normalizeRaw();
-      }
-      function persist(){ try { safeStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
-
-      var state = loadState();
-      var board = boardEl;
-      var ctxMenu = document.getElementById('wsb-ctx-menu');
-      var ctxTargetEv = null;
-
-      function buildBoard(){
-        board.innerHTML = '';
-        board.style.gridTemplateRows = '40px repeat(' + ROWS + ', ' + ROW_H + 'px)';
-
-        var corner = document.createElement('div');
-        corner.className = 'wsb-head';
-        corner.style.gridColumn = '1 / 2'; corner.style.gridRow = '1 / 2';
-        board.appendChild(corner);
-
-        DAYS.forEach(function(d, i){
-          var h = document.createElement('div');
-          h.className = 'wsb-head';
-          h.textContent = d;
-          h.style.gridColumn = (i+2) + ' / ' + (i+3);
-          h.style.gridRow = '1 / 2';
-          board.appendChild(h);
-        });
-
-        var timeCol = document.createElement('div');
-        timeCol.className = 'wsb-time-col';
-        timeCol.style.gridRow = '2 / ' + (ROWS+2);
-        timeCol.style.gridColumn = '1 / 2';
-        for(var r=0; r<ROWS; r+=4){
-          var totalMin = START_HOUR*60 + r*ROW_MIN;
-          var h2 = Math.floor(totalMin/60), m2 = totalMin%60;
-          var lbl = document.createElement('div');
-          lbl.className = 'wsb-time-label';
-          lbl.style.top = (r*ROW_H)+'px';
-          lbl.textContent = String(h2).padStart(2,'0')+':'+String(m2).padStart(2,'0');
-          timeCol.appendChild(lbl);
-        }
-        board.appendChild(timeCol);
-
-        for(var d2=0; d2<7; d2++){
-          var col = document.createElement('div');
-          col.className = 'wsb-day-col';
-          col.style.gridRow = '2 / ' + (ROWS+2);
-          col.style.gridColumn = (d2+2) + ' / ' + (d2+3);
-          board.appendChild(col);
-        }
-      }
-
-      function setGridArea(el, ev){
-        var span = ev.colSpan || 1;
-        el.style.gridColumn = (ev.day+2) + ' / ' + (ev.day+2+span);
-        el.style.gridRow = (ev.startRow+2) + ' / ' + (ev.startRow+2+ev.span);
-      }
-
-      function commitRename(labelDiv, ev){
-        labelDiv.contentEditable = 'false';
-        labelDiv.classList.remove('wsb-editing');
-        var newText = labelDiv.textContent.trim();
-        if(newText === ''){ labelDiv.textContent = ev.label; return; }
-        if(newText !== ev.label){ ev.label = newText; persist(); }
-      }
-
-      function deleteEvent(ev){
-        var idx = state.indexOf(ev);
-        if(idx > -1){ state.splice(idx, 1); selectedIds.delete(ev.id); persist(); renderWidgets(); }
-      }
-      function toggleLock(ev, el){
-        ev.locked = !ev.locked; persist(); el.classList.toggle('wsb-locked', ev.locked);
-      }
-
-      function openCtxMenu(x, y, ev){
-        ctxTargetEv = ev;
-        document.getElementById('wsbCtxLock').textContent = ev.locked ? 'Unlock' : 'Lock';
-        ctxMenu.style.left = x + 'px'; ctxMenu.style.top = y + 'px';
-        ctxMenu.classList.add('show');
-      }
-      function closeCtxMenu(){ ctxMenu.classList.remove('show'); ctxTargetEv = null; }
-      document.addEventListener('click', function(e){ if(!ctxMenu.contains(e.target)) closeCtxMenu(); });
-      document.addEventListener('scroll', closeCtxMenu, true);
-      document.getElementById('wsbCtxLock').addEventListener('click', function(){
-        if(!ctxTargetEv) return;
-        var el = board.querySelector('[data-id="'+ctxTargetEv.id+'"]');
-        toggleLock(ctxTargetEv, el);
-        closeCtxMenu();
-      });
-      document.getElementById('wsbCtxDelete').addEventListener('click', function(){
-        if(!ctxTargetEv) return;
-        if(ctxTargetEv.locked){ closeCtxMenu(); setStatus('Unlock this widget before deleting it.'); return; }
-        deleteEvent(ctxTargetEv);
-        closeCtxMenu();
-      });
-
-      function updateSelCount(){
-        var el = document.getElementById('wsbSelCount');
-        if(el) el.textContent = selectedIds.size + ' selected';
-      }
-      function toggleSelect(id, el){
-        if(selectedIds.has(id)){ selectedIds.delete(id); el.classList.remove('wsb-selected'); }
-        else { selectedIds.add(id); el.classList.add('wsb-selected'); }
-        updateSelCount();
-      }
-
-      function attachDrag(el, ev, labelDiv, timeDiv){
-        var mode = null;
-        var startX, startY, startRow, startSpan, startDay, boardRect;
-
-        labelDiv.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
-        labelDiv.addEventListener('click', function(e){
-          e.stopPropagation();
-          if(editMode){ toggleSelect(ev.id, el); return; }
-          if(labelDiv.contentEditable === 'true') return;
-          labelDiv.contentEditable = 'true';
-          labelDiv.classList.add('wsb-editing');
-          labelDiv.focus();
-          var range = document.createRange();
-          range.selectNodeContents(labelDiv);
-          var sel = window.getSelection();
-          sel.removeAllRanges(); sel.addRange(range);
-        });
-        labelDiv.addEventListener('keydown', function(e){
-          if(e.key === 'Enter'){ e.preventDefault(); labelDiv.blur(); }
-          if(e.key === 'Escape'){ labelDiv.textContent = ev.label; labelDiv.blur(); }
-        });
-        labelDiv.addEventListener('blur', function(){ commitRename(labelDiv, ev); });
-
-        el.addEventListener('contextmenu', function(e){
-          e.preventDefault(); e.stopPropagation();
-          openCtxMenu(e.clientX, e.clientY, ev);
-        });
-
-        el.addEventListener('dblclick', function(e){
-          if(editMode) return;
-          if(e.target.closest('.wsb-label-text')) return;
-          if(e.target.closest('.wsb-type-select')) return;
-          e.stopPropagation();
-          toggleLock(ev, el);
-        });
-
-        var pointerMoved = false;
-        var DRAG_THRESHOLD = 4; // px of movement before a click counts as a drag
-        
-        el.addEventListener('pointerdown', function(e){
-          if(e.target.closest('.wsb-type-select')) return;
-          if(e.target === labelDiv) return;
-        
-          /* Locked widgets never move or resize, in either mode.
-             In Edit Mode they can still be selected. */
-          if(ev.locked){
-            if(editMode){ e.stopPropagation(); toggleSelect(ev.id, el); }
-            return;
+            return normalizeRaw();
           }
-        
-          mode = e.target.classList.contains('wsb-resize-handle') ? 'resize' : 'move';
-          pointerMoved = false;
-          el.classList.add('wsb-dragging');
-          try { el.setPointerCapture(e.pointerId); } catch(err){}
-          startX = e.clientX; startY = e.clientY;
-          startRow = ev.startRow; startSpan = ev.span; startDay = ev.day;
-          boardRect = board.getBoundingClientRect();
-          e.stopPropagation();
-        });
-        
-        el.addEventListener('pointermove', function(e){
-          if(!mode) return;
-          var dx = e.clientX - startX, dy = e.clientY - startY;
-        
-          if(!pointerMoved){
-            if(Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
-            pointerMoved = true;
+          function persist(){ try { safeStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+    
+          var state = loadState();
+          var board = boardEl;
+          var ctxMenu = document.getElementById('wsb-ctx-menu');
+          var ctxTargetEv = null;
+    
+          function buildBoard(){
+            board.innerHTML = '';
+            board.style.gridTemplateRows = '40px repeat(' + ROWS + ', ' + ROW_H + 'px)';
+    
+            var corner = document.createElement('div');
+            corner.className = 'wsb-head';
+            corner.style.gridColumn = '1 / 2'; corner.style.gridRow = '1 / 2';
+            board.appendChild(corner);
+    
+            DAYS.forEach(function(d, i){
+              var h = document.createElement('div');
+              h.className = 'wsb-head';
+              h.textContent = d;
+              h.style.gridColumn = (i+2) + ' / ' + (i+3);
+              h.style.gridRow = '1 / 2';
+              board.appendChild(h);
+            });
+    
+            var timeCol = document.createElement('div');
+            timeCol.className = 'wsb-time-col';
+            timeCol.style.gridRow = '2 / ' + (ROWS+2);
+            timeCol.style.gridColumn = '1 / 2';
+            for(var r=0; r<ROWS; r+=4){
+              var totalMin = START_HOUR*60 + r*ROW_MIN;
+              var h2 = Math.floor(totalMin/60), m2 = totalMin%60;
+              var lbl = document.createElement('div');
+              lbl.className = 'wsb-time-label';
+              lbl.style.top = (r*ROW_H)+'px';
+              lbl.textContent = String(h2).padStart(2,'0')+':'+String(m2).padStart(2,'0');
+              timeCol.appendChild(lbl);
+            }
+            board.appendChild(timeCol);
+    
+            for(var d2=0; d2<7; d2++){
+              var col = document.createElement('div');
+              col.className = 'wsb-day-col';
+              col.style.gridRow = '2 / ' + (ROWS+2);
+              col.style.gridColumn = (d2+2) + ' / ' + (d2+3);
+              board.appendChild(col);
+            }
           }
-        
-          var rowDelta = Math.round(dy / ROW_H);
-          var maxDay = 6 - ((ev.colSpan || 1) - 1);
-        
-          if(mode === 'move'){
-            var dayW = boardRect.width > 0 ? (boardRect.width - 60) / 7 : 150;
-            var dayDelta = Math.round(dx / dayW);
-            ev.day = Math.min(maxDay, Math.max(0, startDay + dayDelta));
-            ev.startRow = Math.min(ROWS - ev.span, Math.max(0, startRow + rowDelta));
-          } else if(mode === 'resize'){
-            var newSpan = Math.max(1, startSpan + rowDelta);
-            ev.span = Math.min(newSpan, ROWS - ev.startRow);
+    
+          function setGridArea(el, ev){
+            var span = ev.colSpan || 1;
+            el.style.gridColumn = (ev.day+2) + ' / ' + (ev.day+2+span);
+            el.style.gridRow = (ev.startRow+2) + ' / ' + (ev.startRow+2+ev.span);
           }
-          setGridArea(el, ev);
-          timeDiv.textContent = timeStrFromRow(ev.startRow+2) + '–' + timeStrFromRow(ev.startRow+2+ev.span);
-        });
-        
-        function finish(e){
-          if(!mode){ return; }
-          try { el.releasePointerCapture(e.pointerId); } catch(err){}
-          el.classList.remove('wsb-dragging');
-        
-          if(editMode && !pointerMoved){
-            toggleSelect(ev.id, el);
-          } else if(pointerMoved){
+    
+          function commitRename(labelDiv, ev){
+            labelDiv.contentEditable = 'false';
+            labelDiv.classList.remove('wsb-editing');
+            var newText = labelDiv.textContent.trim();
+            if(newText === ''){ labelDiv.textContent = ev.label; return; }
+            if(newText !== ev.label){ ev.label = newText; persist(); }
+          }
+    
+          function deleteEvent(ev){
+            var idx = state.indexOf(ev);
+            if(idx > -1){ state.splice(idx, 1); selectedIds.delete(ev.id); persist(); renderWidgets(); }
+          }
+          function toggleLock(ev, el){
+            ev.locked = !ev.locked; persist(); el.classList.toggle('wsb-locked', ev.locked);
+          }
+    
+          function openCtxMenu(x, y, ev){
+            ctxTargetEv = ev;
+            document.getElementById('wsbCtxLock').textContent = ev.locked ? 'Unlock' : 'Lock';
+            ctxMenu.style.left = x + 'px'; ctxMenu.style.top = y + 'px';
+            ctxMenu.classList.add('show');
+          }
+          function closeCtxMenu(){ ctxMenu.classList.remove('show'); ctxTargetEv = null; }
+          document.addEventListener('click', function(e){ if(!ctxMenu.contains(e.target)) closeCtxMenu(); });
+          document.addEventListener('scroll', closeCtxMenu, true);
+          document.getElementById('wsbCtxLock').addEventListener('click', function(){
+            if(!ctxTargetEv) return;
+            var el = board.querySelector('[data-id="'+ctxTargetEv.id+'"]');
+            toggleLock(ctxTargetEv, el);
+            closeCtxMenu();
+          });
+          document.getElementById('wsbCtxDelete').addEventListener('click', function(){
+            if(!ctxTargetEv) return;
+            if(ctxTargetEv.locked){ closeCtxMenu(); setStatus('Unlock this widget before deleting it.'); return; }
+            deleteEvent(ctxTargetEv);
+            closeCtxMenu();
+          });
+    
+          function updateSelCount(){
+            var el = document.getElementById('wsbSelCount');
+            if(el) el.textContent = selectedIds.size + ' selected';
+          }
+          function toggleSelect(id, el){
+            if(selectedIds.has(id)){ selectedIds.delete(id); el.classList.remove('wsb-selected'); }
+            else { selectedIds.add(id); el.classList.add('wsb-selected'); }
+            updateSelCount();
+          }
+    
+          function attachDrag(el, ev, labelDiv, timeDiv){
+            var mode = null;
+            var startX, startY, startRow, startSpan, startDay, boardRect;
+            var pointerMoved = false;
+            var DRAG_THRESHOLD = 4;
+    
+            labelDiv.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
+            labelDiv.addEventListener('click', function(e){
+              e.stopPropagation();
+              if(editMode){ toggleSelect(ev.id, el); return; }
+              if(labelDiv.contentEditable === 'true') return;
+              labelDiv.contentEditable = 'true';
+              labelDiv.classList.add('wsb-editing');
+              labelDiv.focus();
+              var range = document.createRange();
+              range.selectNodeContents(labelDiv);
+              var sel = window.getSelection();
+              sel.removeAllRanges(); sel.addRange(range);
+            });
+            labelDiv.addEventListener('keydown', function(e){
+              if(e.key === 'Enter'){ e.preventDefault(); labelDiv.blur(); }
+              if(e.key === 'Escape'){ labelDiv.textContent = ev.label; labelDiv.blur(); }
+            });
+            labelDiv.addEventListener('blur', function(){ commitRename(labelDiv, ev); });
+    
+            el.addEventListener('contextmenu', function(e){
+              e.preventDefault(); e.stopPropagation();
+              openCtxMenu(e.clientX, e.clientY, ev);
+            });
+    
+            el.addEventListener('dblclick', function(e){
+              if(editMode) return;
+              if(e.target.closest('.wsb-label-text')) return;
+              if(e.target.closest('.wsb-type-select')) return;
+              e.stopPropagation();
+              toggleLock(ev, el);
+            });
+    
+            el.addEventListener('pointerdown', function(e){
+              if(e.target.closest('.wsb-type-select')) return;
+              if(e.target === labelDiv) return;
+    
+              if(ev.locked){
+                if(editMode){ e.stopPropagation(); toggleSelect(ev.id, el); }
+                return;
+              }
+    
+              mode = e.target.classList.contains('wsb-resize-handle') ? 'resize' : 'move';
+              pointerMoved = false;
+              el.classList.add('wsb-dragging');
+              try { el.setPointerCapture(e.pointerId); } catch(err){}
+              startX = e.clientX; startY = e.clientY;
+              startRow = ev.startRow; startSpan = ev.span; startDay = ev.day;
+              boardRect = board.getBoundingClientRect();
+              e.stopPropagation();
+            });
+    
+            el.addEventListener('pointermove', function(e){
+              if(!mode) return;
+              var dx = e.clientX - startX, dy = e.clientY - startY;
+    
+              if(!pointerMoved){
+                if(Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+                pointerMoved = true;
+              }
+    
+              var rowDelta = Math.round(dy / ROW_H);
+              var maxDay = 6 - ((ev.colSpan || 1) - 1);
+    
+              if(mode === 'move'){
+                var dayW = boardRect.width > 0 ? (boardRect.width - 60) / 7 : 150;
+                var dayDelta = Math.round(dx / dayW);
+                ev.day = Math.min(maxDay, Math.max(0, startDay + dayDelta));
+                ev.startRow = Math.min(ROWS - ev.span, Math.max(0, startRow + rowDelta));
+              } else if(mode === 'resize'){
+                var newSpan = Math.max(1, startSpan + rowDelta);
+                ev.span = Math.min(newSpan, ROWS - ev.startRow);
+              }
+              setGridArea(el, ev);
+              timeDiv.textContent = timeStrFromRow(ev.startRow+2) + '\u2013' + timeStrFromRow(ev.startRow+2+ev.span);
+            });
+    
+            function finish(e){
+              if(!mode){ return; }
+              try { el.releasePointerCapture(e.pointerId); } catch(err){}
+              el.classList.remove('wsb-dragging');
+    
+              if(editMode && !pointerMoved){
+                toggleSelect(ev.id, el);
+              } else if(pointerMoved){
+                persist();
+              }
+              mode = null;
+              pointerMoved = false;
+            }
+            el.addEventListener('pointerup', finish);
+            el.addEventListener('pointercancel', finish);
+          }
+    
+          function renderWidgets(){
+            var existing = board.querySelectorAll('.wsb-widget');
+            for(var i=0;i<existing.length;i++){ existing[i].remove(); }
+    
+            state.forEach(function(ev){
+              var el = document.createElement('div');
+              el.className = 'wsb-widget';
+              el.dataset.id = ev.id;
+              el.style.background = COLORS[ev.cat] || '#8899aa';
+              setGridArea(el, ev);
+              if(ev.locked) el.classList.add('wsb-locked');
+              if(selectedIds.has(ev.id)) el.classList.add('wsb-selected');
+              if(ev.cat === 'sleep') el.classList.add('wsb-sleep-bar');
+    
+              var labelDiv = document.createElement('div');
+              labelDiv.className = 'wsb-label-text';
+              labelDiv.textContent = ev.label;
+              el.appendChild(labelDiv);
+    
+              var timeDiv = document.createElement('div');
+              timeDiv.className = 'wsb-event-time';
+              timeDiv.textContent = timeStrFromRow(ev.startRow+2) + '\u2013' + timeStrFromRow(ev.startRow+2+ev.span);
+              el.appendChild(timeDiv);
+    
+              var swatch = document.createElement('div');
+              swatch.className = 'wsb-type-swatch';
+              swatch.title = 'Change type';
+              el.appendChild(swatch);
+    
+              var select = document.createElement('select');
+              select.className = 'wsb-type-select';
+              CAT_ORDER.forEach(function(cat){
+                var opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat.replace('-d','').replace('-',' ');
+                if(cat === ev.cat) opt.selected = true;
+                select.appendChild(opt);
+              });
+              select.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
+              select.addEventListener('change', function(e){
+                ev.cat = e.target.value;
+                el.style.background = COLORS[ev.cat];
+                el.classList.remove('wsb-sleep-bar');
+                persist();
+              });
+              el.appendChild(select);
+    
+              var handle = document.createElement('div');
+              handle.className = 'wsb-resize-handle';
+              el.appendChild(handle);
+    
+              board.appendChild(el);
+              attachDrag(el, ev, labelDiv, timeDiv);
+            });
+          }
+    
+          function buildLegend(){
+            var legend = document.getElementById('wsb-legend');
+            legend.innerHTML = '';
+            Object.keys(COLORS).forEach(function(cat){
+              var item = document.createElement('div');
+              item.className = 'wsb-legend-item';
+              var dot = document.createElement('span');
+              dot.className = 'wsb-legend-dot';
+              dot.style.background = COLORS[cat];
+              item.appendChild(dot);
+              item.appendChild(document.createTextNode(cat.replace('-d','').replace('-',' ')));
+              legend.appendChild(item);
+            });
+          }
+    
+          function setStatus(msg){
+            var s = document.getElementById('wsb-status-msg');
+            if(s){ s.textContent = msg; }
+            if(msg){ setTimeout(function(){ if(s) s.textContent=''; }, 2500); }
+          }
+    
+          function askConfirm(text, onYes){
+            var bar = document.getElementById('wsb-confirm-bar');
+            var txt = document.getElementById('wsb-confirm-text');
+            txt.textContent = text;
+            bar.classList.add('show');
+            function cleanup(){
+              bar.classList.remove('show');
+              yesBtn.removeEventListener('click', onYesClick);
+              noBtn.removeEventListener('click', onNoClick);
+            }
+            var yesBtn = document.getElementById('wsbConfirmYes');
+            var noBtn = document.getElementById('wsbConfirmNo');
+            function onYesClick(){ cleanup(); onYes(); }
+            function onNoClick(){ cleanup(); }
+            yesBtn.addEventListener('click', onYesClick);
+            noBtn.addEventListener('click', onNoClick);
+          }
+    
+          function copySelected(){
+            if(selectedIds.size === 0){ setStatus('Nothing selected to copy.'); return; }
+            clipboard = state.filter(function(ev){ return selectedIds.has(ev.id); })
+              .map(function(ev){ return { day: ev.day, startRow: ev.startRow, span: ev.span, cat: ev.cat, label: ev.label, colSpan: ev.colSpan || 1 }; });
+            setStatus('Copied ' + clipboard.length + ' widget(s). Click Paste to duplicate.');
+          }
+    
+          function pasteClipboard(){
+            if(clipboard.length === 0){ setStatus('Clipboard is empty. Copy something first.'); return; }
+            selectedIds.clear();
+            clipboard.forEach(function(item){
+              var maxDay = 6 - (item.colSpan - 1);
+              var newDay = Math.min(maxDay, item.day + 1);
+              var newRow = Math.min(ROWS - item.span, item.startRow);
+              var newEv = {
+                id: 'ev' + (nextIdCounter++),
+                day: newDay,
+                startRow: newRow,
+                span: item.span,
+                cat: item.cat,
+                label: item.label,
+                locked: false,
+                colSpan: item.colSpan
+              };
+              state.push(newEv);
+              selectedIds.add(newEv.id);
+            });
             persist();
+            renderWidgets();
+            updateSelCount();
+            setStatus('Pasted ' + clipboard.length + ' widget(s), shifted one day over. Drag them into place.');
           }
-          mode = null;
-          pointerMoved = false;
-        }
-        el.addEventListener('pointerup', finish);
-        el.addEventListener('pointercancel', finish);
-
-      function renderWidgets(){
-        var existing = board.querySelectorAll('.wsb-widget');
-        for(var i=0;i<existing.length;i++){ existing[i].remove(); }
-
-        state.forEach(function(ev){
-          var el = document.createElement('div');
-          el.className = 'wsb-widget';
-          el.dataset.id = ev.id;
-          el.style.background = COLORS[ev.cat] || '#8899aa';
-          setGridArea(el, ev);
-          if(ev.locked) el.classList.add('wsb-locked');
-          if(selectedIds.has(ev.id)) el.classList.add('wsb-selected');
-          if(ev.cat === 'sleep') el.classList.add('wsb-sleep-bar');
-
-          var labelDiv = document.createElement('div');
-          labelDiv.className = 'wsb-label-text';
-          labelDiv.textContent = ev.label;
-          el.appendChild(labelDiv);
-
-          var timeDiv = document.createElement('div');
-          timeDiv.className = 'wsb-event-time';
-          timeDiv.textContent = timeStrFromRow(ev.startRow+2) + '\u2013' + timeStrFromRow(ev.startRow+2+ev.span);
-          el.appendChild(timeDiv);
-
-          var swatch = document.createElement('div');
-          swatch.className = 'wsb-type-swatch';
-          swatch.title = 'Change type';
-          el.appendChild(swatch);
-
-          var select = document.createElement('select');
-          select.className = 'wsb-type-select';
-          CAT_ORDER.forEach(function(cat){
-            var opt = document.createElement('option');
-            opt.value = cat;
-            opt.textContent = cat.replace('-d','').replace('-',' ');
-            if(cat === ev.cat) opt.selected = true;
-            select.appendChild(opt);
+    
+          document.getElementById('wsbAddBtn').addEventListener('click', function(){
+            var newEv = { id: 'ev' + (nextIdCounter++), day: 0, startRow: 0, span: 4, cat: CAT_ORDER[0], label: 'New Event', locked: false, colSpan: 1 };
+            state.push(newEv); persist(); renderWidgets();
+            setStatus('New widget added. Drag it into place and click its text to rename.');
           });
-          select.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
-          select.addEventListener('change', function(e){
-            ev.cat = e.target.value;
-            el.style.background = COLORS[ev.cat];
-            el.classList.remove('wsb-sleep-bar');
+          document.getElementById('wsbSaveBtn').addEventListener('click', function(){
             persist();
+            setStatus(storageWorks ? 'Saved to this browser.' : 'Saved for this session (persistent storage blocked here).');
           });
-          el.appendChild(select);
-
-          var handle = document.createElement('div');
-          handle.className = 'wsb-resize-handle';
-          el.appendChild(handle);
-
-          board.appendChild(el);
-          attachDrag(el, ev, labelDiv, timeDiv);
-        });
-      }
-
-      function buildLegend(){
-        var legend = document.getElementById('wsb-legend');
-        legend.innerHTML = '';
-        Object.keys(COLORS).forEach(function(cat){
-          var item = document.createElement('div');
-          item.className = 'wsb-legend-item';
-          var dot = document.createElement('span');
-          dot.className = 'wsb-legend-dot';
-          dot.style.background = COLORS[cat];
-          item.appendChild(dot);
-          item.appendChild(document.createTextNode(cat.replace('-d','').replace('-',' ')));
-          legend.appendChild(item);
-        });
-      }
-
-      function setStatus(msg){
-        var s = document.getElementById('wsb-status-msg');
-        if(s){ s.textContent = msg; }
-        if(msg){ setTimeout(function(){ if(s) s.textContent=''; }, 2500); }
-      }
-
-      function askConfirm(text, onYes){
-        var bar = document.getElementById('wsb-confirm-bar');
-        var txt = document.getElementById('wsb-confirm-text');
-        txt.textContent = text;
-        bar.classList.add('show');
-        function cleanup(){
-          bar.classList.remove('show');
-          yesBtn.removeEventListener('click', onYesClick);
-          noBtn.removeEventListener('click', onNoClick);
-        }
-        var yesBtn = document.getElementById('wsbConfirmYes');
-        var noBtn = document.getElementById('wsbConfirmNo');
-        function onYesClick(){ cleanup(); onYes(); }
-        function onNoClick(){ cleanup(); }
-        yesBtn.addEventListener('click', onYesClick);
-        noBtn.addEventListener('click', onNoClick);
-      }
-
-      document.getElementById('wsbAddBtn').addEventListener('click', function(){
-        var newEv = { id: 'ev' + (nextIdCounter++), day: 0, startRow: 0, span: 4, cat: CAT_ORDER[0], label: 'New Event', locked: false, colSpan: 1 };
-        state.push(newEv); persist(); renderWidgets();
-        setStatus('New widget added. Drag it into place and click its text to rename.');
-      });
-      document.getElementById('wsbSaveBtn').addEventListener('click', function(){
-        persist();
-        setStatus(storageWorks ? 'Saved to this browser.' : 'Saved for this session (persistent storage blocked here).');
-      });
-      document.getElementById('wsbResetBtn').addEventListener('click', function(){
-        askConfirm('Reset to your original fixed weekly schedule? This discards current changes, including locks.', function(){
-          state = normalizeRaw(); selectedIds.clear(); persist(); renderWidgets(); updateSelCount();
-          setStatus('Reset to original schedule.');
-        });
-      });
-      document.getElementById('wsbClearBtn').addEventListener('click', function(){
-        var lockedCount = state.filter(function(ev){ return ev.locked; }).length;
-        var msg = lockedCount > 0
-          ? 'Clear all unlocked widgets? ' + lockedCount + ' locked widget(s) will be kept.'
-          : 'Clear the entire board?';
-        askConfirm(msg, function(){
-          state = state.filter(function(ev){ return ev.locked; });
-          selectedIds.clear(); persist(); renderWidgets(); updateSelCount();
-          setStatus(lockedCount > 0 ? 'Cleared unlocked widgets.' : 'Board cleared.');
-        });
-      });
-
-      var editModeBtn = document.getElementById('wsbEditModeBtn');
-      var editToolbar = document.getElementById('wsb-edit-toolbar');
-      editModeBtn.addEventListener('click', function(){
-        editMode = !editMode;
-        editModeBtn.textContent = 'Edit Mode: ' + (editMode ? 'On' : 'Off');
-        editModeBtn.classList.toggle('wsb-active', editMode);
-        editToolbar.classList.toggle('show', editMode);
-        board.classList.toggle('wsb-edit-mode-on', editMode);
-        if(!editMode){
-          selectedIds.clear();
-          board.querySelectorAll('.wsb-widget.wsb-selected').forEach(function(w){ w.classList.remove('wsb-selected'); });
-          updateSelCount();
-        }
-        setStatus(editMode ? 'Edit Mode on: click widgets to select them.' : 'Edit Mode off.');
-      });
-
-      document.getElementById('wsbSelectAllBtn').addEventListener('click', function(){
-        state.forEach(function(ev){ selectedIds.add(ev.id); });
-        board.querySelectorAll('.wsb-widget').forEach(function(w){ w.classList.add('wsb-selected'); });
-        updateSelCount();
-      });
-      document.getElementById('wsbDeselectAllBtn').addEventListener('click', function(){
-        selectedIds.clear();
-        board.querySelectorAll('.wsb-widget.wsb-selected').forEach(function(w){ w.classList.remove('wsb-selected'); });
-        updateSelCount();
-      });
-      document.getElementById('wsbLockSelectedBtn').addEventListener('click', function(){
-        if(selectedIds.size === 0){ setStatus('No widgets selected.'); return; }
-        state.forEach(function(ev){ if(selectedIds.has(ev.id)) ev.locked = true; });
-        persist(); renderWidgets();
-        setStatus('Locked ' + selectedIds.size + ' widget(s).');
-      });
-      document.getElementById('wsbUnlockSelectedBtn').addEventListener('click', function(){
-        if(selectedIds.size === 0){ setStatus('No widgets selected.'); return; }
-        state.forEach(function(ev){ if(selectedIds.has(ev.id)) ev.locked = false; });
-        persist(); renderWidgets();
-        setStatus('Unlocked ' + selectedIds.size + ' widget(s).');
-      });
-      document.getElementById('wsbDeleteSelectedBtn').addEventListener('click', function(){
-        if(selectedIds.size === 0){ setStatus('No widgets selected.'); return; }
-        var lockedSelected = state.filter(function(ev){ return selectedIds.has(ev.id) && ev.locked; }).length;
-        askConfirm('Delete ' + selectedIds.size + ' selected widget(s)?' + (lockedSelected > 0 ? ' ' + lockedSelected + ' are locked and will be skipped.' : ''), function(){
-          state = state.filter(function(ev){ return !(selectedIds.has(ev.id) && !ev.locked); });
-          selectedIds.clear(); persist(); renderWidgets(); updateSelCount();
-          setStatus('Deleted selected widgets.');
-        });
-      });
-        
-        function copySelected(){
-          if(selectedIds.size === 0){ setStatus('Nothing selected to copy.'); return; }
-          clipboard = state.filter(function(ev){ return selectedIds.has(ev.id); })
-            .map(function(ev){ return { day: ev.day, startRow: ev.startRow, span: ev.span, cat: ev.cat, label: ev.label, colSpan: ev.colSpan || 1 }; });
-          setStatus('Copied ' + clipboard.length + ' widget(s). Click Paste to duplicate.');
-        }
-        
-        function pasteClipboard(){
-          if(clipboard.length === 0){ setStatus('Clipboard is empty. Copy something first.'); return; }
-          selectedIds.clear();
-          clipboard.forEach(function(item){
-            var maxDay = 6 - (item.colSpan - 1);
-            var newDay = Math.min(maxDay, item.day + 1);
-            var newRow = Math.min(ROWS - item.span, item.startRow);
-            var newEv = {
-              id: 'ev' + (nextIdCounter++),
-              day: newDay,
-              startRow: newRow,
-              span: item.span,
-              cat: item.cat,
-              label: item.label,
-              locked: false,
-              colSpan: item.colSpan
-            };
-            state.push(newEv);
-            selectedIds.add(newEv.id);
+          document.getElementById('wsbResetBtn').addEventListener('click', function(){
+            askConfirm('Reset to your original fixed weekly schedule? This discards current changes, including locks.', function(){
+              state = normalizeRaw(); selectedIds.clear(); persist(); renderWidgets(); updateSelCount();
+              setStatus('Reset to original schedule.');
+            });
           });
-          persist();
+          document.getElementById('wsbClearBtn').addEventListener('click', function(){
+            var lockedCount = state.filter(function(ev){ return ev.locked; }).length;
+            var msg = lockedCount > 0
+              ? 'Clear all unlocked widgets? ' + lockedCount + ' locked widget(s) will be kept.'
+              : 'Clear the entire board?';
+            askConfirm(msg, function(){
+              state = state.filter(function(ev){ return ev.locked; });
+              selectedIds.clear(); persist(); renderWidgets(); updateSelCount();
+              setStatus(lockedCount > 0 ? 'Cleared unlocked widgets.' : 'Board cleared.');
+            });
+          });
+    
+          var editModeBtn = document.getElementById('wsbEditModeBtn');
+          var editToolbar = document.getElementById('wsb-edit-toolbar');
+          editModeBtn.addEventListener('click', function(){
+            editMode = !editMode;
+            editModeBtn.textContent = 'Edit Mode: ' + (editMode ? 'On' : 'Off');
+            editModeBtn.classList.toggle('wsb-active', editMode);
+            editToolbar.classList.toggle('show', editMode);
+            board.classList.toggle('wsb-edit-mode-on', editMode);
+            if(!editMode){
+              selectedIds.clear();
+              board.querySelectorAll('.wsb-widget.wsb-selected').forEach(function(w){ w.classList.remove('wsb-selected'); });
+              updateSelCount();
+            }
+            setStatus(editMode ? 'Edit Mode on: click widgets to select, drag to move.' : 'Edit Mode off.');
+          });
+    
+          document.getElementById('wsbSelectAllBtn').addEventListener('click', function(){
+            state.forEach(function(ev){ selectedIds.add(ev.id); });
+            board.querySelectorAll('.wsb-widget').forEach(function(w){ w.classList.add('wsb-selected'); });
+            updateSelCount();
+          });
+          document.getElementById('wsbDeselectAllBtn').addEventListener('click', function(){
+            selectedIds.clear();
+            board.querySelectorAll('.wsb-widget.wsb-selected').forEach(function(w){ w.classList.remove('wsb-selected'); });
+            updateSelCount();
+          });
+          document.getElementById('wsbCopyBtn').addEventListener('click', copySelected);
+          document.getElementById('wsbPasteBtn').addEventListener('click', pasteClipboard);
+          document.getElementById('wsbLockSelectedBtn').addEventListener('click', function(){
+            if(selectedIds.size === 0){ setStatus('No widgets selected.'); return; }
+            state.forEach(function(ev){ if(selectedIds.has(ev.id)) ev.locked = true; });
+            persist(); renderWidgets();
+            setStatus('Locked ' + selectedIds.size + ' widget(s).');
+          });
+          document.getElementById('wsbUnlockSelectedBtn').addEventListener('click', function(){
+            if(selectedIds.size === 0){ setStatus('No widgets selected.'); return; }
+            state.forEach(function(ev){ if(selectedIds.has(ev.id)) ev.locked = false; });
+            persist(); renderWidgets();
+            setStatus('Unlocked ' + selectedIds.size + ' widget(s).');
+          });
+          document.getElementById('wsbDeleteSelectedBtn').addEventListener('click', function(){
+            if(selectedIds.size === 0){ setStatus('No widgets selected.'); return; }
+            var lockedSelected = state.filter(function(ev){ return selectedIds.has(ev.id) && ev.locked; }).length;
+            askConfirm('Delete ' + selectedIds.size + ' selected widget(s)?' + (lockedSelected > 0 ? ' ' + lockedSelected + ' are locked and will be skipped.' : ''), function(){
+              state = state.filter(function(ev){ return !(selectedIds.has(ev.id) && !ev.locked); });
+              selectedIds.clear(); persist(); renderWidgets(); updateSelCount();
+              setStatus('Deleted selected widgets.');
+            });
+          });
+    
+          document.addEventListener('keydown', function(e){
+            if(!editMode) return;
+            var tag = (document.activeElement && document.activeElement.tagName) || '';
+            if(tag === 'INPUT' || tag === 'TEXTAREA' || (document.activeElement && document.activeElement.isContentEditable)) return;
+            var isCopy = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c';
+            var isPaste = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v';
+            if(isCopy){ e.preventDefault(); copySelected(); }
+            if(isPaste){ e.preventDefault(); pasteClipboard(); }
+          });
+    
+          buildBoard();
           renderWidgets();
-          updateSelCount();
-          setStatus('Pasted ' + clipboard.length + ' widget(s), shifted one day over. Drag them into place.');
+          buildLegend();
+          if(!storageWorks){
+            setStatus('Note: persistent storage is blocked here, so layout changes reset on reload.');
+          }
+          document.getElementById('wsb-app').style.display = 'block';
+        } catch(err){
+          showBootError(err);
         }
-        
-        document.getElementById('wsbCopyBtn').addEventListener('click', copySelected);
-        document.getElementById('wsbPasteBtn').addEventListener('click', pasteClipboard);
-        
-        document.addEventListener('keydown', function(e){
-          if(!editMode) return;
-          var tag = (document.activeElement && document.activeElement.tagName) || '';
-          if(tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement.isContentEditable) return;
-          var isCopy = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c';
-          var isPaste = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v';
-          if(isCopy){ e.preventDefault(); copySelected(); }
-          if(isPaste){ e.preventDefault(); pasteClipboard(); }
-        });
-        
-      buildBoard();
-      renderWidgets();
-      buildLegend();
-      if(!storageWorks){
-        setStatus('Note: persistent storage is blocked here, so layout changes reset on reload.');
       }
-      document.getElementById('wsb-app').style.display = 'block';
-    } catch(err){
-      showBootError(err);
-    }
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initWsb);
-  } else {
-    initWsb();
-  }
-})();
+    
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initWsb);
+      } else {
+        initWsb();
+      }
+    })();
     </script>
 </body>
 </html>
