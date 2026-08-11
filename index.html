@@ -800,13 +800,15 @@
                 <button class="wsb-btn" id="wsbSaveBtn">Save Layout</button>
                 <button class="wsb-btn" id="wsbResetBtn">Reset to Original</button>
                 <button class="wsb-btn wsb-danger" id="wsbClearBtn">Clear All</button>
-                <span class="wsb-chip">Double-click a widget to lock/unlock. Right-click for a menu. Click text to rename.</span>
+                <!--<span class="wsb-chip">Double-click a widget to lock/unlock. Right-click for a menu. Click text to rename.</span>-->
               </div>
             
               <div id="wsb-edit-toolbar">
                 <span class="wsb-sel-count" id="wsbSelCount">0 selected</span>
                 <button class="wsb-btn" id="wsbSelectAllBtn">Select All</button>
                 <button class="wsb-btn" id="wsbDeselectAllBtn">Deselect All</button>
+                <button class="wsb-btn" id="wsbCopyBtn">Copy</button>
+                <button class="wsb-btn" id="wsbPasteBtn">Paste</button>
                 <button class="wsb-btn" id="wsbLockSelectedBtn">Lock Selected</button>
                 <button class="wsb-btn" id="wsbUnlockSelectedBtn">Unlock Selected</button>
                 <button class="wsb-btn wsb-danger" id="wsbDeleteSelectedBtn">Delete Selected</button>
@@ -2032,6 +2034,7 @@
       var nextIdCounter = RAW_EVENTS.length + 1;
       var editMode = false;
       var selectedIds = new Set();
+      var clipboard = [];
 
       function timeStrFromRow(row){
         var totalMin = START_HOUR*60 + (row-2)*ROW_MIN;
@@ -2413,7 +2416,53 @@
           setStatus('Deleted selected widgets.');
         });
       });
-
+        
+        function copySelected(){
+          if(selectedIds.size === 0){ setStatus('Nothing selected to copy.'); return; }
+          clipboard = state.filter(function(ev){ return selectedIds.has(ev.id); })
+            .map(function(ev){ return { day: ev.day, startRow: ev.startRow, span: ev.span, cat: ev.cat, label: ev.label, colSpan: ev.colSpan || 1 }; });
+          setStatus('Copied ' + clipboard.length + ' widget(s). Click Paste to duplicate.');
+        }
+        
+        function pasteClipboard(){
+          if(clipboard.length === 0){ setStatus('Clipboard is empty. Copy something first.'); return; }
+          selectedIds.clear();
+          clipboard.forEach(function(item){
+            var maxDay = 6 - (item.colSpan - 1);
+            var newDay = Math.min(maxDay, item.day + 1);
+            var newRow = Math.min(ROWS - item.span, item.startRow);
+            var newEv = {
+              id: 'ev' + (nextIdCounter++),
+              day: newDay,
+              startRow: newRow,
+              span: item.span,
+              cat: item.cat,
+              label: item.label,
+              locked: false,
+              colSpan: item.colSpan
+            };
+            state.push(newEv);
+            selectedIds.add(newEv.id);
+          });
+          persist();
+          renderWidgets();
+          updateSelCount();
+          setStatus('Pasted ' + clipboard.length + ' widget(s), shifted one day over. Drag them into place.');
+        }
+        
+        document.getElementById('wsbCopyBtn').addEventListener('click', copySelected);
+        document.getElementById('wsbPasteBtn').addEventListener('click', pasteClipboard);
+        
+        document.addEventListener('keydown', function(e){
+          if(!editMode) return;
+          var tag = (document.activeElement && document.activeElement.tagName) || '';
+          if(tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement.isContentEditable) return;
+          var isCopy = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c';
+          var isPaste = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v';
+          if(isCopy){ e.preventDefault(); copySelected(); }
+          if(isPaste){ e.preventDefault(); pasteClipboard(); }
+        });
+        
       buildBoard();
       renderWidgets();
       buildLegend();
